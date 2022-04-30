@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE network SYSTEM "http://www.matsim.org/files/dtd/network_v2.dtd">
+<network>
+
+<!-- ====================================================================== -->
+
+	<nodes>
+		<node id="105541596" x="-81.655928" y="41.490708" >
+		</node>
+		<node id="105541599" x="-81.653991" y="41.490314" >
+		</node>
+		<node id="105541602" x="-81.653315" y="41.490171" >
+		</node>
+		<node id="105541604" x="-81.6516218" y="41.4898282" >
+		</node>
+		<node id="105541609" x="-81.650369" y="41.489835" >
+		</node>
+		<node id="105541615" x="-81.649195" y="41.489838" >
+		</node>
+		<node id="105541622" x="-81.648032" y="41.48989" >
+		</node>
+		<node id="105552780" x="-81.648061" y="41.493453" >
+		</node>
+		<node id="105552783" x="-81.648031" y="41.491672" >
+		</node>
+		<node id="105552847" x="-81.647874" y="41.493453" >
+		</node>
+		<node id="105553965" x="-81.654945" y="41.496365" >
+		</node>
+		<node id="105553987" x="-81.652896" y="41.493234" >
+		</node>
+		<node id="105574278" x="-81.65771" y="41.492785" >
+		</node>
+		<node id="105574907" x="-81.64443" y="41.493431" >
+		</node>
+		<node id="105574909" x="-81.644402" y="41.491713" >
+		</node>
+		<node id="105574912" x="-81.644349" y="41.488085" >
+		</node>
+		<node id="105588570" x="-81.649237" y="41.491669" >
+		</node>
+		<node id="105588571" x="-81.649173" y="41.48802" >
+		</node>
+		<node id="105588601" x="-81.6492401" y="41.493469" >
+		</node>
+		<node id="105600282" x="-81.62962" y="41.493399" >
+		</node>
+		<node id="105605860" x="-81.6516351" y="41.4907935" >
+		</node>
+		<node id="105623809" x="-81.65171" y="41.496239" >
+		</node>
+		<node id="105623813" x="-81.651671" y="41.4934059" >
+		</node>
+		<node id="105623815" x="-81.6516469" y="41.4916541" >
+		</node>
+		<node id="105623817" x="-81.6516072" y="41.4879741" >
+		</node>
+		<node id="105627166" x="-81.646479" y="41.493446" >
+		</node>
+		<node id="105627169" x="-81.646832" y="41.493446" >
+		</node>
+		<node id="105627172" x="-81.646813" y="41.491685" >
+		</node>
+		<node id="105640886" x="-81.645623" y="41.493438" >
+		</node>
+		<node id="105640887" x="-81.645601" y="41.491701" >
+		</node>
+		<node id="105641484" x="-81.6504099" y="41.4916606" >
+		</node>
+		<node id="105651740" x="-81.650595" y="41.493485" >
+		</node>
+		<node id="105666016" x="-81.645122" y="41.496278" >
+		</node>
+		<node id="105694212" x="-81.653341" y="41.489516" >
+		</node>
+		<node id="105697690" x="-81.655567" y="41.492842" >
+		</node>
+		<node id="105697692" x="-81.655225" y="41.492874" >
+		</node>
+		<node id="105697700" x="-81.6451243" y="41.4934331" >
+		</node>
+		<node id="105705507" x="-81.6560275" y="41.493547" >
+		</node>
+		<node id="2406882788" x="-81.6464637" y="41.4880517" >
+		</node>
+		<node id="2417068965" x="-81.652864" y="41.4900797" >
+		</node>
+		<node id="2417068968" x="-81.6526615" y="41.4906393" >
+		</node>
+		<node id="2417068974" x="-81.652376" y="41.4909413" >
+		</node>
+		<node id="2417068977" x="-81.6516484" y="41.4917643" >
+		</node>
+		<node id="2417068981" x="-81.6533224" y="41.4920154" >
+		</node>
+		<node id="2417068982" x="-81.6529575" y="41.4932251" >
+		</node>
+		<node id="3528705233" x="-81.6554721" y="41.4919868" >
+		</node>
+		<node id="3528705234" x="-81.6565761" y="41.4921859" >
+		</node>
+		<node id="678563324" x="-81.6540338" y="41.4930692" >
+		</node>
+		<node id="678563328" x="-81.6567571" y="41.4953217" >
+		</node>
+	</nodes>
+
+<!-- ====================================================================== -->
+
+	<links capperiod="01:00:00" effectivecellsize="7.5" effectivelanewidth="3.75">
+		<link id="1" from="105705507" to="105697690" length="8.788878996355352E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">123814819</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="10" from="105541599" to="105541602" length="6.909594778266265E-4" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">377329843</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="100" from="105552783" to="105588570" length="0.0012060037315648742" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="101" from="105588570" to="105552783" length="0.0012060037315648742" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="102" from="105588570" to="105641484" length="0.0011729309848512285" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="103" from="105641484" to="105588570" length="0.0011729309848512285" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="104" from="105641484" to="105623815" length="0.0012370170774925206" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="105" from="105623815" to="105641484" length="0.0012370170774925206" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="106" from="105541602" to="105694212" length="7.664834081866219E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11805579</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="107" from="105694212" to="105541602" length="7.664834081866219E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11805579</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="108" from="105605860" to="2417068974" length="7.554982796553749E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">233319447</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="109" from="2417068974" to="105605860" length="7.554982796553749E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">233319447</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="11" from="105541602" to="2417068965" length="4.601485521112779E-4" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">377329843</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="12" from="2417068965" to="105541604" length="0.0012674040752596706" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">377329843</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="14" from="105623809" to="105623813" length="0.002833377744015508" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="15" from="105623813" to="105623809" length="0.002833377744015508" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="16" from="105623813" to="2417068977" length="0.0016417555650981822" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="17" from="2417068977" to="105623813" length="0.0016417555650981822" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="18" from="2417068977" to="105623815" length="1.1021020824029395E-4" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="19" from="105623815" to="2417068977" length="1.1021020824029395E-4" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="2" from="105697690" to="105705507" length="8.788878996355352E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">123814819</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="20" from="105623815" to="105605860" length="8.606808942292041E-4" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="21" from="105605860" to="105623815" length="8.606808942292041E-4" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="22" from="105605860" to="105541604" length="9.653916200216592E-4" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="23" from="105541604" to="105605860" length="9.653916200216592E-4" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="24" from="105541604" to="105623817" length="0.0018541874532750015" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="25" from="105623817" to="105541604" length="0.0018541874532750015" freespeed="15.6464" capacity="3000.0" permlanes="2.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97903002</attribute>
+				<attribute name="type" class="java.lang.String">primary</attribute>
+			</attributes>
+		</link>
+		<link id="27" from="105640887" to="2406882788" length="0.004039573161737176" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789415</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="28" from="2406882788" to="105640887" length="0.004039573161737176" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789415</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="29" from="105541615" to="105541622" length="0.0011726402177696551" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">452878822</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="3" from="105541604" to="105541609" length="0.0012528305902495135" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">120605043</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="30" from="105541622" to="105541615" length="0.0011726402177696551" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">452878822</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="32" from="105623813" to="105651740" length="0.001081057815341881" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="33" from="105651740" to="105623813" length="0.001081057815341881" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="34" from="105651740" to="105588601" length="0.001354994468766308" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="35" from="105588601" to="105651740" length="0.001354994468766308" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="36" from="105588601" to="105552780" length="0.001179209485585934" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="37" from="105552780" to="105588601" length="0.001179209485585934" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="38" from="105552780" to="105552847" length="1.869999999968286E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="39" from="105552847" to="105552780" length="1.869999999968286E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="4" from="105541609" to="105541615" length="0.0011740623877845853" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">120605043</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="40" from="105552847" to="105627169" length="0.0010420235122089725" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="41" from="105627169" to="105552847" length="0.0010420235122089725" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="42" from="105627169" to="105627166" length="3.530000000040445E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="43" from="105627166" to="105627169" length="3.530000000040445E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="44" from="105627166" to="105640886" length="8.56037382360176E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="45" from="105640886" to="105627166" length="8.56037382360176E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="46" from="105640886" to="105697700" length="4.987240720020639E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="47" from="105697700" to="105640886" length="4.987240720020639E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="48" from="105697700" to="105574907" length="6.943031758596686E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="49" from="105574907" to="105697700" length="6.943031758596686E-4" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="5" from="678563324" to="678563328" length="0.003756085498803223" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">53753084</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="50" from="105574907" to="105600282" length="0.01481045636112608" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="51" from="105600282" to="105574907" length="0.01481045636112608" freespeed="6.944444444444445" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">125266155</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="52" from="105553965" to="105553987" length="0.0038994565113688673" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789393</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="53" from="105553987" to="105553965" length="0.0038994565113688673" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789393</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="54" from="105574278" to="105697690" length="0.0021468573200133668" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="55" from="105697690" to="105574278" length="0.0021468573200133668" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="56" from="105697690" to="105697692" length="3.4349381837089357E-4" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="57" from="105697692" to="105697690" length="3.4349381837089357E-4" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="58" from="105697692" to="678563324" length="0.0012070876061649558" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="59" from="678563324" to="105697692" length="0.0012070876061649558" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="6" from="678563328" to="678563324" length="0.003756085498803223" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">53753084</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="60" from="678563324" to="2417068982" length="0.0010875322983644393" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="61" from="2417068982" to="678563324" length="0.0010875322983644393" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="62" from="2417068982" to="105553987" length="6.214064692461286E-5" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="63" from="105553987" to="2417068982" length="6.214064692461286E-5" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="64" from="105553987" to="105623813" length="0.0012370022675855948" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="65" from="105623813" to="105553987" length="0.0012370022675855948" freespeed="15.6464" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806032</attribute>
+				<attribute name="type" class="java.lang.String">tertiary</attribute>
+			</attributes>
+		</link>
+		<link id="66" from="105666016" to="105697700" length="0.0028449009386557426" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11807057</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="67" from="105697700" to="105666016" length="0.0028449009386557426" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11807057</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="69" from="105588570" to="105541615" length="0.001831481641217492" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11792212</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="70" from="105541615" to="105588570" length="0.001831481641217492" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11792212</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="71" from="105541615" to="105588571" length="0.0018182425608357525" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11792212</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="72" from="105588571" to="105541615" length="0.0018182425608357525" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11792212</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="73" from="2417068981" to="2417068977" length="0.0016938605353761394" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">234802969</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="74" from="2417068977" to="2417068981" length="0.0016938605353761394" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">234802969</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="76" from="3528705234" to="3528705233" length="0.0011218096142788481" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">346330701</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="77" from="3528705233" to="3528705234" length="0.0011218096142788481" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">346330701</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="78" from="105552780" to="105552783" length="0.0017812526502956447" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789273</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="79" from="105552783" to="105552780" length="0.0017812526502956447" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789273</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="8" from="105627172" to="105627169" length="0.0017611024955995686" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11796285</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="80" from="105552783" to="105541622" length="0.0017886549817885979" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789273</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="81" from="105541622" to="105552783" length="0.0017886549817885979" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11789273</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="82" from="105574907" to="105574909" length="0.0017182281573478121" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11790877</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="83" from="105574909" to="105574907" length="0.0017182281573478121" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11790877</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="84" from="105574909" to="105574912" length="0.0036284268712564434" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11790877</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="85" from="105574912" to="105574909" length="0.0036284268712564434" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11790877</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="86" from="105641484" to="105541609" length="0.001826075563287322" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11800069</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="87" from="105697692" to="3528705233" length="9.29166825273329E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806657</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="88" from="3528705233" to="105541596" length="0.0013576355901803712" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11806657</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="89" from="2417068982" to="2417068981" length="0.001265269240126803" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">233319440</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="9" from="105541596" to="105541599" length="0.0019766651221601443" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">377329843</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="90" from="2417068981" to="2417068982" length="0.001265269240126803" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">233319440</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="91" from="105640886" to="105640887" length="0.001737139315079537" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">11798222</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="92" from="2417068965" to="2417068968" length="5.951120993046877E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">233319445</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="93" from="2417068968" to="2417068965" length="5.951120993046877E-4" freespeed="4.166666666666667" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">233319445</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="94" from="105574909" to="105640887" length="0.0011990600485377299" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="95" from="105640887" to="105574909" length="0.0011990600485377299" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="96" from="105640887" to="105627172" length="0.0012121056059554987" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="97" from="105627172" to="105640887" length="0.0012121056059554987" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="98" from="105627172" to="105552783" length="0.0012180715579983136" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+		<link id="99" from="105552783" to="105627172" length="0.0012180715579983136" freespeed="11.176" capacity="600.0" permlanes="1.0" oneway="1" modes="car" >
+			<attributes>
+				<attribute name="origid" class="java.lang.String">97788138</attribute>
+				<attribute name="type" class="java.lang.String">residential</attribute>
+			</attributes>
+		</link>
+	</links>
+
+<!-- ====================================================================== -->
+
+</network>
