@@ -11,8 +11,6 @@ import org.matsim.core.utils.geometry.CoordinateTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 import org.matsim.core.utils.io.OsmNetworkReader;
 
-import java.io.FileInputStream;
-
 
 /**
  * "P" has to do with "Potsdam" and "Z" with "Zurich", but P and Z are mostly used to show which classes belong together.
@@ -24,22 +22,22 @@ public class RunPNetworkGenerator {
         /*
          * The input file name.
          */
-        String osm= "C:/Users/Daniel Jarvis/BYU_imt_optimization/src/main/cleveland.osm";
+        String osm = "./src/main/rome.osm";
 
 
         /*
-         * The coordinate system to use. OpenStreetMap uses NAD83, but for MATSim, we need a projection where distances
+         * The coordinate system to use. OpenStreetMap uses WGS84, but for MATSim, we need a projection where distances
          * are (roughly) euclidean distances in meters.
          *
-         * UTM 17N is one such possibility (for Ohio, at least).
+         * UTM 33N is one such possibility (for parts of Europe, at least).
          *
          */
-        CoordinateTransformation ct=
-                TransformationFactory.getCoordinateTransformation(TransformationFactory.NAD83_UTM17N, TransformationFactory.NAD83_UTM17N);
+        CoordinateTransformation ct =
+                TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, TransformationFactory.WGS84_UTM33N);
 
         /*
          * First, create a new Config and a new Scenario. One always has to do this when working with the MATSim
-         * data container.
+         * data containers.
          *
          */
         Config config = ConfigUtils.createConfig();
@@ -62,7 +60,8 @@ public class RunPNetworkGenerator {
         /*
          * Write the Network to a MATSim network file.
          */
-        new NetworkWriter(network).write("C:/Users/Daniel Jarvis/BYU_imt_optimization/scenarios/cleveland/network.xml");
+        new NetworkWriter(network).write("./scenarios/rome/network.xml");
 
     }
+
 }

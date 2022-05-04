@@ -16,6 +16,8 @@ hs_err_pid*
 /target/
 /output/
 /bin/
+/romeOutput/
+/scenarios/berlin/output/
 
 /.idea/
 *.iml

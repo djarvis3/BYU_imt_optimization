@@ -14,7 +14,8 @@ import org.matsim.core.api.internal.MatsimWriter;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.scenario.ScenarioUtils;
-
+import org.matsim.core.utils.geometry.CoordinateTransformation;
+import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
 /**
  *
@@ -26,6 +27,13 @@ import org.matsim.core.scenario.ScenarioUtils;
 public class RunPOnePersonPopulationGenerator {
 
     public static void main(String[] args) {
+
+        /*
+         * We enter coordinates in the WGS84 reference system, but we want them to appear in the population file
+         * projected to UTM33N, because we also generated the network that way.
+         */
+        CoordinateTransformation ct =
+                TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, TransformationFactory.WGS84_UTM33N);
 
         /*
          * First, create a new Config and a new Scenario.
@@ -61,9 +69,9 @@ public class RunPOnePersonPopulationGenerator {
          * we keep the home coordinates for later use (see below).
          * Note that we use the CoordinateTransformation created above.
          */
-        Coord homeCoordinates = new Coord(679909.3904012402, 4831236.176461053);
-        Activity activity1 = populationFactory.createActivityFromCoord("home");
-        activity1.setEndTime(21600); // leave at 6 o'clock
+        Coord homeCoordinates = new Coord(12.439371, 41.91875);
+        Activity activity1 = populationFactory.createActivityFromCoord("home", ct.transform(homeCoordinates));
+        activity1.setEndTime(32400); // leave at 9 o'clock a.m.
         plan.addActivity(activity1); // add the Activity to the Plan
 
         /*
@@ -74,9 +82,8 @@ public class RunPOnePersonPopulationGenerator {
         /*
          * Create a "work" Activity, at a different location.
          */
-        Coord workCoordinates = new Coord(684502.1541384343, 4823538.197246761);
-        Activity activity2 = populationFactory.createActivityFromCoord("work");
-        activity2.setEndTime(57600); // leave at 4 p.m.
+        Activity activity2 = populationFactory.createActivityFromCoord("work", ct.transform(new Coord(12.446484, 41.92157)));
+        activity2.setEndTime(61200); // leave at 5 p.m.
         plan.addActivity(activity2);
 
         /*
@@ -95,7 +102,7 @@ public class RunPOnePersonPopulationGenerator {
          * Write the population (of 1 Person) to a file.
          */
         MatsimWriter popWriter = new PopulationWriter(population, network);
-        popWriter.write("C:/Users/Daniel Jarvis/BYU_imt_optimization/scenarios/siouxfalls-2014/population1.xml");
+        popWriter.write("./scenarios/rome/population1.xml");
     }
 
 }
