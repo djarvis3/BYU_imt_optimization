@@ -18,7 +18,7 @@
 	<module name="controler">
 		<param name="outputDirectory" value="./romeOutput" />
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="10" />
+		<param name="lastIteration" value="500" />
 	</module>
 
 	<module name="qsim">
@@ -53,7 +53,16 @@
 			<param name="closingTime"     value="18:00:00" />
 		</parameterset>
 		<parameterset type="activityParams" >
-			<param name="activityType"            value="other" /> <!-- work -->
+			<param name="activityType"            value="school" /> <!-- school -->
+			<param name="priority"        value="1" />
+			<param name="typicalDuration" value="08:00:00" />
+			<param name="openingTime"     value="07:00:00" />
+			<param name="latestStartTime" value="09:00:00" />
+			<param name="earliestEndTime" value="" />
+			<param name="closingTime"     value="18:00:00" />
+		</parameterset>
+		<parameterset type="activityParams" >
+			<param name="activityType"            value="other" /> <!-- other -->
 			<param name="priority"        value="1" />
 			<param name="typicalDuration" value="02:00:00" />
 			<param name="openingTime"     value="07:00:00" />

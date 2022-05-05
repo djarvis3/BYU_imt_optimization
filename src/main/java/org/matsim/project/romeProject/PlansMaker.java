@@ -1,4 +1,4 @@
-package org.matsim.project;
+package org.matsim.project.romeProject;
 
 import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;
@@ -64,7 +64,7 @@ public class PlansMaker {
 
         PlansMaker pm = new PlansMaker(crs);
         //pm.makePlans( 19892); // current scenario
-        pm.makePlans(47446); // future scenario
+        pm.makePlans(15000); // future scenario
         //pm.makePlans(10000);
         pm.writePlans(outFile);
     }
