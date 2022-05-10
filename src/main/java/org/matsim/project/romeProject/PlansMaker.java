@@ -48,7 +48,7 @@ public class PlansMaker {
 
         this.r = new Random(42);
 
-        readschool("./s");
+        readschool(new File("./scenarios/cedarcity/schools.csv"));
 
     }
 
