@@ -15,14 +15,14 @@ public class RunPNetworkGenerator {
 
     public static void main(String[] args) {
 
-        String osm = "./src/main/rome.osm"; // input OpenStreetMap file
+        String osm = "./scenarios/utah/Utah_test_network.osm"; // input OpenStreetMap file
 
         // The coordinate system OpenStreetMap uses is WGS84, but for MATSim, we need a projection where distances
         // are (roughly) euclidean distances in meters.
         // UTM coordinates are one such option, EPSG coordinates are another
 
         CoordinateTransformation ct =
-                TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, TransformationFactory.WGS84_UTM33N);
+                TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:26912");
 
         Config config = ConfigUtils.createConfig();
         Scenario scenario = ScenarioUtils.createScenario(config);
@@ -34,7 +34,7 @@ public class RunPNetworkGenerator {
 
         new NetworkCleaner().run(network);  // Clean the Network
 
-        new NetworkWriter(network).write("./scenarios/rome/network.xml");  // Write the Network to a MATSim network file.
+        new NetworkWriter(network).write("./scenarios/utah/network.xml");  // Write the Network to a MATSim network file.
 
     }
 
