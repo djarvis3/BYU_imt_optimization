@@ -1,4 +1,4 @@
-trip_id,person_id,number_of_participants,trip_mode,PlanElementIndex,ActivityElement,ActivityType,Long,Lat,departure_time
+trip_id,person_id,number_of_participants,trip_mode,PlanElementIndex,ActivityElement,ActivityType,x,y,departure_time
 ,26478,,,1,activity,Home,-122.4120083,37.78440644,11.651
 8684833,26478,1,WALK,2,leg,,,,
 ,26478,,,3,activity,eatout,-122.398143,37.78754015,11.948

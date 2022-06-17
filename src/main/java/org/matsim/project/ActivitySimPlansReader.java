@@ -62,8 +62,8 @@ public class ActivitySimPlansReader {
 
             // let's figure out if this is an activity or a leg
             if (record.getString("ActivityType") != null) { // this is an activity
-                Double x = record.getDouble("Long");
-                Double y = record.getDouble("Lat");
+                Double x = record.getDouble("x");
+                Double y = record.getDouble("y");
                 Coord actCoord = CoordUtils.createCoord(x, y);
                 actCoord = ct.transform(actCoord);
 
@@ -93,21 +93,22 @@ public class ActivitySimPlansReader {
                 }
             }
             else { // this is a leg
-                    String mode = record.getString("trip_mode");
-                    if (mode.equals("DRIVEALONEFREE") || mode.equals("DRIVEALONEPAY") ||
-                            mode.equals("DRIVE_LOC") || mode.equals("DRIVE_LRF") ||
-                            mode.equals("DRIVE_EXP") || mode.equals("DRIVE_HVY") ||
-                            mode.equals("DRIVE_COM") || mode.equals("TNC_SINGLE") ||
-                            mode.equals("TNC_SHARED")) {mode = "car";}
-                    else if (mode.equals("WALK_LOC") || mode.equals("WALK_LRF") ||
-                            mode.equals("WALK_EXP") || mode.equals("WALK_COM") ||
-                            mode.equals("WALK_HVY") || mode.equals("WALK")) {mode = "walk";}
-                    else if (mode.equals("TAXI") || mode.equals("SHARED2FREE") ||
-                            mode.equals("SHARED2PAY") || mode.equals("SHARED3FREE") ||
-                            mode.equals("SHARED3PAY")) {mode = TransportMode.car;}
-                    else if (mode.equals("BIKE")) {mode = "bike";}
-                    else {mode = "ADD MODE TYPE";}
 
+                String mode = record.getString("trip_mode");
+                if (mode.equals("DRIVEALONEFREE") || mode.equals("DRIVEALONEPAY") ||
+                        mode.equals("SHARED2FREE") || mode.equals("SHARED2PAY") ||
+                        mode.equals("SHARED3FREE") || mode.equals("SHARED3PAY"))
+                         {mode = TransportMode.car;}
+                else if (mode.equals("WALK_LOC") || mode.equals("WALK_LRF") ||
+                        mode.equals("WALK_EXP") || mode.equals("WALK_HVY") ||
+                        mode.equals("WALK_COM") || mode.equals("DRIVE_LOC") ||
+                        mode.equals("DRIVE_LRF") || mode.equals("DRIVE_EXP") ||
+                        mode.equals("DRIVE_HVY") || mode.equals("DRIVE_COM") ||
+                        mode.equals("TAXI") || mode.equals("TNC_SINGLE") ||
+                        mode.equals("TNC_SHARED")) {mode = TransportMode.pt;}
+                else if (mode.equals("WALK")){mode = TransportMode.walk;}
+                else if (mode.equals("BIKE")){mode = TransportMode.bike;}
+                else {mode = "ADD MODE TYPE";}
                     Leg leg = pf.createLeg(mode);
                     plan.addLeg(leg);
                 }

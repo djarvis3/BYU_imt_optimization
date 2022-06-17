@@ -20,9 +20,9 @@
 		<param name="writeEventsInterval" value="1000" />
 		<param name="writePlansInterval" value="1000" />
 		<param name="eventsFileFormat" value="xml" />
-		<param name="outputDirectory" value="output/siouxfalls-2014"/>
+		<param name="outputDirectory" value="output/siouxfalls_Outputs/siouxfalls-2014_RunMatsimTimeDependentNetwork"/>
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="3000" />
+		<param name="lastIteration" value="100" />
 		<param name="mobsim" value="qsim" />
 	</module>
  	
