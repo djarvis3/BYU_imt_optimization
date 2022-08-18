@@ -35,7 +35,7 @@ public class RunMatsimIncidents {
 
         Config config;
         if (args == null || args.length == 0 || args[0] == null) {
-            config = ConfigUtils.loadConfig("scenarios/equil/config.xml");
+            config = ConfigUtils.loadConfig("scenarios/sanFrancisco/config.xml");
         } else {
             config = ConfigUtils.loadConfig(args);
         }
@@ -51,10 +51,15 @@ public class RunMatsimIncidents {
         // in the config, otherwise it will not work.
         Scenario scenario = ScenarioUtils.loadScenario(config);
 
+/*
         Incidents incident = new Incidents(scenario);
-        incident.makeOneIncident(scenario, "1", "capacity", 0.0,6.*3600, 19.*3600);
-        incident.makeOneIncident(scenario, "2", "lane", 1,11.*3600,13.*3600);
-        incident.makeOneIncident(scenario, "3", "speed", 0.5,17.*3600,20.*3600);
+        incident.makeOneIncident("1", "capacity", 0.0,6.*3600, 19.*3600);
+        incident.makeOneIncident("2", "lane", 1,11.*3600,13.*3600);
+        incident.makeOneIncident("3", "speed", 0.5,17.*3600,20.*3600);
+*/
+
+        IncidentsCSV incidents = new IncidentsCSV(scenario);
+        incidents.parseIncidentsCSV("src/main/java/org/matsim/project/Incidents.csv");
 
         // ---
 

@@ -57,7 +57,7 @@ public class RunMatsim{
 
 		Config config;
 		if ( args==null || args.length==0 || args[0]==null ){
-			config = ConfigUtils.loadConfig( "scenarios/sanFrancisco/config.xml" );
+			config = ConfigUtils.loadConfig( "scenarios/equil/config.xml" );
 		} else {
 			config = ConfigUtils.loadConfig( args );
 		}
@@ -69,9 +69,8 @@ public class RunMatsim{
 		// ---
 		
 		Scenario scenario = ScenarioUtils.loadScenario(config) ;
-
 		// possibly modify scenario here
-		
+
 		// ---
 		
 		Controler controler = new Controler( scenario ) ;

@@ -18,7 +18,7 @@
 	<module name="controler">
 		<param name="outputDirectory" value="./output/sf_Outputs/sfOutput_RunMatsimTimeDependentNetwork" />
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="100" />
+		<param name="lastIteration" value="20" />
 	</module>
 
 	<module name="qsim">

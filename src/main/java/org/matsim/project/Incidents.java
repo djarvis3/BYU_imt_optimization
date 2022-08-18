@@ -23,8 +23,8 @@ public class Incidents {
         this.network = scenario.getNetwork();
     }
 
-    public void makeOneIncident(Scenario scenario, String linkId, String type, double effect, double start, double end) {
-        for (Link link : scenario.getNetwork().getLinks().values() ) {
+    public void makeOneIncident(String linkId, String type, double effect, double start, double end) {
+        for (Link link : network.getLinks().values() ) {
             this.id = link.getId();
             this.linkString = id.toString();
             this.capacity = link.getCapacity();
@@ -41,13 +41,13 @@ public class Incidents {
                             NetworkChangeEvent event = new NetworkChangeEvent(start);
                             event.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, newCapacity));
                             event.addLink(link);
-                            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+                            NetworkUtils.addNetworkChangeEvent(network, event);
                         }
                         {
                             NetworkChangeEvent event = new NetworkChangeEvent(end);
                             event.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, capacity));
                             event.addLink(link);
-                            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+                            NetworkUtils.addNetworkChangeEvent(network, event);
                         }
                     }
                     break;
@@ -57,13 +57,13 @@ public class Incidents {
                             NetworkChangeEvent event = new NetworkChangeEvent(start);
                             event.setLanesChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, newLanes));
                             event.addLink(link);
-                            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+                            NetworkUtils.addNetworkChangeEvent(network, event);
                         }
                         {
                             NetworkChangeEvent event = new NetworkChangeEvent(end);
                             event.setLanesChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, lanes));
                             event.addLink(link);
-                            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+                            NetworkUtils.addNetworkChangeEvent(network, event);
                         }
                     }
                     break;
@@ -73,13 +73,13 @@ public class Incidents {
                             NetworkChangeEvent event = new NetworkChangeEvent(start);
                             event.setFreespeedChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, newSpeed));
                             event.addLink(link);
-                            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+                            NetworkUtils.addNetworkChangeEvent(network, event);
                         }
                         {
                             NetworkChangeEvent event = new NetworkChangeEvent(end);
                             event.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, speed));
                             event.addLink(link);
-                            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+                            NetworkUtils.addNetworkChangeEvent(network, event);
                         }
                     }
                     break;
