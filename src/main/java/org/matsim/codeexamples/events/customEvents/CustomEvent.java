@@ -18,16 +18,19 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.codeexamples.events.eventsCopies;
+package org.matsim.codeexamples.events.customEvents;
 
 import org.matsim.api.core.v01.BasicLocation;
+import org.matsim.api.core.v01.events.HasFacilityId;
+import org.matsim.api.core.v01.events.HasLinkId;
+import org.matsim.codeexamples.events.customEvents.customInternal.CustomHasDvrpVehicleId;
 import org.matsim.core.api.internal.HasPersonId;
 import org.matsim.core.api.internal.HasVehicleId;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class Event {
+public abstract class CustomEvent {
 
 	public final static String ATTRIBUTE_TIME = "time";
 	public final static String ATTRIBUTE_TYPE = "type";
@@ -36,7 +39,7 @@ public abstract class Event {
 
 	private double time;
 
-	public Event(final double time) {
+	public CustomEvent(final double time) {
 		this.time = time;
 	}
 
@@ -44,27 +47,34 @@ public abstract class Event {
 		Map<String, String> attr = new LinkedHashMap<String, String>();
 		attr.put(ATTRIBUTE_TIME, Double.toString(this.time));
 		attr.put(ATTRIBUTE_TYPE, getEventType());
-		if ( this instanceof HasPersonId && ((HasPersonId) this).getPersonId()!=null) {
-			attr.put( HasPersonId.ATTRIBUTE_PERSON, ((HasPersonId) this).getPersonId().toString() ) ;
+		if (this instanceof HasPersonId && ((HasPersonId) this).getPersonId() != null) {
+			attr.put(HasPersonId.ATTRIBUTE_PERSON, ((HasPersonId) this).getPersonId().toString());
 			// many derived types do this by themselves, for historical reasons.  Since the information is put into a map, it still exists only once under that key.  kai,
 			// mar'19
 		}
-		if ( this instanceof HasFacilityId && ((HasFacilityId) this).getFacilityId()!=null ) {
-			attr.put( HasFacilityId.ATTRIBUTE_FACILITY, ((HasFacilityId) this).getFacilityId().toString() );
+		if (this instanceof HasFacilityId && ((HasFacilityId) this).getFacilityId() != null) {
+			attr.put(HasFacilityId.ATTRIBUTE_FACILITY, ((HasFacilityId) this).getFacilityId().toString());
 		}
-		if ( this instanceof HasLinkId && ((HasLinkId) this).getLinkId()!=null) {
-			attr.put( HasLinkId.ATTRIBUTE_LINK, ((HasLinkId) this).getLinkId().toString() );
+		if (this instanceof HasLinkId && ((HasLinkId) this).getLinkId() != null) {
+			attr.put(HasLinkId.ATTRIBUTE_LINK, ((HasLinkId) this).getLinkId().toString());
 		}
-		if ( this instanceof BasicLocation && ((BasicLocation) this).getCoord()!=null ) {
-			if ( ((BasicLocation) this).getCoord()!=null ) {
-				attr.put( ATTRIBUTE_X, String.valueOf( ((BasicLocation) this).getCoord().getX() ) ) ;
-				attr.put( ATTRIBUTE_Y, String.valueOf( ((BasicLocation) this).getCoord().getY() ) ) ;
+		if (this instanceof BasicLocation && ((BasicLocation) this).getCoord() != null) {
+			if (((BasicLocation) this).getCoord() != null) {
+				attr.put(ATTRIBUTE_X, String.valueOf(((BasicLocation) this).getCoord().getX()));
+				attr.put(ATTRIBUTE_Y, String.valueOf(((BasicLocation) this).getCoord().getY()));
 			}
 		}
-		if ( this instanceof HasVehicleId && ((HasVehicleId) this).getVehicleId()!=null ) {
-			attr.put( HasVehicleId.ATTRIBUTE_VEHICLE, ((HasVehicleId) this).getVehicleId().toString() );
+		if (this instanceof HasVehicleId && ((HasVehicleId) this).getVehicleId() != null) {
+			attr.put(HasVehicleId.ATTRIBUTE_VEHICLE, ((HasVehicleId) this).getVehicleId().toString());
 		}
+		if (this instanceof CustomHasDvrpVehicleId && ((CustomHasDvrpVehicleId) this).getPersonId() != null)
+			return attr;
 		return attr;
+
+		/*
+		 this is as far down the rabbit hole I went. Then I quit because I wasn't going to try
+		 and make a custom Person or HasPersonId java scrip
+		*/
 	}
 
 	/** @return a unique, descriptive name for this event type, used to identify event types in files. */
@@ -93,10 +103,10 @@ public abstract class Event {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Event)) {
+		if (!(obj instanceof CustomEvent)) {
 			return false;
 		} else {
-			Event other = (Event) obj;
+			CustomEvent other = (CustomEvent) obj;
 			return time == other.time &&
 					getEventType().equals(other.getEventType()) &&
 					getAttributes().equals(other.getAttributes());

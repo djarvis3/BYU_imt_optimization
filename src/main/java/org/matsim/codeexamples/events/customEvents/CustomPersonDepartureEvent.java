@@ -1,6 +1,6 @@
 /* *********************************************************************** *
  * project: org.matsim.*
- * AgentWait2LinkEvent.java
+ * AgentDepartureEvent.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
@@ -18,83 +18,78 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.codeexamples.events.eventsCopies;
+package org.matsim.codeexamples.events.customEvents;
 
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.population.Person;
 import org.matsim.core.api.internal.HasPersonId;
-import org.matsim.vehicles.Vehicle;
 
 import java.util.Map;
 
-public class VehicleLeavesTrafficEvent extends Event implements HasPersonId, HasLinkId {
+public class CustomPersonDepartureEvent extends CustomEvent implements HasPersonId {
 
-	public static final String EVENT_TYPE = "vehicle leaves traffic";
-	public static final String ATTRIBUTE_VEHICLE = "vehicle";
+	public static final String EVENT_TYPE = "departure";
 
+	public static final String ATTRIBUTE_PERSON = "person";
 	public static final String ATTRIBUTE_LINK = "link";
-	public static final String ATTRIBUTE_NETWORKMODE = "networkMode";
-	public static final String ATTRIBUTE_DRIVER = "person";
-	public static final String ATTRIBUTE_POSITION = "relativePosition";
+	public static final String ATTRIBUTE_LEGMODE = "legMode";
+	public static final String ATTRIBUTE_ROUTING_MODE = "computationalRoutingMode";
+	public static final String ATTRIBUTE_DVRP_VEHICLE = "dvrpVehicle";
 
-	private final Id<Person> driverId;
+	private final Id<Person> personId;
 	private final Id<Link> linkId;
-	private final Id<Vehicle> vehicleId;
-	private final String networkMode;
-	private final double relativePositionOnLink;
+	private final String legMode;
+	private final String routingMode;
+	private final String dvrpId;
 
-
-	public VehicleLeavesTrafficEvent(final double time, final Id<Person> driverId, final Id<Link> linkId, Id<Vehicle> vehicleId, String networkMode, double relativePositionOnLink) {
+	public CustomPersonDepartureEvent(final double time, final Id<Person> agentId, final Id<Link> linkId, final String legMode, final String routingMode, final String dvrpId) {
 		super(time);
-		this.driverId = driverId;
 		this.linkId = linkId;
-		this.vehicleId = vehicleId;
-		this.networkMode = networkMode;
-		this.relativePositionOnLink = relativePositionOnLink;
-
+		this.legMode = legMode;
+		this.personId = agentId;
+		this.routingMode = routingMode;
+		this.dvrpId = dvrpId;
 	}
 	
 	@Override
 	public Id<Person> getPersonId() {
-		return this.driverId;
-	}	
+		return this.personId;
+	}
 	
-	@Override
 	public Id<Link> getLinkId() {
 		return this.linkId;
 	}
 	
-	public Id<Vehicle> getVehicleId() {
-		return vehicleId;
+	public String getLegMode() {
+		return this.legMode;
 	}
+	
+	public String getRoutingMode() {
+		return routingMode;
+	}
+
+	public String getDvrpId() { return this.dvrpId; }
 	
 	@Override
 	public String getEventType() {
 		return EVENT_TYPE;
 	}
-	
-	public String getNetworkMode() {
-		return networkMode;
-	}
-	
-	public double getRelativePositionOnLink() {
-		return relativePositionOnLink;
-	}
 
 	@Override
 	public Map<String, String> getAttributes() {
 		Map<String, String> attr = super.getAttributes();
-		attr.put(ATTRIBUTE_DRIVER, this.driverId.toString());
+		attr.put(ATTRIBUTE_PERSON, this.personId.toString());
 		attr.put(ATTRIBUTE_LINK, (this.linkId == null ? null : this.linkId.toString()));
-		if (this.vehicleId != null) {
-			attr.put(ATTRIBUTE_VEHICLE, this.vehicleId.toString());
+		if (this.dvrpId != null) {
+			attr.put(ATTRIBUTE_DVRP_VEHICLE, this.dvrpId);
 		}
-		if (this.networkMode != null) {
-			attr.put(ATTRIBUTE_NETWORKMODE, networkMode);
+		if (this.legMode != null) {
+			attr.put(ATTRIBUTE_LEGMODE, this.legMode);
 		}
-		attr.put(ATTRIBUTE_POSITION, Double.toString(this.relativePositionOnLink));
-
+		if (this.routingMode != null) {
+			attr.put(ATTRIBUTE_ROUTING_MODE, this.routingMode);
+		}
 		return attr;
 	}
 }

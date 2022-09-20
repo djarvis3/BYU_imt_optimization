@@ -20,7 +20,6 @@
 package org.matsim.codeexamples.events.taxiHandling;
 
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.codeexamples.events.TaxiArrivalEvent;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
@@ -48,6 +47,7 @@ public class RunTaxiEventsHandling {
 
     public static final String CONFIG_FILE_ASSIGNMENT = "scenarios/mielec_2014_02/mielec_taxi_config_assignment.xml";
 
+
     public static void run(String configFile, boolean otfvis, int lastIteration) {
         // load config
         Config config = ConfigUtils.loadConfig(configFile, new MultiModeTaxiConfigGroup(), new DvrpConfigGroup(),
@@ -74,17 +74,16 @@ public class RunTaxiEventsHandling {
 
         // add event handlers for the output events
         String inputFile = "output/mielec_taxi_assignment/output_events.xml.gz";
-
         //create an event object
         EventsManager events = EventsUtils.createEventsManager();
 
         //create the handler and add it
-        MyTaxiEventHandler1 handler1 = new MyTaxiEventHandler1();
-        MyTaxiEventHandler2 handler2 = new MyTaxiEventHandler2();
-        MyTaxiEventHandler3 handler3 = new MyTaxiEventHandler3();
-        events.addHandler(handler1);
-        events.addHandler(handler2);
-        events.addHandler(handler3);
+        MyTaxiTripInformationHandler infoHandler = new MyTaxiTripInformationHandler();
+        MyTaxiCountingHandler countingHandler = new MyTaxiCountingHandler();
+        MyTaxiVolumeHandler volumeHandler = new MyTaxiVolumeHandler();
+        events.addHandler(infoHandler);
+        events.addHandler(countingHandler);
+        events.addHandler(volumeHandler);
 
         //create the reader and read the file
         events.initProcessing();
@@ -92,8 +91,8 @@ public class RunTaxiEventsHandling {
         reader.readFile(inputFile);
         events.finishProcessing();
 
-        System.out.println("average travel time: " + handler2.getTotalTravelTime());
-        handler3.writeChart("output/mielec_taxi_assignment/departuresPerHour.png");
+        System.out.println("total taxi trips: " + (countingHandler.getTotalTaxiTrips())/2);
+        volumeHandler.writeChart("output/mielec_taxi_assignment/EntrancesPerHour.png");
 
         System.out.println("Events file read!");
     }

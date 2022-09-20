@@ -1,9 +1,10 @@
 /* *********************************************************************** *
  * project: org.matsim.*
+ * AgentDepartureEventHandler.java
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2010 by the members listed in the COPYING,        *
+ * copyright       : (C) 2007 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -17,14 +18,11 @@
  *                                                                         *
  * *********************************************************************** */
 
-package org.matsim.codeexamples.events.eventsCopies.handler;
+package org.matsim.codeexamples.events.customEvents.customHandlers;
 
-import org.matsim.codeexamples.events.eventsCopies.TransitDriverStartsEvent;
+import org.matsim.codeexamples.events.customEvents.CustomPersonDepartureEvent;
 import org.matsim.core.events.handler.EventHandler;
 
-/**
- * @author mrieser
- */
-public interface TransitDriverStartsEventHandler extends EventHandler {
-	public void handleEvent(TransitDriverStartsEvent event);
+public interface CustomPersonDepartureEventHandler extends EventHandler {
+	public void handleEvent (CustomPersonDepartureEvent event);
 }
