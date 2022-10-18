@@ -4,8 +4,6 @@ import org.matsim.api.core.v01.events.PersonArrivalEvent;
 import org.matsim.api.core.v01.events.PersonDepartureEvent;
 import org.matsim.api.core.v01.events.handler.PersonArrivalEventHandler;
 import org.matsim.api.core.v01.events.handler.PersonDepartureEventHandler;
-import org.matsim.codeexamples.events.customEvents.CustomPersonDepartureEvent;
-import org.matsim.codeexamples.events.customEvents.customHandlers.CustomPersonDepartureEventHandler;
 
 import java.util.Objects;
 
@@ -47,7 +45,7 @@ public class MyTaxiTripInformationHandler implements
     }
 
     /*
-     where the rabbit hole started. I wanted to add DVRP Id as an event characteristic
+     where the rabbit hole started. I wanted to add DVRP Id as an event characteristic.
      public void handleEvent(CustomPersonDepartureEvent event) {
      System.out.println("DVRP ID:" + event.getDVRPId());
      }

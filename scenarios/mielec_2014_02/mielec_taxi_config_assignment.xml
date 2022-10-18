@@ -18,8 +18,10 @@
 			<param name="timeProfiles" value="true"/>
 			<param name="detailedStats" value="true"/>
 
-			<!-- This is an assignment based dispatch algorithm -->
+			<!-- This is an assignement based dispatch algorithm -->
 			<parameterset type="AssignmentTaxiOptimizer"/>
+
+			<parameterset type="taxifare"/>
 		</parameterset>
 	</module>
 
@@ -46,10 +48,10 @@
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="./output/mielec_taxi_assignment"/>
+		<param name="outputDirectory" value="output/mielec_taxi_assignment"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="10"/>
+		<param name="lastIteration" value="0"/>
 	</module>
 
 	<module name="planCalcScore">
