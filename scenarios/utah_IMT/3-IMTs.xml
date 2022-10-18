@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<!DOCTYPE vehicles SYSTEM "http://matsim.org/files/dtd/dvrp_vehicles_v1.dtd">
+
+<!--I think this is saying that the taxis operate from 6am to 5am the next day?-->
+
+<vehicles>
+	<vehicle id="IMT_1" start_link="9388" t_0="21600" t_1="104400"/>
+	<vehicle id="IMT_2" start_link="9388" t_0="21600" t_1="104400"/>
+	<vehicle id="IMT_3" start_link="9388" t_0="21600" t_1="104400"/>
+
+</vehicles>

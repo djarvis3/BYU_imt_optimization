@@ -1,11 +1,7 @@
 package org.matsim.codeexamples.events.taxiHandling;
 
-import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.events.LinkEnterEvent;
 import org.matsim.api.core.v01.events.PersonEntersVehicleEvent;
-import org.matsim.api.core.v01.events.handler.LinkEnterEventHandler;
 import org.matsim.api.core.v01.events.handler.PersonEntersVehicleEventHandler;
-import org.matsim.api.core.v01.network.Link;
 import org.matsim.core.utils.charts.XYLineChart;
 
 /**
@@ -18,14 +14,14 @@ import org.matsim.core.utils.charts.XYLineChart;
  */
 public class MyTaxiVolumeHandler implements PersonEntersVehicleEventHandler {
 
-    private double[] volumeTaxi_3_1;
+    private double[] volumeImt_1;
 
     public MyTaxiVolumeHandler() {
         reset(0);
     }
 
     public double getTravelTime(int slot) {
-        return this.volumeTaxi_3_1[slot];
+        return this.volumeImt_1[slot];
     }
 
     private int getSlot(double time) {
@@ -34,25 +30,25 @@ public class MyTaxiVolumeHandler implements PersonEntersVehicleEventHandler {
 
     @Override
     public void reset(int iteration) {
-        this.volumeTaxi_3_1 = new double[24];
+        this.volumeImt_1 = new double[26];
     }
 
     @Override
     public void handleEvent(PersonEntersVehicleEvent event) {
         String eventType = String.valueOf(event.getEventType());
         String vehicleId = String.valueOf(event.getVehicleId());
-        if ((eventType.equals("PersonEntersVehicle")) && (vehicleId.equals("taxi_3_1"))) {
-            this.volumeTaxi_3_1[getSlot(event.getTime())]++;
+        if ((eventType.equals("PersonEntersVehicle")) && (vehicleId.equals("imt_1"))) {
+            this.volumeImt_1[getSlot(event.getTime())]++;
         }
     }
 
     public void writeChart(String filename) {
-        double[] hours = new double[24];
+        double[] hours = new double[26];
         for (double i = 0.0; i < 24.0; i++) {
             hours[(int) i] = i;
         }
-        XYLineChart chart = new XYLineChart("Taxi 3_1 Passenger", "hour", "entrances");
-        chart.addSeries("times", hours, this.volumeTaxi_3_1);
+        XYLineChart chart = new XYLineChart("imt_1", "hour", "entrances");
+        chart.addSeries("times", hours, this.volumeImt_1);
         chart.saveAsPng(filename, 800, 600);
     }
 }
