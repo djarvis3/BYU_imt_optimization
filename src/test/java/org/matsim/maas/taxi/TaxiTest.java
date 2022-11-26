@@ -30,10 +30,4 @@ public class TaxiTest {
     public void runRulebasedTaxiScenario() {
         RunTaxiExample.run(RunTaxiExample.CONFIG_FILE_RULEBASED, false, 0);
     }
-
-
-    @Test
-    public void runAssignmentTaxiScenario() {
-        RunTaxiExample.run(RunTaxiExample.CONFIG_FILE_ASSIGNMENT, false, 0);
-    }
 }

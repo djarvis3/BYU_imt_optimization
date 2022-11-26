@@ -9,7 +9,6 @@ import org.matsim.core.network.io.NetworkWriter;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.core.utils.geometry.CoordinateTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
-import org.matsim.core.utils.io.OsmNetworkReader;
 
 
 /**
@@ -22,7 +21,7 @@ public class RunPNetworkGenerator {
 		/*
 		 * The input file name.
 		 */
-		String osm = "./scenarios/utah/HAYDEN.osm";
+		String osm = "./scenarios/utah/Utah_test_network.osm";
 
 
 		/*
@@ -48,7 +47,7 @@ public class RunPNetworkGenerator {
 		 */
 		Network network = scenario.getNetwork();
 
-		OsmNetworkReader onr = new OsmNetworkReader(network,ct);
+		CleanOsmNetworkReader onr = new CleanOsmNetworkReader(network,ct);
 		onr.parse(osm);
 
 		/*

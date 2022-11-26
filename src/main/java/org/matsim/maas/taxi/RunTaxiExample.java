@@ -28,13 +28,12 @@ import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
 /**
  * An example class to Run a taxi scenario based on a config file.
- * Note that several different optimizers may be set directly within the config file.
+ * Note that several optimizers may be set directly within the config file.
  * Two examples are provided here: A rulebased and an assignment based dispatch algorithm.
  */
 
 public class RunTaxiExample {
-	public static final String CONFIG_FILE_RULEBASED = "scenarios/mielec_2014_02/mielec_taxi_config_rulebased.xml";
-	public static final String CONFIG_FILE_ASSIGNMENT = "scenarios/mielec_2014_02/mielec_taxi_config_assignment.xml";
+	public static final String CONFIG_FILE_RULEBASED = "scenarios/utah_IMT/config.xml";
 
 	public static void run(String configFile, boolean otfvis, int lastIteration) {
 		// load config
@@ -47,6 +46,6 @@ public class RunTaxiExample {
 
 	public static void main(String[] args) {
 		//RunTaxiExample.run(CONFIG_FILE_RULEBASED,false, 0); // switch to 'true' to turn on visualisation
-		RunTaxiExample.run(CONFIG_FILE_ASSIGNMENT, false, 0); // switch to 'true' to turn on visualisation
+		RunTaxiExample.run(CONFIG_FILE_RULEBASED, false, 10); // switch to 'true' to turn on visualisation
 	}
 }

@@ -33,7 +33,7 @@ public class IncidentPlansReader {
         this.ct = TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:7131");
     }
 
-    public void parseCsv(String csv) {
+    public void parseCrashData(String csv) {
         CsvParserSettings parserSettings = new CsvParserSettings();
         parserSettings.getFormat().setLineSeparator("\n");
         parserSettings.setHeaderExtractionEnabled(true);
@@ -130,7 +130,7 @@ public class IncidentPlansReader {
             String csv = args[0];
             String outfile = args[1];
             IncidentPlansReader reader = new IncidentPlansReader();
-            reader.parseCsv(csv);
+            reader.parseCrashData(csv);
             reader.writeXml(outfile);
         }
 

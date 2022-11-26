@@ -18,34 +18,19 @@
  * *********************************************************************** */
 package org.matsim.run;
 
-import com.google.inject.internal.asm.$Type;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
-import org.matsim.contrib.otfvis.OTFVisLiveModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.config.groups.PlanCalcScoreConfigGroup;
-import org.matsim.core.config.groups.PlansCalcRouteConfigGroup;
-import org.matsim.core.config.groups.QSimConfigGroup;
-import org.matsim.core.config.groups.QSimConfigGroup.SnapshotStyle;
-import org.matsim.core.config.groups.QSimConfigGroup.TrafficDynamics;
-import org.matsim.core.config.groups.QSimConfigGroup.VehiclesSource;
-import org.matsim.core.config.groups.StrategyConfigGroup;
 import org.matsim.core.controler.Controler;
-import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.controler.OutputDirectoryHierarchy.OverwriteFileSetting;
-import org.matsim.core.replanning.strategies.DefaultPlanStrategiesModule;
+import org.matsim.core.network.NetworkChangeEvent;
+import org.matsim.core.network.NetworkChangeEvent.ChangeType;
+import org.matsim.core.network.NetworkChangeEvent.ChangeValue;
+import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.core.utils.collections.CollectionUtils;
-import org.matsim.vehicles.VehicleType;
-import org.matsim.vehicles.VehicleUtils;
-import org.matsim.vis.otfvis.OTFVisConfigGroup;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import org.matsim.incidents.Read_Incident;
 
 /**
  * @author nagel
@@ -54,33 +39,47 @@ import java.util.Set;
 public class RunMatsim{
 
 	public static void main(String[] args) {
+		String configurl = ("scenarios/berlin/config.xml");
 
-		Config config;
-		if ( args==null || args.length==0 || args[0]==null ){
-			config = ConfigUtils.loadConfig( "scenarios/sanFrancisco/config.xml" );
-		} else {
-			config = ConfigUtils.loadConfig( args );
-		}
+		Config config = ConfigUtils.loadConfig( configurl ) ;
+
+		// configure the time variant network here:
+		config.network().setTimeVariantNetwork(true);
 
 		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
 
-		// possibly modify config here
-
 		// ---
 
+		// create/load the scenario here.  The time variant network does already have to be set at this point
+		// in the config, otherwise it will not work.
 		Scenario scenario = ScenarioUtils.loadScenario(config) ;
-		// possibly modify scenario here
+
+		// Read_Incident incidents = new Read_Incident(scenario);
+		// incidents.Incident_Generator("src/main/java/org/matsim/reader/IncidentData_Daniel.csv");
+
+
+		for ( Link link : scenario.getNetwork().getLinks().values() ) {
+			double speed = link.getFreespeed() ;
+			final double threshold = 34;
+			if ( speed > threshold ) {
+				{
+					NetworkChangeEvent event = new NetworkChangeEvent(7.*3600.) ;
+					event.setFreespeedChange(new ChangeValue( ChangeType.ABSOLUTE_IN_SI_UNITS,  threshold*0.006 ));
+					event.addLink(link);
+					NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(),event);
+				}
+				{
+					NetworkChangeEvent event = new NetworkChangeEvent(11.5*3600.) ;
+					event.setFreespeedChange(new ChangeValue( ChangeType.ABSOLUTE_IN_SI_UNITS,  speed ));
+					event.addLink(link);
+					NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(),event);
+				}
+			}
+		}
 
 		// ---
 
 		Controler controler = new Controler( scenario ) ;
-
-		// possibly modify controler here
-
-//		controler.addOverridingModule( new OTFVisLiveModule() ) ;
-
-
-		// ---
 
 		controler.run();
 	}

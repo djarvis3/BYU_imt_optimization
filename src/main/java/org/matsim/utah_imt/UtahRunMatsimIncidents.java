@@ -1,9 +1,9 @@
 /* *********************************************************************** *
- * project: org.matsim.*
+ * project: org.matsim.*												   *
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2016 by the members listed in the COPYING,        *
+ * copyright       : (C) 2008 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -16,45 +16,52 @@
  *   See also COPYING, LICENSE and WARRANTY file                           *
  *                                                                         *
  * *********************************************************************** */
-
 package org.matsim.utah_imt;
 
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
-import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
-import org.matsim.contrib.taxi.run.TaxiControlerCreator;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.controler.Controler;
+import org.matsim.core.controler.OutputDirectoryHierarchy;
+import org.matsim.core.gbl.Gbl;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.vis.otfvis.OTFVisConfigGroup;
+import org.matsim.incidents.Read_Incident;
 
 /**
- * This class runs an example robotaxi scenario including fares. The simulation runs for 10 iterations, this takes
- * quite a bit time (25 minutes or so). You may switch on OTFVis visualisation in the main method below. The scenario
- * should run out of the box without any additional files. If required, you may find all input files in the resource
- * path or in the jar maven has downloaded). There are two vehicle files: 2000 vehicles and 5000, which may be set in
- * the config. Different fleet sizes can be created using
- * {@link org.matsim.contrib.av.robotaxi.vehicles.CreateTaxiVehicles}
+ * @author nagel
+ *
  */
+
 public class UtahRunMatsimIncidents {
-	public static final String CONFIG_FILE = "scenarios/utah_IMT/config.xml";
 
 	public static void main(String[] args) {
-		UtahRunMatsimIncidents.run(CONFIG_FILE, false, 10);
-	}
+		if ( args.length==0 ) {
+			args = new String [] { "scenarios/utah/config.xml" } ;
+		} else {
+			Gbl.assertIf( args[0] != null && !args[0].equals( "" ) );
+		}
 
-	public static void run(String configFile, boolean otfvis, int lastIteration) {
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup(),
-				new MultiModeTaxiConfigGroup());
+		Config config = ConfigUtils.loadConfig( args ) ;
 
-		// Load in Incidents
+		config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.overwriteExistingFiles);
+
 		config.network().setTimeVariantNetwork(true);
-		Scenario scenario = ScenarioUtils.loadScenario(config);
-		UtahIncidentsCSV incidents = new UtahIncidentsCSV(scenario);
-		incidents.parseIncidentsCSV("src/main/java/org/matsim/utah_imt/UtahIncidents_9_18_2018.csv");
 
-		config.controler().setLastIteration(lastIteration);
+		// possibly modify config here
 
-		TaxiControlerCreator.createControler(config, otfvis).run();
+		Scenario scenario = ScenarioUtils.loadScenario(config) ;
+
+		Read_Incident incidents = new Read_Incident(scenario);
+		incidents.Incident_Generator("src/main/java/org/matsim/reader/IncidentData_Daniel.csv");
+
+		// possibly modify scenario here
+
+		Controler controler = new Controler( scenario ) ;
+
+		// possibly modify controler here
+
+		//		controler.addOverridingModule( new OTFVisLiveModule() ) ;
+
+		controler.run();
 	}
 }
