@@ -18,7 +18,7 @@
 			<param name="timeProfiles" value="true"/>
 			<param name="detailedStats" value="true"/>
 
-			<!-- This is an assignement based dispatch algorithm -->
+			<!-- This is an assignment based dispatch algorithm -->
 			<parameterset type="AssignmentTaxiOptimizer"/>
 
 			<parameterset type="taxifare"/>
@@ -33,7 +33,7 @@
 
 	<module name="plans">
 		<!-- param name="inputPlansFile" value="plans_only_taxi_1.0.xml.gz" / -->
-		<param name="inputPlansFile" value="plans_only_taxi_4.0.xml.gz"/>
+		<param name="inputPlansFile" value="plans_only_taxi_2.0.xml.gz"/>
 	</module>
 
 	<module name="qsim">
