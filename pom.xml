@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.matsim</groupId>
@@ -17,7 +17,7 @@
 		<!--		<matsim.version>13.1-PR1536</matsim.version> -->
 
 		<!-- for dependency sharing in IDE -->
-<!--				<matsim.version>15.0-SNAPSHOT</matsim.version>-->
+		<!--				<matsim.version>15.0-SNAPSHOT</matsim.version>-->
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,7 +26,7 @@
 	</properties>
 
 	<repositories>
-	  <!--Note that in general repositories are not transitive, so they need to be repeated at every level where needed.-->
+		<!--Note that in general repositories are not transitive, so they need to be repeated at every level where needed.-->
 		<repository>
 			<!-- Geotools is not on Maven central -->
 			<id>osgeo</id>
@@ -94,10 +94,10 @@
 			<groupId>org.matsim</groupId>
 			<artifactId>matsim-examples</artifactId>
 			<version>${matsim.version}</version>
-<!--			<scope>test</scope>-->
-<!--			I think that having it in the "main" scope is acceptable for a "leaf" project, and makes life easier.  move the-->
-<!--			matsim-examples dependency into "test" scope if you want to make other projects dependent on your this project here. kai,-->
-<!--			jan'21-->
+			<!--			<scope>test</scope>-->
+			<!--			I think that having it in the "main" scope is acceptable for a "leaf" project, and makes life easier.  move the-->
+			<!--			matsim-examples dependency into "test" scope if you want to make other projects dependent on your this project here. kai,-->
+			<!--			jan'21-->
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.univocity/univocity-parsers -->
@@ -158,14 +158,20 @@
 			<artifactId>application</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <!--Dependencies from where stated above to here are added as a service; they can be removed if you don't need them-->
+		<!--Dependencies from where stated above to here are added as a service; they can be removed if you don't need them-->
 
 	</dependencies>
 
@@ -182,9 +188,9 @@
 				</configuration>
 			</plugin>
 			<plugin>
-<!--				The maven-shade-plugin replaces the maven-assembly-plugin to configure "mvn package". The assembly-plugin regularly-->
-<!--				creates problems when GeoTools are used, which the shade-plugin does not (see-->
-<!--				https://stackoverflow.com/questions/27429097/geotools-cannot-find-hsql-epsg-db-throws-error-nosuchauthoritycodeexception/27431381#27431381)-->
+				<!--				The maven-shade-plugin replaces the maven-assembly-plugin to configure "mvn package". The assembly-plugin regularly-->
+				<!--				creates problems when GeoTools are used, which the shade-plugin does not (see-->
+				<!--				https://stackoverflow.com/questions/27429097/geotools-cannot-find-hsql-epsg-db-throws-error-nosuchauthoritycodeexception/27431381#27431381)-->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.2</version>
@@ -223,14 +229,14 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
-            </plugin>
-        </plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
