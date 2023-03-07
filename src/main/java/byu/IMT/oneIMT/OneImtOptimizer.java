@@ -44,60 +44,77 @@ import java.util.List;
 /**
  * @author michalm
  */
-final class OneImtOptimizer implements VrpOptimizer {
-	enum OneImtTaskType implements Task.TaskType {
+public final class OneImtOptimizer implements VrpOptimizer {
+
+	public enum OneImtTaskType implements Task.TaskType {
 		DRIVE_TO_INCIDENT, ARRIVAL, INCIDENT_MANAGEMENT, DEPARTURE, WAIT
 	}
 
 	private final MobsimTimer timer;
-
 	private final TravelTime travelTime;
 	private final LeastCostPathCalculator router;
 
-	private final DvrpVehicle vehicle;// we have only one vehicle
+	private final DvrpVehicle vehicle;
+	private final Fleet fleet;
 
-	private static final double INCIDENT_MANAGEMENT_DURATION = 120; // This time should be variable, but for now, it is going to be two minutes.
 
+	private static final double INCIDENT_MANAGEMENT_DURATION = 120; // 2 minutes
+	// This submissionTime should be variable, but for now, it is going to be two minutes. -D.J.
 
 	@Inject
-	public OneImtOptimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet,
-						   MobsimTimer timer) {
+	public OneImtOptimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer) {
 		this.timer = timer;
+		this.fleet = fleet;
 		travelTime = new FreeSpeedTravelTime();
 		router = new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime),
 				travelTime);
-
-		vehicle = fleet.getVehicles().values().iterator().next();
-		vehicle.getSchedule()
-				.addTask(new DefaultStayTask(OneImtTaskType.WAIT, vehicle.getServiceBeginTime(), vehicle.getServiceEndTime(),
-						vehicle.getStartLink()));
+		// field injection
+		this.vehicle = fleet.getVehicles().values().iterator().next();
+		// loop over all vehicles and add the waiting task
+		for (DvrpVehicle vehicle : fleet.getVehicles().values()) {
+			vehicle.getSchedule().addTask(new DefaultStayTask(OneImtTaskType.WAIT, vehicle.getServiceBeginTime(),
+					vehicle.getServiceEndTime(), vehicle.getStartLink()));
+		}
 	}
 
 	@Override
 	public void requestSubmitted(Request request) {
-		Schedule schedule = vehicle.getSchedule();
-		StayTask lastTask = (StayTask)Schedules.getLastTask(schedule);// only WaitTask possible here
+		OneImtRequest req = (OneImtRequest) request;
+		Link toLink = req.getToLink();
+
+		// find the vehicle with the best path to the incident
+		double bestTravelTime = Double.POSITIVE_INFINITY;
+		DvrpVehicle bestVehicle = null;
+		for (DvrpVehicle vehicle : fleet.getVehicles().values()) {
+			Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
+
+			// calculate the travel time from the current location of the vehicle to the incident location
+			double time_zero = 0;
+			VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(fromLink, toLink, time_zero, router, travelTime);
+
+			// calculate the time it would take to complete the request (travel time + incident management time)
+			double travelTimeWithIncident = pathToIncident.getArrivalTime();
+
+			// check if this is the best vehicle so far
+			if (travelTimeWithIncident < bestTravelTime) {
+				bestTravelTime = travelTimeWithIncident;
+				bestVehicle = vehicle;
+			}
+		}
+
+		// add the tasks to the schedule of the best vehicle
+		Schedule schedule = bestVehicle.getSchedule();
+		StayTask lastTask = (StayTask) Schedules.getLastTask(schedule);// only WaitTask possible here
 		double currentTime = timer.getTimeOfDay();
 
 		switch (lastTask.getStatus()) {
-			case PLANNED:
-				schedule.removeLastTask();// remove wait task
-				break;
-
-			case STARTED:
-				lastTask.setEndTime(currentTime);// shorten wait task
-				break;
-
-			case PERFORMED:
-			default:
-				throw new IllegalStateException();
+			case PLANNED -> schedule.removeLastTask();// remove wait task
+			case STARTED -> lastTask.setEndTime(currentTime);// shorten wait task
+			case PERFORMED -> throw new IllegalStateException();
 		}
 
-		OneImtRequest req = (OneImtRequest)request;
-		Link toLink = req.getToLink();
-
 		double t0 = schedule.getStatus() == ScheduleStatus.UNPLANNED ?
-				Math.max(vehicle.getServiceBeginTime(), currentTime) :
+				Math.max(bestVehicle.getServiceBeginTime(), currentTime) :
 				Schedules.getLastTask(schedule).getEndTime();
 
 		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(lastTask.getLink(), toLink, t0, router, travelTime);
@@ -107,23 +124,18 @@ final class OneImtOptimizer implements VrpOptimizer {
 		double t2 = t1 + INCIDENT_MANAGEMENT_DURATION;// 2 minutes for the incident management.
 		schedule.addTask(new OneImtServeTask(OneImtTaskType.INCIDENT_MANAGEMENT, t1, t2, toLink, req));
 
-		// just wait (and be ready) till the end of the vehicle's time window (T1)
+		// just wait (and be ready) till the end of the vehicle's submissionTime window (T1)
 		double tEnd = Math.max(t2, vehicle.getServiceEndTime());
 		schedule.addTask(new DefaultStayTask(OneImtTaskType.WAIT, t2, tEnd, toLink));
 	}
 
 	@Override
-	public void nextTask(DvrpVehicle vehicle1) {
-		updateTimings();
-		vehicle1.getSchedule().nextTask();
+	public void nextTask(DvrpVehicle vehicle) {
+		updateTimings(vehicle.getSchedule());
+		vehicle.getSchedule().nextTask();
 	}
 
-	/**
-	 * Simplified version. For something more advanced, see
-	 * {@link org.matsim.contrib.taxi.scheduler.TaxiScheduler#updateBeforeNextTask(DvrpVehicle)} in the taxi contrib
-	 */
-	private void updateTimings() {
-		Schedule schedule = vehicle.getSchedule();
+	private void updateTimings(Schedule schedule) {
 		if (schedule.getStatus() != ScheduleStatus.STARTED) {
 			return;
 		}
@@ -148,13 +160,9 @@ final class OneImtOptimizer implements VrpOptimizer {
 			task.setEndTime(task.getEndTime() + diff);
 		}
 
-		// wait task
-		if (nextTaskIdx != tasks.size()) {
-			Task waitTask = tasks.get(tasks.size() - 1);
-			waitTask.setBeginTime(waitTask.getBeginTime() + diff);
-
-			double tEnd = Math.max(waitTask.getBeginTime(), vehicle.getServiceEndTime());
-			waitTask.setEndTime(tEnd);
-		}
+		// last task (waiting)
+		Task lastTask = tasks.get(tasks.size() - 1);
+		lastTask.setBeginTime(Math.max(currentTask.getEndTime(), lastTask.getBeginTime()));
+		lastTask.setEndTime(Math.max(currentTask.getEndTime(), lastTask.getEndTime()));
 	}
 }
