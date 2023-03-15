@@ -18,16 +18,17 @@
  * *********************************************************************** */
 package byu.run;
 
+import byu.IMT.utahIMT.UtahImtModule;
 import byu.incidents.Read_Incident;
 import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.TransportMode;
+import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
 import org.matsim.contrib.otfvis.OTFVisLiveModule;
-import org.matsim.contrib.taxi.run.MultiModeTaxiConfigGroup;
-import org.matsim.contrib.taxi.run.MultiModeTaxiModule;
-import org.matsim.contrib.taxi.run.TaxiConfigGroup;
 import org.matsim.core.config.Config;
+import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
@@ -40,28 +41,28 @@ import java.io.IOException;
  * Note that several optimizers may be set directly within the config file.
  */
 
-public class RunUtah {
+public class RunUtahIMT {
 
-	public static final String CONFIG_FILE = "scenarios/utah/utah_taxi_config.xml";
+	public static final String CONFIG_FILE = "C:/Users/djarvis3/BYU_imt_optimization/scenarios/utahIMT/utah.xml";
 
-	public static void run(String configFile, boolean otfvis) throws IOException {
+	public static final String TRUCK_FILE = "C:/Users/djarvis3/BYU_imt_optimization/scenarios/utahIMT/ImtVehicles.xml";
+
+	public static void run(String configFile, String trucksFile, boolean otfvis) throws IOException {
 		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new MultiModeTaxiConfigGroup(), new DvrpConfigGroup(),
-				new OTFVisConfigGroup());
+		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup());
 
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		//Read_Incident incident = new Read_Incident(scenario);
-		//incident.Incident_Generator("incident_excel_data/IncidentData_Daniel.csv");
+
+		Read_Incident incident = new Read_Incident(scenario);
+		incident.Incident_Generator("incident_excel_data/IncidentData_Daniel.csv");
 
 		// setup controler
 		Controler controler = new Controler(scenario);
-
-		String mode = TaxiConfigGroup.getSingleModeTaxiConfig(config).getMode();
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new MultiModeTaxiModule());
-		controler.configureQSimComponents(DvrpQSimComponents.activateModes(mode));
+		controler.addOverridingModule(new UtahImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
 		if (otfvis) {
 			controler.addOverridingModule(new OTFVisLiveModule()); // OTFVis visualisation
@@ -71,9 +72,6 @@ public class RunUtah {
 		controler.run();
 	}
 
-	public static void main(String[] args) throws IOException {
 
-		run(CONFIG_FILE, false); // switch to 'true' to turn on visualisation
-	}
+	public static void main(String[] args) throws IOException {run(CONFIG_FILE,TRUCK_FILE, false);}
 }
-
