@@ -20,14 +20,10 @@
 
 package byu.IMT.utahIMT;
 
-import byu.incidents.Read_Incident;
 import com.google.inject.Key;
-import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
-import org.matsim.api.core.v01.network.Network;
 import org.matsim.contrib.dvrp.fleet.FleetModule;
 import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.DvrpModeRoutingNetworkModule;
@@ -55,13 +51,11 @@ public class UtahImtModule extends AbstractDvrpModeModule {
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
 	}
 
-
 	@Override
 	public void install() {
 		DvrpModes.registerDvrpMode(binder(), getMode());
 		install(new DvrpModeRoutingNetworkModule(getMode(), false));
 		bindModal(TravelTime.class).to(Key.get(TravelTime.class, Names.named(DvrpTravelTimeModule.DVRP_ESTIMATED)));
-		bind(Read_Incident.class).in(Singleton.class);
 
 		install(new FleetModule(getMode(), fleetSpecificationUrl, createTruckType()));
 

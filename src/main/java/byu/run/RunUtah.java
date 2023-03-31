@@ -18,7 +18,7 @@
  * *********************************************************************** */
 package byu.run;
 
-import byu.incidents.Read_Incident;
+import byu.incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
@@ -52,8 +52,8 @@ public class RunUtah {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		//Read_Incident incident = new Read_Incident(scenario);
-		//incident.Incident_Generator("incident_excel_data/IncidentData_Daniel.csv");
+		IncidentReader incidents = new IncidentReader(scenario);
+		incidents.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
 
 		// setup controler
 		Controler controler = new Controler(scenario);

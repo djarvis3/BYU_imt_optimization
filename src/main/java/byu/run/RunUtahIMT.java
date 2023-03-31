@@ -19,10 +19,9 @@
 package byu.run;
 
 import byu.IMT.utahIMT.UtahImtModule;
-import byu.incidents.Read_Incident;
+import byu.incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
-import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
@@ -55,8 +54,8 @@ public class RunUtahIMT {
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 
-		Read_Incident incident = new Read_Incident(scenario);
-		incident.Incident_Generator("incident_excel_data/IncidentData_Daniel.csv");
+		IncidentReader incident = new IncidentReader(scenario);
+		incident.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
 
 		// setup controler
 		Controler controler = new Controler(scenario);

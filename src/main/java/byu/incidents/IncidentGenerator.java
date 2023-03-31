@@ -2,7 +2,7 @@ package byu.incidents;
 
 import java.util.Random;
 
-public class Incident_Generator {
+public class IncidentGenerator {
 
 	private final int[] PROBABILITIES = {
 			23, 45, 60, 128, 181, 323, 466, 594, 654, 759,
@@ -11,7 +11,7 @@ public class Incident_Generator {
 
 	private int incNum;
 
-	public Incident_Generator() {
+	public IncidentGenerator() {
 		Random rand = new Random();
 		int numSelector = rand.nextInt(1000) + 1; // generate a random number between 1 and 1000
 

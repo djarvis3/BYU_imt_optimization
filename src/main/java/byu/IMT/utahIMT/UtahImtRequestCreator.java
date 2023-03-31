@@ -18,10 +18,7 @@
  * *********************************************************************** */
 
 package byu.IMT.utahIMT;
-
-import byu.incidents.Read_Incident;
 import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.contrib.dvrp.optimizer.Request;
@@ -46,7 +43,18 @@ public final class UtahImtRequestCreator implements MobsimAfterSimStepListener {
 	public UtahImtRequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
 								 @DvrpMode(TransportMode.truck) Network network) {
 		this.optimizer = optimizer;
-		}
+		requests.addAll(Arrays.asList(
+				createRequest("parcel_0", "349", 0, network),
+				createRequest("parcel_1", "437", 300, network),
+				createRequest("parcel_2", "347", 600, network),
+				createRequest("parcel_3", "119", 900, network),
+				createRequest("parcel_4", "260", 1200, network),
+				createRequest("parcel_5", "438", 1500, network),
+				createRequest("parcel_6", "111", 1800, network),
+				createRequest("parcel_7", "318", 2100, network),
+				createRequest("parcel_8", "236", 2400, network),
+				createRequest("parcel_9", "330", 2700, network)));
+	}
 
 
 	public UtahImtRequest createRequest(String requestId, String toLinkId, double time, Network network) {
@@ -55,7 +63,7 @@ public final class UtahImtRequestCreator implements MobsimAfterSimStepListener {
 	}
 
 	@Override
-	public void notifyMobsimAfterSimStep(@SuppressWarnings("rawtypes") MobsimAfterSimStepEvent e) {
+	public void notifyMobsimAfterSimStep(MobsimAfterSimStepEvent e) {
 		while (isReadyForSubmission(requests.peek(), e.getSimulationTime())) {
 			optimizer.requestSubmitted(requests.poll());
 		}
