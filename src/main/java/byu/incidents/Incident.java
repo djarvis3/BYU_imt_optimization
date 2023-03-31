@@ -62,7 +62,7 @@ public class Incident {
 		return reduction;
 	}
 
-	public void setReduction(Double reduction) {
+	public void setCapacityReduction(Double reduction) {
 		this.reduction = reduction;
 	}
 }
