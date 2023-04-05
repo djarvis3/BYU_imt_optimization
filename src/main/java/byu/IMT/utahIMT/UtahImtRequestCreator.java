@@ -18,48 +18,65 @@
  * *********************************************************************** */
 
 package byu.IMT.utahIMT;
+import byu.incidents.Incident;
+import byu.incidents.IncidentReader;
+import com.google.inject.Inject;
 import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
+import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.contrib.dvrp.optimizer.Request;
 import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.run.DvrpMode;
+import org.matsim.core.events.handler.EventHandler;
 import org.matsim.core.mobsim.framework.events.MobsimAfterSimStepEvent;
 import org.matsim.core.mobsim.framework.listeners.MobsimAfterSimStepListener;
 
-import javax.inject.Inject;
 import java.util.*;
 
 /**
  * @author michalm
  */
-public final class UtahImtRequestCreator implements MobsimAfterSimStepListener {
-	private final VrpOptimizer optimizer;
-	private final PriorityQueue<UtahImtRequest> requests = new PriorityQueue<>(10,
-			Comparator.comparing(Request::getSubmissionTime));
+public class UtahImtRequestCreator implements MobsimAfterSimStepListener, EventHandler {
 
+	private final VrpOptimizer optimizer;
+	private final PriorityQueue<UtahImtRequest> requests = new PriorityQueue<>(18,
+			Comparator.comparing(Request::getSubmissionTime));
+	private final Network network;
+	private static int incidentsAddedCount = 0; // variable to count the number of times addIncidentsToRequests is called
 
 	@Inject
 	public UtahImtRequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
-								 @DvrpMode(TransportMode.truck) Network network) {
+								 @DvrpMode(TransportMode.truck) Network network,
+								 Scenario scenario) {
+
 		this.optimizer = optimizer;
-		requests.addAll(Arrays.asList(
-				createRequest("parcel_0", "349", 0, network),
-				createRequest("parcel_1", "437", 300, network),
-				createRequest("parcel_2", "347", 600, network),
-				createRequest("parcel_3", "119", 900, network),
-				createRequest("parcel_4", "260", 1200, network),
-				createRequest("parcel_5", "438", 1500, network),
-				createRequest("parcel_6", "111", 1800, network),
-				createRequest("parcel_7", "318", 2100, network),
-				createRequest("parcel_8", "236", 2400, network),
-				createRequest("parcel_9", "330", 2700, network)));
+		this.network = network;
+
+		// only add incidents if they have not been added before
+		if (incidentsAddedCount == 0) {
+			addIncidentsToRequests(scenario);
+			incidentsAddedCount++;
+		}
 	}
 
 
-	public UtahImtRequest createRequest(String requestId, String toLinkId, double time, Network network) {
-		return new UtahImtRequest(Id.create(requestId, Request.class),
-				network.getLinks().get(Id.createLinkId(toLinkId)), time);
+
+	private void addIncidentsToRequests(Scenario scenario) {
+		IncidentReader incidents = new IncidentReader(scenario.getNetwork());
+		incidents.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
+		List<Incident> incidentsSelected = incidents.getIncidentsSelected();
+		for (Incident incident : incidentsSelected) {
+			requests.add(createRequest(incident));
+		}
+	}
+
+	public UtahImtRequest createRequest(Incident incident) {
+		String requestId = "incident_" + incident.getIncidentID();
+		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
+		double time = incident.getStartTime();
+		return new UtahImtRequest(Id.create(requestId, Request.class), toLink, time);
 	}
 
 	@Override
@@ -71,5 +88,10 @@ public final class UtahImtRequestCreator implements MobsimAfterSimStepListener {
 
 	private boolean isReadyForSubmission(UtahImtRequest request, double currentTime) {
 		return request != null && request.getSubmissionTime() <= currentTime;
+	}
+
+	@Override
+	public void reset(int iteration) {
+		EventHandler.super.reset(iteration);
 	}
 }

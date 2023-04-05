@@ -19,9 +19,9 @@
 package byu.run;
 
 import byu.IMT.utahIMT.UtahImtModule;
-import byu.incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
+
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
@@ -29,6 +29,7 @@ import org.matsim.contrib.otfvis.OTFVisLiveModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
+
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
@@ -39,6 +40,7 @@ import java.io.IOException;
  * An example class to Run a taxi scenario based on a config file.
  * Note that several optimizers may be set directly within the config file.
  */
+
 
 public class RunUtahIMT {
 
@@ -53,9 +55,6 @@ public class RunUtahIMT {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-
-		IncidentReader incident = new IncidentReader(scenario);
-		incident.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
 
 		// setup controler
 		Controler controler = new Controler(scenario);

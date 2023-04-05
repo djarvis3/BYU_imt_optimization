@@ -52,9 +52,6 @@ public class RunUtah {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		IncidentReader incidents = new IncidentReader(scenario);
-		incidents.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
-
 		// setup controler
 		Controler controler = new Controler(scenario);
 

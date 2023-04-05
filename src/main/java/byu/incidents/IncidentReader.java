@@ -24,19 +24,20 @@ public class IncidentReader {
 	private final List<Incident> incidentsSelected;
 
 	@Inject
-	public IncidentReader(Scenario scenario) {
-		this.network = scenario.getNetwork();
+	public IncidentReader(Network network) {
+		this.network = network;
 		this.incidentsSelected = new ArrayList<>();
+	}
+
+	// Add this method to get the selected incidents
+	public List<Incident> getIncidentsSelected() {
+		return incidentsSelected;
 	}
 
 	public void readIncidents(String csv) {
 		List<Incident> incidents = parseIncidents(csv);
 		selectRandomIncidents(incidents);
 		applyIncidentsToNetwork();
-	}
-
-	public List<Incident> getIncidentsSelected() {
-		return incidentsSelected;
 	}
 
 	private List<Incident> parseIncidents(String csv) {
