@@ -44,7 +44,7 @@ public class UtahImtRequestCreator implements MobsimAfterSimStepListener, EventH
 	private final PriorityQueue<UtahImtRequest> requests = new PriorityQueue<>(18,
 			Comparator.comparing(Request::getSubmissionTime));
 	private final Network network;
-	private static int incidentsAddedCount = 0; // variable to count the number of times addIncidentsToRequests is called
+	private static List<Incident> incidentsSelected;
 
 	@Inject
 	public UtahImtRequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
@@ -54,25 +54,26 @@ public class UtahImtRequestCreator implements MobsimAfterSimStepListener, EventH
 		this.optimizer = optimizer;
 		this.network = network;
 
-		// only add incidents if they have not been added before
-		if (incidentsAddedCount == 0) {
-			addIncidentsToRequests(scenario);
-			incidentsAddedCount++;
+		// Only read incidents if they have not been added before
+		if (incidentsSelected == null) {
+			incidentsSelected = addIncidentsToRequests(scenario);
 		}
-	}
 
-
-
-	private void addIncidentsToRequests(Scenario scenario) {
-		IncidentReader incidents = new IncidentReader(scenario.getNetwork());
-		incidents.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
-		List<Incident> incidentsSelected = incidents.getIncidentsSelected();
 		for (Incident incident : incidentsSelected) {
 			requests.add(createRequest(incident));
 		}
 	}
 
-	public UtahImtRequest createRequest(Incident incident) {
+	private List<Incident> addIncidentsToRequests(Scenario scenario) {
+		if (incidentsSelected == null) {
+			IncidentReader incidents = new IncidentReader(scenario.getNetwork());
+			incidents.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
+			incidentsSelected = incidents.getIncidentsSelected();
+		}
+		return incidentsSelected;
+	}
+
+	private UtahImtRequest createRequest(Incident incident) {
 		String requestId = "incident_" + incident.getIncidentID();
 		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
 		double time = incident.getStartTime();
@@ -80,7 +81,7 @@ public class UtahImtRequestCreator implements MobsimAfterSimStepListener, EventH
 	}
 
 	@Override
-	public void notifyMobsimAfterSimStep(MobsimAfterSimStepEvent e) {
+	public void notifyMobsimAfterSimStep(@SuppressWarnings("rawtypes") MobsimAfterSimStepEvent e) {
 		while (isReadyForSubmission(requests.peek(), e.getSimulationTime())) {
 			optimizer.requestSubmitted(requests.poll());
 		}
@@ -89,9 +90,5 @@ public class UtahImtRequestCreator implements MobsimAfterSimStepListener, EventH
 	private boolean isReadyForSubmission(UtahImtRequest request, double currentTime) {
 		return request != null && request.getSubmissionTime() <= currentTime;
 	}
-
-	@Override
-	public void reset(int iteration) {
-		EventHandler.super.reset(iteration);
-	}
 }
+

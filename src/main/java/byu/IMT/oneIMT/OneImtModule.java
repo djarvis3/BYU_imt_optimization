@@ -70,8 +70,6 @@ public class OneImtModule extends AbstractDvrpModeModule {
 		});
 	}
 
-
-	// I don't know how large the actual IMT vehicle are, but this should work for now. I wonder if adjusting the seat capacity could help in sending two vehicles to one incident.
 	private static VehicleType createTruckType() {
 		VehicleType truckType = VehicleUtils.getFactory().createVehicleType(Id.create("truckType", VehicleType.class));
 		truckType.setLength(15.);
