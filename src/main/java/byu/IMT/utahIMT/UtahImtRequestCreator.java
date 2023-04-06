@@ -40,55 +40,66 @@ import java.util.*;
  */
 public class UtahImtRequestCreator implements MobsimAfterSimStepListener, EventHandler {
 
+	// Instance variables
 	private final VrpOptimizer optimizer;
-	private final PriorityQueue<UtahImtRequest> requests = new PriorityQueue<>(18,
+	private final PriorityQueue<UtahImtRequest> requests = new PriorityQueue<>(36,
 			Comparator.comparing(Request::getSubmissionTime));
 	private final Network network;
 	private static List<Incident> incidentsSelected;
 
+	// Constructor
 	@Inject
 	public UtahImtRequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
 								 @DvrpMode(TransportMode.truck) Network network,
 								 Scenario scenario) {
 
+		// Initialize instance variables
 		this.optimizer = optimizer;
 		this.network = network;
 
-		// Only read incidents if they have not been added before
+		// Read incidents from the CSV file and select only the "incidentsSelected" list
 		if (incidentsSelected == null) {
-			incidentsSelected = addIncidentsToRequests(scenario);
+			incidentsSelected = readIncidentsFromCsv(scenario);
 		}
 
+		// Create a new request for each responding IMT for each incident and add it to the requests PriorityQueue
 		for (Incident incident : incidentsSelected) {
-			requests.add(createRequest(incident));
+			Integer respondingUnits = incident.getRespondingIMTs();
+			for (int i = 0; i < respondingUnits; i++) {
+				requests.add(createRequest(incident, respondingUnits));
+			}
 		}
 	}
 
-	private List<Incident> addIncidentsToRequests(Scenario scenario) {
+	// Reads incidents from the CSV file and selects only the "incidentsSelected" list
+	private List<Incident> readIncidentsFromCsv(Scenario scenario) {
 		if (incidentsSelected == null) {
-			IncidentReader incidents = new IncidentReader(scenario.getNetwork());
-			incidents.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
-			incidentsSelected = incidents.getIncidentsSelected();
+			IncidentReader incidentReader = new IncidentReader(scenario.getNetwork());
+			incidentReader.readIncidents("incident_excel_data/IncidentData_Daniel.csv");
+			incidentsSelected = incidentReader.getIncidentsSelected();
 		}
 		return incidentsSelected;
 	}
 
-	private UtahImtRequest createRequest(Incident incident) {
-		String requestId = "incident_" + incident.getIncidentID();
+	// Creates a new request from an incident and a responding unit ID
+	private UtahImtRequest createRequest(Incident incident, int respondingUnitId) {
+		String requestId = "incident_" + incident.getIncidentID() + "_" + respondingUnitId;
 		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
-		double time = incident.getStartTime();
-		return new UtahImtRequest(Id.create(requestId, Request.class), toLink, time);
+		double submissionTime = incident.getStartTime();
+		return new UtahImtRequest(Id.create(requestId, Request.class), toLink, submissionTime);
 	}
 
+	// Called at the end of each simulation step
 	@Override
 	public void notifyMobsimAfterSimStep(@SuppressWarnings("rawtypes") MobsimAfterSimStepEvent e) {
-		while (isReadyForSubmission(requests.peek(), e.getSimulationTime())) {
+		// Submit all requests that are ready (i.e., whose submission time is less than or equal to the current time)
+		while (canSubmitRequest(requests.peek(), e.getSimulationTime())) {
 			optimizer.requestSubmitted(requests.poll());
 		}
 	}
 
-	private boolean isReadyForSubmission(UtahImtRequest request, double currentTime) {
+	// Determines whether a request is ready to be submitted
+	private boolean canSubmitRequest(UtahImtRequest request, double currentTime) {
 		return request != null && request.getSubmissionTime() <= currentTime;
 	}
 }
-
