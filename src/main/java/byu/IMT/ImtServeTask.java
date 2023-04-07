@@ -17,38 +17,25 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.utahIMT;
+package byu.IMT;
 
-import org.matsim.api.core.v01.Id;
+
 import org.matsim.api.core.v01.network.Link;
-import org.matsim.contrib.dvrp.optimizer.Request;
+import org.matsim.contrib.dvrp.schedule.DefaultStayTask;
 
 /**
  * @author michalm
  */
-public final class UtahImtRequest implements Request {
-	private final Id<Request> id;
-	private final double submissionTime;
+public class ImtServeTask extends DefaultStayTask {
+	private final ImtRequest request;
 
-	private final Link toLink;
-
-	public UtahImtRequest(Id<Request> id, Link toLink, double submissionTime) {
-		this.id = id;
-		this.submissionTime = submissionTime;
-		this.toLink = toLink;
+	public ImtServeTask(ImtOptimizer.UtahImtTaskType taskType, double beginTime, double endTime, Link link,
+						ImtRequest request) {
+		super(taskType, beginTime, endTime, link);
+		this.request = request;
 	}
 
-	@Override
-	public Id<Request> getId() {
-		return id;
-	}
-
-	@Override
-	public double getSubmissionTime() {
-		return submissionTime;
-	}
-
-	public Link getToLink() {
-		return toLink;
+	public ImtRequest getRequest() {
+		return request;
 	}
 }

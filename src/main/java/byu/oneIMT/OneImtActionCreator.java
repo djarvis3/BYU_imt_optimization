@@ -17,9 +17,9 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.oneIMT;
+package byu.oneIMT;
 
-import byu.IMT.oneIMT.OneImtOptimizer.OneImtTaskType;
+import byu.oneIMT.OneImtOptimizer.OneImtTaskType;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;

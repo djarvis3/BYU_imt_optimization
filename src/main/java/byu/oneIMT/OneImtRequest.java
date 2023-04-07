@@ -3,7 +3,7 @@
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2012 by the members listed in the COPYING,        *
+ * copyright       : (C) 2013 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -17,36 +17,38 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.utahIMT;
+package byu.oneIMT;
 
-import com.google.inject.Inject;
-import org.matsim.api.core.v01.TransportMode;
-import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
-import org.matsim.contrib.dvrp.schedule.Task;
-import org.matsim.contrib.dvrp.vrpagent.VrpAgentLogic;
-import org.matsim.contrib.dvrp.vrpagent.VrpLegFactory;
-import org.matsim.contrib.dynagent.DynAction;
-import org.matsim.contrib.dynagent.DynAgent;
-import org.matsim.contrib.dynagent.IdleDynActivity;
-import org.matsim.core.mobsim.framework.MobsimTimer;
+import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.network.Link;
+import org.matsim.contrib.dvrp.optimizer.Request;
 
 /**
  * @author michalm
  */
-final class UtahImtActionCreator implements VrpAgentLogic.DynActionCreator {
-	private final MobsimTimer timer;
+public final class OneImtRequest implements Request {
+	private final Id<Request> id;
+	private final double submissionTime;
 
-	@Inject
-	public UtahImtActionCreator(MobsimTimer timer) {
-		this.timer = timer;
+	private final Link toLink;
+
+	public OneImtRequest(Id<Request> id, Link toLink, double submissionTime) {
+		this.id = id;
+		this.submissionTime = submissionTime;
+		this.toLink = toLink;
 	}
 
 	@Override
-	public DynAction createAction(DynAgent dynAgent, DvrpVehicle vehicle, double now) {
-		Task task = vehicle.getSchedule().getCurrentTask();
-		return switch ((UtahImtOptimizer.UtahImtTaskType) task.getTaskType()) {
-			case DRIVE_TO_INCIDENT -> VrpLegFactory.createWithOfflineTracker(TransportMode.truck, vehicle, timer);
-			case ARRIVAL, INCIDENT_MANAGEMENT, DEPARTURE, WAIT -> new IdleDynActivity(task.getTaskType() + "", task::getEndTime);
-		};
+	public Id<Request> getId() {
+		return id;
+	}
+
+	@Override
+	public double getSubmissionTime() {
+		return submissionTime;
+	}
+
+	public Link getToLink() {
+		return toLink;
 	}
 }

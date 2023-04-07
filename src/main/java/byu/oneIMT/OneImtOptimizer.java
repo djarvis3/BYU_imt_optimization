@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.oneIMT;
+package byu.oneIMT;
 
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.TransportMode;

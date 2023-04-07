@@ -18,7 +18,7 @@
  * *********************************************************************** */
 package byu.run;
 
-import byu.IMT.utahIMT.UtahImtModule;
+import byu.IMT.ImtModule;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 
@@ -44,9 +44,9 @@ import java.io.IOException;
 
 public class RunUtahIMT {
 
-	public static final String CONFIG_FILE = "C:/Users/djarvis3/BYU_imt_optimization/scenarios/utahIMT/utah.xml";
+	public static final String CONFIG_FILE = "scenarios/utahIMT/utah.xml";
 
-	public static final String TRUCK_FILE = "C:/Users/djarvis3/BYU_imt_optimization/scenarios/utahIMT/ImtVehicles.xml";
+	public static final String TRUCK_FILE = "ImtVehicles.xml";
 
 	public static void run(String configFile, String trucksFile, boolean otfvis) throws IOException {
 		// load config
@@ -59,7 +59,7 @@ public class RunUtahIMT {
 		// setup controler
 		Controler controler = new Controler(scenario);
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new UtahImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
 		if (otfvis) {

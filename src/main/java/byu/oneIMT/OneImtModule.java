@@ -18,7 +18,7 @@
  * *********************************************************************** *
  */
 
-package byu.IMT.utahIMT;
+package byu.oneIMT;
 
 import com.google.inject.Key;
 import com.google.inject.name.Names;
@@ -42,10 +42,10 @@ import java.net.URL;
 /**
  * @author Michal Maciejewski (michalm)
  */
-public class UtahImtModule extends AbstractDvrpModeModule {
+public class OneImtModule extends AbstractDvrpModeModule {
 	private final URL fleetSpecificationUrl;
 
-	public UtahImtModule(URL fleetSpecificationUrl) {
+	public OneImtModule(URL fleetSpecificationUrl) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
 	}
@@ -63,9 +63,9 @@ public class UtahImtModule extends AbstractDvrpModeModule {
 			protected void configureQSim() {
 				install(new VrpAgentSourceQSimModule(getMode()));
 
-				addModalComponent(UtahImtRequestCreator.class);
-				bindModal(VrpOptimizer.class).to(UtahImtOptimizer.class).asEagerSingleton();
-				bindModal(VrpAgentLogic.DynActionCreator.class).to(UtahImtActionCreator.class).asEagerSingleton();
+				addModalComponent(OneImtRequestCreator.class);
+				bindModal(VrpOptimizer.class).to(OneImtOptimizer.class).asEagerSingleton();
+				bindModal(VrpAgentLogic.DynActionCreator.class).to(OneImtActionCreator.class).asEagerSingleton();
 			}
 		});
 	}

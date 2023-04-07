@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.oneIMT;
+package byu.IMT;
 
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.network.Link;
@@ -26,13 +26,13 @@ import org.matsim.contrib.dvrp.optimizer.Request;
 /**
  * @author michalm
  */
-public final class OneImtRequest implements Request {
+public final class ImtRequest implements Request {
 	private final Id<Request> id;
 	private final double submissionTime;
 
 	private final Link toLink;
 
-	public OneImtRequest(Id<Request> id, Link toLink, double submissionTime) {
+	public ImtRequest(Id<Request> id, Link toLink, double submissionTime) {
 		this.id = id;
 		this.submissionTime = submissionTime;
 		this.toLink = toLink;

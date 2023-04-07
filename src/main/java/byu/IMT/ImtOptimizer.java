@@ -17,8 +17,9 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.utahIMT;
+package byu.IMT;
 
+import byu.incidents.Incident;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
@@ -44,72 +45,81 @@ import java.util.List;
 /**
  * @author michalm
  */
-public final class UtahImtOptimizer implements VrpOptimizer {
+public final class ImtOptimizer implements VrpOptimizer {
 
+	// Define task types that can be used by the optimizer
 	public enum UtahImtTaskType implements Task.TaskType {
 		DRIVE_TO_INCIDENT, ARRIVAL, INCIDENT_MANAGEMENT, DEPARTURE, WAIT
 	}
 
+	// Define some constants
+	private static final double INCIDENT_MANAGEMENT_DURATION = 120; // 2 minutes
+
+	// This submissionTime should be variable, but for now, it is going to be two minutes.
+
 	private final MobsimTimer timer;
 	private final TravelTime travelTime;
 	private final LeastCostPathCalculator router;
-
 	private final DvrpVehicle vehicle;
 	private final Fleet fleet;
+	List<Incident> incidentsSelected = IncidentManager.getIncidentsSelected();
 
 
-	private static final double INCIDENT_MANAGEMENT_DURATION = 120; // 2 minutes
-	// This submissionTime should be variable, but for now, it is going to be two minutes. -D.J.
-
+	// Constructor for the optimizer
 	@Inject
-	public UtahImtOptimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer) {
+	public ImtOptimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer) {
 		this.timer = timer;
 		this.fleet = fleet;
+
+		// Set up travel-related objects
 		travelTime = new FreeSpeedTravelTime();
-		router = new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime),
-				travelTime);
-		// field injection
+		router = new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime), travelTime);
+
+		// Set up the vehicles that will be used by the optimizer
 		this.vehicle = fleet.getVehicles().values().iterator().next();
-		// loop over all vehicles and add the waiting task
+
+		// Loop over all vehicles and add a waiting task to their schedules
 		for (DvrpVehicle vehicle : fleet.getVehicles().values()) {
-			vehicle.getSchedule().addTask(new DefaultStayTask(UtahImtTaskType.WAIT, vehicle.getServiceBeginTime(),
-					vehicle.getServiceEndTime(), vehicle.getStartLink()));
+			vehicle.getSchedule().addTask(new DefaultStayTask(UtahImtTaskType.WAIT, vehicle.getServiceBeginTime(), vehicle.getServiceEndTime(), vehicle.getStartLink()));
 		}
 	}
 
+	// Method called when a new request is submitted to the optimizer
 	@Override
 	public void requestSubmitted(Request request) {
-		UtahImtRequest req = (UtahImtRequest) request;
+		// Cast the request to the appropriate type
+		ImtRequest req = (ImtRequest) request;
 		Link toLink = req.getToLink();
 
-		// find the vehicle with the best path to the incident
+		// Find the vehicle with the best path to the incident
 		double bestTravelTime = Double.POSITIVE_INFINITY;
 		DvrpVehicle bestVehicle = null;
 		for (DvrpVehicle vehicle : fleet.getVehicles().values()) {
+			// Get the last link in the vehicle's schedule
 			Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
 
-			// calculate the travel time from the current location of the vehicle to the incident location
+			// Calculate the travel time from the current location of the vehicle to the incident location
 			double time_zero = 0;
 			VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(fromLink, toLink, time_zero, router, travelTime);
 
-			// calculate the time it would take to complete the request (travel time + incident management time)
+			// Calculate the time it would take to complete the request (travel time + incident management time)
 			double travelTimeWithIncident = pathToIncident.getArrivalTime();
 
-			// check if this is the best vehicle so far
+			// Check if this is the best vehicle so far
 			if (travelTimeWithIncident < bestTravelTime) {
 				bestTravelTime = travelTimeWithIncident;
 				bestVehicle = vehicle;
 			}
 		}
 
-		// add the tasks to the schedule of the best vehicle
+		// Add tasks to the schedule of the best vehicle
 		Schedule schedule = bestVehicle.getSchedule();
-		StayTask lastTask = (StayTask) Schedules.getLastTask(schedule);// only WaitTask possible here
+		StayTask lastTask = (StayTask) Schedules.getLastTask(schedule); // Only WaitTask possible here
 		double currentTime = timer.getTimeOfDay();
 
 		switch (lastTask.getStatus()) {
-			case PLANNED -> schedule.removeLastTask();// remove wait task
-			case STARTED -> lastTask.setEndTime(currentTime);// shorten wait task
+			case PLANNED -> schedule.removeLastTask(); // Remove wait task
+			case STARTED -> lastTask.setEndTime(currentTime); // Shorten wait task
 			case PERFORMED -> throw new IllegalStateException();
 		}
 
@@ -122,7 +132,7 @@ public final class UtahImtOptimizer implements VrpOptimizer {
 
 		double t1 = pathToIncident.getArrivalTime();
 		double t2 = t1 + INCIDENT_MANAGEMENT_DURATION;// 2 minutes for the incident management.
-		schedule.addTask(new UtahImtServeTask(UtahImtTaskType.INCIDENT_MANAGEMENT, t1, t2, toLink, req));
+		schedule.addTask(new ImtServeTask(UtahImtTaskType.INCIDENT_MANAGEMENT, t1, t2, toLink, req));
 
 		// just wait (and be ready) till the end of the vehicle's submissionTime window (T1)
 		double tEnd = Math.max(t2, vehicle.getServiceEndTime());

@@ -18,7 +18,7 @@
  * *********************************************************************** *
  */
 
-package byu.IMT.oneIMT;
+package byu.IMT;
 
 import com.google.inject.Key;
 import com.google.inject.name.Names;
@@ -42,16 +42,16 @@ import java.net.URL;
 /**
  * @author Michal Maciejewski (michalm)
  */
-public class OneImtModule extends AbstractDvrpModeModule {
+public class ImtModule extends AbstractDvrpModeModule {
 	private final URL fleetSpecificationUrl;
-
-	public OneImtModule(URL fleetSpecificationUrl) {
+	public ImtModule(URL fleetSpecificationUrl) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
 	}
 
 	@Override
 	public void install() {
+
 		DvrpModes.registerDvrpMode(binder(), getMode());
 		install(new DvrpModeRoutingNetworkModule(getMode(), false));
 		bindModal(TravelTime.class).to(Key.get(TravelTime.class, Names.named(DvrpTravelTimeModule.DVRP_ESTIMATED)));
@@ -63,9 +63,14 @@ public class OneImtModule extends AbstractDvrpModeModule {
 			protected void configureQSim() {
 				install(new VrpAgentSourceQSimModule(getMode()));
 
-				addModalComponent(OneImtRequestCreator.class);
-				bindModal(VrpOptimizer.class).to(OneImtOptimizer.class).asEagerSingleton();
-				bindModal(VrpAgentLogic.DynActionCreator.class).to(OneImtActionCreator.class).asEagerSingleton();
+				// Add an ImtRequestCreator modal component
+				addModalComponent(ImtRequestCreator.class);
+
+				// Bind the VrpOptimizer class to the ImtOptimizer class as a singleton instance
+				bindModal(VrpOptimizer.class).to(ImtOptimizer.class).asEagerSingleton();
+
+				// Bind the VrpAgentLogic.DynActionCreator class to the ImtActionCreator class as a singleton instance
+				bindModal(VrpAgentLogic.DynActionCreator.class).to(ImtActionCreator.class).asEagerSingleton();
 			}
 		});
 	}

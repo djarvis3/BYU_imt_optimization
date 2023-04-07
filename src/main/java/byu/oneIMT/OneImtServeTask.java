@@ -17,25 +17,25 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.utahIMT;
+package byu.oneIMT;
 
-
+import byu.oneIMT.OneImtOptimizer.OneImtTaskType;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.schedule.DefaultStayTask;
 
 /**
  * @author michalm
  */
-public class UtahImtServeTask extends DefaultStayTask {
-	private final UtahImtRequest request;
+public class OneImtServeTask extends DefaultStayTask {
+	private final OneImtRequest request;
 
-	public UtahImtServeTask(UtahImtOptimizer.UtahImtTaskType taskType, double beginTime, double endTime, Link link,
-							UtahImtRequest request) {
+	public OneImtServeTask(OneImtTaskType taskType, double beginTime, double endTime, Link link,
+						   OneImtRequest request) {
 		super(taskType, beginTime, endTime, link);
 		this.request = request;
 	}
 
-	public UtahImtRequest getRequest() {
+	public OneImtRequest getRequest() {
 		return request;
 	}
 }

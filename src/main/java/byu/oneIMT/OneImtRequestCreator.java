@@ -17,7 +17,7 @@
  *                                                                         *
  * *********************************************************************** */
 
-package byu.IMT.oneIMT;
+package byu.oneIMT;
 
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.TransportMode;

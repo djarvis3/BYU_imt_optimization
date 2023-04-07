@@ -1,6 +1,6 @@
 package byu.run;
 
-import byu.IMT.oneIMT.OneImtModule;
+import byu.oneIMT.OneImtModule;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
