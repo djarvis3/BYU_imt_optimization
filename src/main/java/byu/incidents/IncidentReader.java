@@ -78,7 +78,7 @@ public class IncidentReader {
 
 			for (Link link : matchingLinks) {
 				double capacity = link.getCapacity();
-				double reducedCapacity = capacity * incident.getCapacityReduction();
+				double reducedCapacity = capacity - (capacity*incident.getCapacityReduction());
 
 				NetworkChangeEvent startEvent = new NetworkChangeEvent(incident.getStartTime());
 				startEvent.setFlowCapacityChange(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, reducedCapacity));
@@ -92,7 +92,7 @@ public class IncidentReader {
 
 
 				// I will be able to get rid of this at some point in the future
-				System.out.println("Incident ID " + incident.getIncidentID() + " ,Responding IMTs " + incident.getRespondingIMTs() + ",  Link Number " + incident.getLinkId() + ", Capacity Reduction " + incident.getCapacityReduction());
+				System.out.println("Incident ID " + incident.getIncidentID() + ", Responding IMTs " + incident.getRespondingIMTs() + ", Link Number " + incident.getLinkId() + ", Capacity Reduction " + incident.getCapacityReduction() + ", Start Time " + incident.getStartTime());
 			}
 		}
 	}

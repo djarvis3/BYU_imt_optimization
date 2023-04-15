@@ -29,7 +29,7 @@ import org.matsim.contrib.dvrp.schedule.DefaultStayTask;
 public class ImtServeTask extends DefaultStayTask {
 	private final ImtRequest request;
 
-	public ImtServeTask(ImtOptimizer.UtahImtTaskType taskType, double beginTime, double endTime, Link link,
+	public ImtServeTask(ImtOptimizer.ImtTaskType taskType, double beginTime, double endTime, Link link,
 						ImtRequest request) {
 		super(taskType, beginTime, endTime, link);
 		this.request = request;

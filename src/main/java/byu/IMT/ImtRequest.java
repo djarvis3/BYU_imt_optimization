@@ -28,14 +28,21 @@ import org.matsim.contrib.dvrp.optimizer.Request;
  */
 public final class ImtRequest implements Request {
 	private final Id<Request> id;
-	private final double submissionTime;
+	private final double submissionTime; // Submission time = Incident Start Time
+	private final double endTime;
+	private final double capacityReduction;
+	private final int respondingIMTs;
 
 	private final Link toLink;
 
-	public ImtRequest(Id<Request> id, Link toLink, double submissionTime) {
+	public ImtRequest(Id<Request> id, Link toLink, double submissionTime, double endTime, double capacityReduction, int respondingIMTs) {
 		this.id = id;
-		this.submissionTime = submissionTime;
 		this.toLink = toLink;
+		this.submissionTime = submissionTime;
+		this.endTime = endTime;
+		this.capacityReduction = capacityReduction;
+		this.respondingIMTs = respondingIMTs;
+
 	}
 
 	@Override
@@ -48,7 +55,17 @@ public final class ImtRequest implements Request {
 		return submissionTime;
 	}
 
+	public double getEndTime() {
+		return endTime;
+	}
+
 	public Link getToLink() {
 		return toLink;
+	}
+
+	public double getCapacityReduction(){return capacityReduction;}
+
+	public int getRespondingIMTs() {
+		return respondingIMTs;
 	}
 }

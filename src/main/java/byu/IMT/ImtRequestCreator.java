@@ -65,12 +65,9 @@ public class ImtRequestCreator implements MobsimAfterSimStepListener, EventHandl
 
 		// Create a new request for each responding IMT for each incident and add it to the requests PriorityQueue
 		for (Incident incident : incidentsSelected) {
-			Integer respondingUnits = incident.getRespondingIMTs();
-			for (int i = 0; i < respondingUnits; i++) {
-				requests.add(createRequest(incident, respondingUnits));
+				requests.add(createRequest(incident));
 			}
 		}
-	}
 
 	// Reads incidents from the CSV file and selects only the "incidentsSelected" list
 	private List<Incident> readIncidentsFromCsv(Scenario scenario) {
@@ -83,11 +80,14 @@ public class ImtRequestCreator implements MobsimAfterSimStepListener, EventHandl
 	}
 
 	// Creates a new request from an incident and a responding unit ID
-	private ImtRequest createRequest(Incident incident, int respondingUnitId) {
-		String requestId = "incident_" + incident.getIncidentID() + "_" + respondingUnitId;
+	private ImtRequest createRequest(Incident incident) {
+		String requestId = "incident_" + incident.getIncidentID();
 		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
 		double submissionTime = incident.getStartTime();
-		return new ImtRequest(Id.create(requestId, Request.class), toLink, submissionTime);
+		double endTime = incident.getEndTime();
+		double capacityReduction = incident.getCapacityReduction();
+		int respondingIMTs = incident.getRespondingIMTs();
+		return new ImtRequest(Id.create(requestId, Request.class), toLink, submissionTime, endTime, capacityReduction, respondingIMTs);
 	}
 
 	// Called at the end of each simulation step
