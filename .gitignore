@@ -16,8 +16,9 @@ hs_err_pid*
 /target/
 /output/
 /bin/
-/romeOutput/
-/scenarios/berlin/output/
+/src/main/java/network
+/src/main/java/readers
+
 
 /.idea/
 *.iml
