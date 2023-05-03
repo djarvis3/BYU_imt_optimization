@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!DOCTYPE vehicles SYSTEM "http://matsim.org/files/dtd/dvrp_vehicles_v1.dtd">
+
+<vehicles>
+	<vehicle id="imt_1" start_link="30673" t_0="0" t_1="86400"/>
+	<vehicle id="imt_2" start_link="24404" t_0="0" t_1="86400"/>
+	<vehicle id="imt_3" start_link="24924" t_0="0" t_1="86400"/>
+	<vehicle id="imt_4" start_link="30679" t_0="0" t_1="86400"/>
+	<vehicle id="imt_5" start_link="30847" t_0="0" t_1="86400"/>
+
+	<vehicle id="imt_6" start_link="24390" t_0="0" t_1="86400"/>
+	<vehicle id="imt_7" start_link="46144" t_0="0" t_1="86400"/>
+	<vehicle id="imt_8" start_link="24514" t_0="0" t_1="86400"/>
+	<vehicle id="imt_9" start_link="24897" t_0="0" t_1="86400"/>
+	<vehicle id="imt_10" start_link="4554" t_0="0" t_1="86400"/>
+
+	<vehicle id="imt_11" start_link="30761" t_0="0" t_1="86400"/>
+	<vehicle id="imt_12" start_link="33522" t_0="0" t_1="86400"/>
+	<vehicle id="imt_13" start_link="2841" t_0="0" t_1="86400"/>
+	<vehicle id="imt_14" start_link="24342" t_0="0" t_1="86400"/>
+	<vehicle id="imt_15" start_link="30814" t_0="0" t_1="86400"/>
+
+	<vehicle id="imt_16" start_link="24939" t_0="0" t_1="86400"/>
+	<vehicle id="imt_17" start_link="37500" t_0="0" t_1="86400"/>
+	<vehicle id="imt_18" start_link="33550" t_0="0" t_1="86400"/>
+	<vehicle id="imt_19" start_link="32341" t_0="0" t_1="86400"/>
+	<vehicle id="imt_20" start_link="4784" t_0="0" t_1="86400"/>
+
+	<vehicle id="imt_21" start_link="17013" t_0="0" t_1="86400"/>
+	<vehicle id="imt_22" start_link="30648" t_0="0" t_1="86400"/>
+	<vehicle id="imt_23" start_link="24608" t_0="0" t_1="86400"/>
+	<vehicle id="imt_24" start_link="30673" t_0="0" t_1="86400"/>
+	<vehicle id="imt_25" start_link="24404" t_0="0" t_1="86400"/>
+
+</vehicles>

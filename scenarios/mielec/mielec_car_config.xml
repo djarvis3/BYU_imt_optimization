@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
+<config>
+	<module name="dvrp">
+	</module>
+
+	<module name="network">
+		<param name="inputNetworkFile" value="network.xml"/>
+		<param name="timeVariantNetwork" value="true"/>
+		<!-- param name="inputChangeEventsFile" value=""/ if timeVariantNetwork -->
+	</module>
+
+	<module name="plans">
+		<param name="inputPlansFile" value="plans_only_car_4.0.xml"/>
+	</module>
+
+	<module name="qsim">
+		<param name="mainMode" value="car,truck"/>
+		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
+
+		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
+		<param name="startTime" value="00:00:00" />
+		<param name="endTime" value="00:00:00" />
+
+		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
+	</module>
+
+	<module name="travelTimeCalculator">
+		<param name="analyzedModes" value="car,truck"/>
+	</module>
+
+	<module name="otfvis">
+		<param name="coloringScheme" value="taxicab"/>
+		<param name="drawNonMovingItems" value="true"/>
+	</module>
+
+	<module name="controler">
+		<param name="outputDirectory" value="output/mielec_incidents"/>
+		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
+		<param name="firstIteration" value="0"/>
+		<param name="lastIteration" value="1"/>
+	</module>
+
+	<module name="planCalcScore">
+		<param name="activityType_0" value="dummy"/>
+		<param name="activityTypicalDuration_0" value="24:00:00"/>
+		<param name="traveling_taxi" value="-6"/>
+	</module>
+
+
+	<module name="strategy">
+		<!-- We focus only on DynAgents. "Standard" agents do not change their behaviour -->
+		<param name="maxAgentPlanMemorySize" value="5"/> <!-- 0 means unlimited -->
+
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="BestScore"/>
+			<param name="weight" value="0.8"/>
+		</parameterset>
+
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ReRoute"/>
+			<param name="weight" value="0.1"/>
+		</parameterset>
+
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="TimeAllocationMutator"/>
+			<param name="weight" value="0.1"/>
+		</parameterset>
+	</module>
+</config>

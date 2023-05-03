@@ -9,6 +9,11 @@
 
 	<module name="network">
 		<param name="inputNetworkFile" value="network.xml.gz" />
+		<param name="timeVariantNetwork" value="true"/>
+
+	</module>
+
+	<module name="dvrp">
 	</module>
 
 	<module name="plans">
@@ -16,13 +21,40 @@
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="./output/berlin_Outputs/berlin_RunMatsimTimeDependentNetwork" />
+		<param name="outputDirectory" value="./output/berlin_Outputs" />
+		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="50" />
+		<param name="lastIteration" value="10" />
 	</module>
 
 	<module name="controler">
 		<param name= "routingAlgorithmType" value="AStarLandmarks" />
+	</module>
+
+	<module name="qsim">
+		<param name="mainMode" value="car,truck"/>
+		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
+		<param name="snapshotStyle" value="queue"/>
+		<param name="flowCapacityFactor" value= "0.01"/>
+		<param name= "storageCapacityFactor" value="0.05"/>
+
+
+
+		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
+		<param name="startTime" value="00:00:00" />
+		<param name="endTime" value="00:00:00" />
+
+		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
+	</module>
+
+	<module name="travelTimeCalculator">
+		<param name="analyzedModes" value="car,truck"/>
+	</module>
+
+	<module name="otfvis">
+		<param name="coloringScheme" value="taxicab"/>
+		<param name="drawNonMovingItems" value="true"/>
 	</module>
 
 	<module name="planCalcScore">
@@ -75,7 +107,7 @@
 			</parameterset>
 		</parameterset>
 	</module>
-	
+
 	<module name="strategy">
 		<param name="maxAgentPlanMemorySize" value="5" /> <!-- 0 means unlimited -->
 
