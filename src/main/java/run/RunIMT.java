@@ -34,12 +34,6 @@ import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
 import java.io.IOException;
 
-/**
- * An example class to Run a taxi scenario based on a config file.
- * Note that several optimizers may be set directly within the config file.
- */
-
-
 public class RunIMT {
 
 	public static final String CONFIG_FILE = "scenarios/utah/config.xml";

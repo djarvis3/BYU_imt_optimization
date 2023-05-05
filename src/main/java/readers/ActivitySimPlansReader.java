@@ -46,7 +46,7 @@ public class ActivitySimPlansReader {
         while ((record = parser.parseNextRecord()) != null) {
 
             // get person id from csv file
-            Id<Person> personId = Id.createPersonId(record.getString("person_id"));
+            Id<Person> personId = Id.createPersonId(record.getString("personId"));
             Person person;
             Plan plan;
             // check to see if we have seen this person before
@@ -61,29 +61,31 @@ public class ActivitySimPlansReader {
             }
 
             // let's figure out if this is an activity or a leg
-            if (record.getString("ActivityType") != null) { // this is an activity
+            if (record.getString("activityType") != null) { // this is an activity
                 Double x = record.getDouble("x");
                 Double y = record.getDouble("y");
                 Coord actCoord = CoordUtils.createCoord(x, y);
-                actCoord = ct.transform(actCoord);
+                // The ct.transformation is necessary if the coordinates are not set to UTM 12N
+				// actCoord = ct.transform(actCoord);
 
                 // ActivitySim modes are not the same as BEAM / MATSim modes. Will need to translate them here.
 
-                String actType = record.getString("ActivityType");
+                String actType = record.getString("activityType");
                 if (actType.equals("Home") || actType.equals("home")) {actType = "home";}
-                else if (actType.equals("atwork") || actType.equals("work")) {actType= "work";}
-                else if (actType.equals("escort") || actType.equals("social")) {actType= "leisure";}
-                else if (actType.equals("school") || actType.equals("univ")) {actType= "education";}
-                else if (actType.equals("eatout") || actType.equals("othdiscr") ||
-                         actType.equals("othmaint") || actType.equals("shopping"))  {actType = "other";}
+                else if (actType.equals("atwork") || actType.equals("work") || actType.equals("Work")) {actType= "work";}
+                else if (actType.equals("escort") || actType.equals("social") ||
+						 actType.equals("school") || actType.equals("univ") ||
+                		 actType.equals("eatout") || actType.equals("othdiscr") ||
+						 actType.equals("othmaint") || actType.equals("shopping"))
+  				{actType = "other";}
                 else {actType = "ADD ACTIVITY TYPE";}
 
                 Activity activity = pf.createActivityFromCoord(actType, actCoord);
                 // if it's the last activity, then there won't be an end time
 
                 // if there is an end time, add it to the activity
-                if (record.getDouble("departure_time") != null) {
-                    activity.setEndTime(record.getDouble("departure_time") * 3600);
+                if (record.getDouble("endTime") != null) {
+                    activity.setEndTime(record.getDouble("endTime") * 3600);
                     plan.addActivity(activity);
                 }
 
@@ -94,20 +96,28 @@ public class ActivitySimPlansReader {
             }
             else { // this is a leg
 
-                String mode = record.getString("trip_mode");
+                String mode = record.getString("legMode");
                 if (mode.equals("DRIVEALONEFREE") || mode.equals("DRIVEALONEPAY") ||
                         mode.equals("SHARED2FREE") || mode.equals("SHARED2PAY") ||
-                        mode.equals("SHARED3FREE") || mode.equals("SHARED3PAY"))
-                         {mode = TransportMode.car;}
+                        mode.equals("SHARED3FREE") || mode.equals("SHARED3PAY") ||
+						mode.equals("hov2") || mode.equals("hov3") ||
+						mode.equals("hov2_teleportation") || mode.equals("hov3_teleportation") ||
+						mode.equals("car") || mode.equals("ride_hail") ||
+						mode.equals("ride_hail_pooled"))
+						{mode = TransportMode.car;}
                 else if (mode.equals("WALK_LOC") || mode.equals("WALK_LRF") ||
                         mode.equals("WALK_EXP") || mode.equals("WALK_HVY") ||
                         mode.equals("WALK_COM") || mode.equals("DRIVE_LOC") ||
                         mode.equals("DRIVE_LRF") || mode.equals("DRIVE_EXP") ||
                         mode.equals("DRIVE_HVY") || mode.equals("DRIVE_COM") ||
                         mode.equals("TAXI") || mode.equals("TNC_SINGLE") ||
-                        mode.equals("TNC_SHARED")) {mode = TransportMode.pt;}
-                else if (mode.equals("WALK")){mode = TransportMode.walk;}
-                else if (mode.equals("BIKE")){mode = TransportMode.bike;}
+                        mode.equals("TNC_SHARED") || mode.equals("drive_transit")
+						|| mode.equals("walk_transit"))
+						{mode = TransportMode.pt;}
+                else if (mode.equals("WALK") || (mode.equals("walk")))
+				{mode = TransportMode.walk;}
+                else if (mode.equals("BIKE") || (mode.equals("bike")))
+						{mode = TransportMode.bike;}
                 else {mode = "ADD MODE TYPE";}
                     Leg leg = pf.createLeg(mode);
                     plan.addLeg(leg);
@@ -116,11 +126,9 @@ public class ActivitySimPlansReader {
     }
 
         public static void main (String[]args){
-            String csv = args[0];
-            String outfile = args[1];
             ActivitySimPlansReader reader = new ActivitySimPlansReader();
-            reader.parseCsv(csv);
-            reader.writeXml(outfile);
+            reader.parseCsv("scenarios/utah/wfrc-100k-plans.csv");
+            reader.writeXml("scenarios/utah/wfrc-100k-plans.xml");
         }
 
         private void writeXml (String outfile){

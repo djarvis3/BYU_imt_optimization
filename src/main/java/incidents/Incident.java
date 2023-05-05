@@ -1,3 +1,9 @@
+/**
+
+ The Incident class represents an incident that occurs on a particular link in a transportation network.
+ It stores information about the link, incident, responding IMTs, start time, end time, and capacity reduction.
+ */
+
 package incidents;
 
 public class Incident {

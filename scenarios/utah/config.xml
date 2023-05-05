@@ -17,14 +17,14 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans.xml"/>
+		<param name="inputPlansFile" value="wfrc-100k-plans.xml"/>
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="output/utah"/>
+		<param name="outputDirectory" value="output/utah_baseline"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="2"/>
+		<param name="lastIteration" value="10"/>
 		<param name="mobsim" value="qsim" />
 	</module>
 
@@ -37,6 +37,9 @@
 		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
 		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="snapshotStyle" value="queue"/>
+		<param name="snapshotStyle" value="queue"/>
+		<param name="flowCapacityFactor" value= "0.05"/>
+		<param name= "storageCapacityFactor" value="0.05"/>
 
 		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
 		<param name="startTime" value="00:00:00" />
@@ -47,11 +50,6 @@
 
 	<module name="travelTimeCalculator">
 		<param name="analyzedModes" value="car,truck"/>
-	</module>
-
-	<module name="otfvis">
-		<param name="coloringScheme" value="taxicab"/>
-		<param name="drawNonMovingItems" value="true"/>
 	</module>
 
 	<module name="planCalcScore">
@@ -77,6 +75,10 @@
 				<param name="marginalUtilityOfTraveling_util_hr" value="-1.0" />
 			</parameterset>
 			<parameterset type="modeParams">
+				<param name="mode" value="bike"/>
+				<param name="marginalUtilityOfTraveling_util_hr" value="-1.0" />
+			</parameterset>
+			<parameterset type="modeParams">
 				<param name="mode" value="ride"/>
 				<param name="marginalUtilityOfTraveling_util_hr" value="-5.0" />
 			</parameterset>
@@ -98,7 +100,7 @@
 				<param name="closingTime"     value="18:00:00" />
 			</parameterset>
 			<parameterset type="activityParams">
-				<param name="activityType"	  value="dummy"/>
+				<param name="activityType"	  value="other"/>
 				<param name="typicalDuration" value="24:00:00" />
 			</parameterset>
 		</parameterset>

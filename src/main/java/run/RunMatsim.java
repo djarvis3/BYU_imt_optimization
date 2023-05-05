@@ -19,16 +19,13 @@
 package run;
 
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.network.Link;
+import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
-import org.matsim.core.controler.OutputDirectoryHierarchy.OverwriteFileSetting;
-import org.matsim.core.network.NetworkChangeEvent;
-import org.matsim.core.network.NetworkChangeEvent.ChangeType;
-import org.matsim.core.network.NetworkChangeEvent.ChangeValue;
-import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.scenario.ScenarioUtils;
+
+import java.io.IOException;
 
 /**
  * @author nagel
@@ -36,50 +33,21 @@ import org.matsim.core.scenario.ScenarioUtils;
  */
 public class RunMatsim{
 
-	public static void main(String[] args) {
-		String configurl = ("scenarios/berlin/config.xml");
+	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
 
-		Config config = ConfigUtils.loadConfig( configurl ) ;
+	public static void run(String configFile, boolean dvrp) throws IOException {
+		// load config
+		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup());
 
-		// configure the time variant network here:
-		config.network().setTimeVariantNetwork(true);
+		// load scenario
+		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
+		// setup controler
+		Controler controler = new Controler(scenario);
 
-		// ---
-
-		// create/load the scenario here.  The time variant network does already have to be set at this point
-		// in the config, otherwise it will not work.
-		Scenario scenario = ScenarioUtils.loadScenario(config) ;
-
-		// Read_Incident incidents = new Read_Incident(scenario);
-		// incidents.Incident_Generator("src/main/java/org/matsim/reader/IncidentData_Daniel.csv");
-
-
-		for ( Link link : scenario.getNetwork().getLinks().values() ) {
-			double speed = link.getFreespeed() ;
-			final double threshold = 34;
-			if ( speed > threshold ) {
-				{
-					NetworkChangeEvent event = new NetworkChangeEvent(7.*3600.) ;
-					event.setFreespeedChange(new ChangeValue( ChangeType.ABSOLUTE_IN_SI_UNITS,  threshold*0.006 ));
-					event.addLink(link);
-					NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(),event);
-				}
-				{
-					NetworkChangeEvent event = new NetworkChangeEvent(11.5*3600.) ;
-					event.setFreespeedChange(new ChangeValue( ChangeType.ABSOLUTE_IN_SI_UNITS,  speed ));
-					event.addLink(link);
-					NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(),event);
-				}
-			}
-		}
-
-		// ---
-
-		Controler controler = new Controler( scenario ) ;
-
+		// run simulation
 		controler.run();
 	}
 
+	public static void main(String[] args) throws IOException {run(CONFIG_FILE, false);}
 }

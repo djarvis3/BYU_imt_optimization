@@ -1,3 +1,10 @@
+/**
+
+ The IncidentGenerator class generates a random incident number based on pre-defined probability ranges.
+ The incident number is selected randomly based on a number generator between 1 and 100, and the corresponding
+ incident number is assigned based on the probability ranges defined in the incidentRanges and incidentNumbers arrays.
+ */
+
 package incidents;
 
 import java.util.Random;
