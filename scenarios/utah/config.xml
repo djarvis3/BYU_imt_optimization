@@ -17,11 +17,11 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="wfrc-100k-plans.xml"/>
+		<param name="inputPlansFile" value="population-100.xml"/>
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="output/utah_baseline"/>
+		<param name="outputDirectory" value="output/utah_IMT"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
 		<param name="lastIteration" value="10"/>

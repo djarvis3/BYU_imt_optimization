@@ -18,7 +18,7 @@
  * *********************************************************************** */
 package run;
 
-import incidents.IncidentReader_ReadAll;
+import incidents.IncidentSelector_ReadAll;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.otfvis.OTFVisLiveModule;
@@ -38,7 +38,7 @@ import java.io.IOException;
 
 public class RunOnlyIncidents {
 
-	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
+	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
 
 	public static void run(String configFile, boolean otfvis) throws IOException {
 		// load config
@@ -47,8 +47,9 @@ public class RunOnlyIncidents {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		IncidentReader_ReadAll incidentsReader = new IncidentReader_ReadAll(scenario.getNetwork());
-		incidentsReader.readIncidents("incidents/IncidentData_Berlin.csv");
+		// apply incidents to the scenario
+		IncidentSelector_ReadAll incidentReader = new IncidentSelector_ReadAll(scenario.getNetwork());
+		incidentReader.readIncidents("incidents/IncidentData_UtahTest.csv");
 
 
 		// setup controler
