@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-05-08T15:34:45.867174300Z</date>
+  <millis>1683560085867</millis>
+  <nanos>174300</nanos>
+  <sequence>0</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_12, Link ID 12632, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 24618.0, End Time 27600.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:34:45.970714700Z</date>
+  <millis>1683560085970</millis>
+  <nanos>714700</nanos>
+  <sequence>1</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343</message>
+</record>
+<record>
+  <date>2023-05-08T15:34:46.385872900Z</date>
+  <millis>1683560086385</millis>
+  <nanos>872900</nanos>
+  <sequence>2</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_94, Link ID 15443, Full Capacity 112.00, Reduced Capacity 88.48, Start Time 28519.0, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:34:46.437872Z</date>
+  <millis>1683560086437</millis>
+  <nanos>872000</nanos>
+  <sequence>3</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_94, Arrival Time 31274.32428933544, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:34:53.894829500Z</date>
+  <millis>1683560093894</millis>
+  <nanos>829500</nanos>
+  <sequence>4</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_23, Link ID 25876, Full Capacity 112.00, Reduced Capacity 56.00, Start Time 29817.0, End Time 34677.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:34:53.905924100Z</date>
+  <millis>1683560093905</millis>
+  <nanos>924100</nanos>
+  <sequence>5</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577</message>
+</record>
+<record>
+  <date>2023-05-08T15:34:53.906905700Z</date>
+  <millis>1683560093906</millis>
+  <nanos>905700</nanos>
+  <sequence>6</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:00.621306600Z</date>
+  <millis>1683560100621</millis>
+  <nanos>306600</nanos>
+  <sequence>7</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_75, Link ID 11907, Full Capacity 112.00, Reduced Capacity 73.92, Start Time 31453.0, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:00.657306500Z</date>
+  <millis>1683560100657</millis>
+  <nanos>306500</nanos>
+  <sequence>8</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 34707.59667558452, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:00.663318900Z</date>
+  <millis>1683560100663</millis>
+  <nanos>318900</nanos>
+  <sequence>9</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 37979.215874841946, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:07.599317800Z</date>
+  <millis>1683560107599</millis>
+  <nanos>317800</nanos>
+  <sequence>10</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_128, Link ID 26499, Full Capacity 98.00, Reduced Capacity 71.54, Start Time 33719.0, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:07.648327100Z</date>
+  <millis>1683560107648</millis>
+  <nanos>327100</nanos>
+  <sequence>11</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_128, Arrival Time 39559.760617972664, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:17.019978200Z</date>
+  <millis>1683560117019</millis>
+  <nanos>978200</nanos>
+  <sequence>12</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_58, Link ID 16143, Full Capacity 112.00, Reduced Capacity 96.32, Start Time 46236.0, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:17.032004500Z</date>
+  <millis>1683560117032</millis>
+  <nanos>4500</nanos>
+  <sequence>13</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 47862.260932671474, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:17.033002700Z</date>
+  <millis>1683560117033</millis>
+  <nanos>2700</nanos>
+  <sequence>14</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 49786.35827525947, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:17.610695700Z</date>
+  <millis>1683560117610</millis>
+  <nanos>695700</nanos>
+  <sequence>15</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_45, Link ID 5243, Full Capacity 70.00, Reduced Capacity 58.10, Start Time 49003.0, End Time 50040.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:17.619720200Z</date>
+  <millis>1683560117619</millis>
+  <nanos>720200</nanos>
+  <sequence>16</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:18.757261100Z</date>
+  <millis>1683560118757</millis>
+  <nanos>261100</nanos>
+  <sequence>17</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_166, Link ID 11670, Full Capacity 98.00, Reduced Capacity 65.66, Start Time 56568.0, End Time 57780.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:18.776293100Z</date>
+  <millis>1683560118776</millis>
+  <nanos>293100</nanos>
+  <sequence>18</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:19.003935900Z</date>
+  <millis>1683560119003</millis>
+  <nanos>935900</nanos>
+  <sequence>19</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_109, Link ID 28783, Full Capacity 150.00, Reduced Capacity 112.50, Start Time 58717.0, End Time 61020.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:19.015950600Z</date>
+  <millis>1683560119015</millis>
+  <nanos>950600</nanos>
+  <sequence>20</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:19.738300700Z</date>
+  <millis>1683560119738</millis>
+  <nanos>300700</nanos>
+  <sequence>21</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_87, Link ID 21258, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 66830.0, End Time 73380.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:35:19.763352500Z</date>
+  <millis>1683560119763</millis>
+  <nanos>352500</nanos>
+  <sequence>22</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:11.548503400Z</date>
+  <millis>1683560171548</millis>
+  <nanos>503400</nanos>
+  <sequence>23</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_12, Link ID 12632, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 24618.0, End Time 27600.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:11.566507800Z</date>
+  <millis>1683560171566</millis>
+  <nanos>507800</nanos>
+  <sequence>24</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:12.108129300Z</date>
+  <millis>1683560172108</millis>
+  <nanos>129300</nanos>
+  <sequence>25</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_94, Link ID 15443, Full Capacity 112.00, Reduced Capacity 88.48, Start Time 28519.0, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:12.141128Z</date>
+  <millis>1683560172141</millis>
+  <nanos>128000</nanos>
+  <sequence>26</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_94, Arrival Time 31274.32428933544, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:19.980265200Z</date>
+  <millis>1683560179980</millis>
+  <nanos>265200</nanos>
+  <sequence>27</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_23, Link ID 25876, Full Capacity 112.00, Reduced Capacity 56.00, Start Time 29817.0, End Time 34677.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:19.996255400Z</date>
+  <millis>1683560179996</millis>
+  <nanos>255400</nanos>
+  <sequence>28</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:19.997257900Z</date>
+  <millis>1683560179997</millis>
+  <nanos>257900</nanos>
+  <sequence>29</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:31.343083800Z</date>
+  <millis>1683560191343</millis>
+  <nanos>83800</nanos>
+  <sequence>30</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_75, Link ID 11907, Full Capacity 112.00, Reduced Capacity 73.92, Start Time 31453.0, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:31.365154100Z</date>
+  <millis>1683560191365</millis>
+  <nanos>154100</nanos>
+  <sequence>31</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 34707.59667558452, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:31.368118800Z</date>
+  <millis>1683560191368</millis>
+  <nanos>118800</nanos>
+  <sequence>32</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 37979.215874841946, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:42.000716700Z</date>
+  <millis>1683560202000</millis>
+  <nanos>716700</nanos>
+  <sequence>33</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_128, Link ID 26499, Full Capacity 98.00, Reduced Capacity 71.54, Start Time 33719.0, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:42.048711600Z</date>
+  <millis>1683560202048</millis>
+  <nanos>711600</nanos>
+  <sequence>34</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_128, Arrival Time 39559.760617972664, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:56.045229500Z</date>
+  <millis>1683560216045</millis>
+  <nanos>229500</nanos>
+  <sequence>35</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_58, Link ID 16143, Full Capacity 112.00, Reduced Capacity 96.32, Start Time 46236.0, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:56.056260700Z</date>
+  <millis>1683560216056</millis>
+  <nanos>260700</nanos>
+  <sequence>36</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 47862.260932671474, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:56.058225800Z</date>
+  <millis>1683560216058</millis>
+  <nanos>225800</nanos>
+  <sequence>37</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 49786.35827525947, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:56.566699800Z</date>
+  <millis>1683560216566</millis>
+  <nanos>699800</nanos>
+  <sequence>38</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_45, Link ID 5243, Full Capacity 70.00, Reduced Capacity 58.10, Start Time 49003.0, End Time 50040.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:56.574735700Z</date>
+  <millis>1683560216574</millis>
+  <nanos>735700</nanos>
+  <sequence>39</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:57.491423Z</date>
+  <millis>1683560217491</millis>
+  <nanos>423000</nanos>
+  <sequence>40</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_166, Link ID 11670, Full Capacity 98.00, Reduced Capacity 65.66, Start Time 56568.0, End Time 57780.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:57.509457400Z</date>
+  <millis>1683560217509</millis>
+  <nanos>457400</nanos>
+  <sequence>41</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:57.708764600Z</date>
+  <millis>1683560217708</millis>
+  <nanos>764600</nanos>
+  <sequence>42</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_109, Link ID 28783, Full Capacity 150.00, Reduced Capacity 112.50, Start Time 58717.0, End Time 61020.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:57.717803100Z</date>
+  <millis>1683560217717</millis>
+  <nanos>803100</nanos>
+  <sequence>43</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:58.402515500Z</date>
+  <millis>1683560218402</millis>
+  <nanos>515500</nanos>
+  <sequence>44</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_87, Link ID 21258, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 66830.0, End Time 73380.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:36:58.443996300Z</date>
+  <millis>1683560218443</millis>
+  <nanos>996300</nanos>
+  <sequence>45</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:52.107213500Z</date>
+  <millis>1683560272107</millis>
+  <nanos>213500</nanos>
+  <sequence>46</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_12, Link ID 12632, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 24618.0, End Time 27600.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:52.128252100Z</date>
+  <millis>1683560272128</millis>
+  <nanos>252100</nanos>
+  <sequence>47</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:52.770528600Z</date>
+  <millis>1683560272770</millis>
+  <nanos>528600</nanos>
+  <sequence>48</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_94, Link ID 15443, Full Capacity 112.00, Reduced Capacity 88.48, Start Time 28519.0, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:52.802556800Z</date>
+  <millis>1683560272802</millis>
+  <nanos>556800</nanos>
+  <sequence>49</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_94, Arrival Time 31274.32428933544, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:59.352623900Z</date>
+  <millis>1683560279352</millis>
+  <nanos>623900</nanos>
+  <sequence>50</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_23, Link ID 25876, Full Capacity 112.00, Reduced Capacity 56.00, Start Time 29817.0, End Time 34677.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:59.363669Z</date>
+  <millis>1683560279363</millis>
+  <nanos>669000</nanos>
+  <sequence>51</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577</message>
+</record>
+<record>
+  <date>2023-05-08T15:37:59.364672400Z</date>
+  <millis>1683560279364</millis>
+  <nanos>672400</nanos>
+  <sequence>52</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:09.987987500Z</date>
+  <millis>1683560289987</millis>
+  <nanos>987500</nanos>
+  <sequence>53</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_75, Link ID 11907, Full Capacity 112.00, Reduced Capacity 73.92, Start Time 31453.0, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:10.006965900Z</date>
+  <millis>1683560290006</millis>
+  <nanos>965900</nanos>
+  <sequence>54</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 34707.59667558452, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:10.009969100Z</date>
+  <millis>1683560290009</millis>
+  <nanos>969100</nanos>
+  <sequence>55</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 37979.215874841946, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:18.799858600Z</date>
+  <millis>1683560298799</millis>
+  <nanos>858600</nanos>
+  <sequence>56</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_128, Link ID 26499, Full Capacity 98.00, Reduced Capacity 71.54, Start Time 33719.0, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:18.847928800Z</date>
+  <millis>1683560298847</millis>
+  <nanos>928800</nanos>
+  <sequence>57</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_128, Arrival Time 39559.760617972664, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:33.030929600Z</date>
+  <millis>1683560313030</millis>
+  <nanos>929600</nanos>
+  <sequence>58</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_58, Link ID 16143, Full Capacity 112.00, Reduced Capacity 96.32, Start Time 46236.0, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:33.044990300Z</date>
+  <millis>1683560313044</millis>
+  <nanos>990300</nanos>
+  <sequence>59</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 47862.260932671474, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:33.046006200Z</date>
+  <millis>1683560313046</millis>
+  <nanos>6200</nanos>
+  <sequence>60</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 49786.35827525947, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:33.732953900Z</date>
+  <millis>1683560313732</millis>
+  <nanos>953900</nanos>
+  <sequence>61</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_45, Link ID 5243, Full Capacity 70.00, Reduced Capacity 58.10, Start Time 49003.0, End Time 50040.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:33.744979100Z</date>
+  <millis>1683560313744</millis>
+  <nanos>979100</nanos>
+  <sequence>62</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:34.814438500Z</date>
+  <millis>1683560314814</millis>
+  <nanos>438500</nanos>
+  <sequence>63</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_166, Link ID 11670, Full Capacity 98.00, Reduced Capacity 65.66, Start Time 56568.0, End Time 57780.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:34.834437100Z</date>
+  <millis>1683560314834</millis>
+  <nanos>437100</nanos>
+  <sequence>64</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:35.110005900Z</date>
+  <millis>1683560315110</millis>
+  <nanos>5900</nanos>
+  <sequence>65</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_109, Link ID 28783, Full Capacity 150.00, Reduced Capacity 112.50, Start Time 58717.0, End Time 61020.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:35.119031Z</date>
+  <millis>1683560315119</millis>
+  <nanos>31000</nanos>
+  <sequence>66</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:35.860194500Z</date>
+  <millis>1683560315860</millis>
+  <nanos>194500</nanos>
+  <sequence>67</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_87, Link ID 21258, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 66830.0, End Time 73380.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:38:35.885201700Z</date>
+  <millis>1683560315885</millis>
+  <nanos>201700</nanos>
+  <sequence>68</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:36.707965100Z</date>
+  <millis>1683560376707</millis>
+  <nanos>965100</nanos>
+  <sequence>69</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_12, Link ID 12632, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 24618.0, End Time 27600.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:36.722996900Z</date>
+  <millis>1683560376722</millis>
+  <nanos>996900</nanos>
+  <sequence>70</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:37.341933500Z</date>
+  <millis>1683560377341</millis>
+  <nanos>933500</nanos>
+  <sequence>71</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_94, Link ID 15443, Full Capacity 112.00, Reduced Capacity 88.48, Start Time 28519.0, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:37.365930800Z</date>
+  <millis>1683560377365</millis>
+  <nanos>930800</nanos>
+  <sequence>72</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_94, Arrival Time 31274.32428933544, End Time 29400.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:44.057761200Z</date>
+  <millis>1683560384057</millis>
+  <nanos>761200</nanos>
+  <sequence>73</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_23, Link ID 25876, Full Capacity 112.00, Reduced Capacity 56.00, Start Time 29817.0, End Time 34677.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:44.067709300Z</date>
+  <millis>1683560384067</millis>
+  <nanos>709300</nanos>
+  <sequence>74</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:44.068710100Z</date>
+  <millis>1683560384068</millis>
+  <nanos>710100</nanos>
+  <sequence>75</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:52.498743500Z</date>
+  <millis>1683560392498</millis>
+  <nanos>743500</nanos>
+  <sequence>76</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_75, Link ID 11907, Full Capacity 112.00, Reduced Capacity 73.92, Start Time 31453.0, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:52.521757500Z</date>
+  <millis>1683560392521</millis>
+  <nanos>757500</nanos>
+  <sequence>77</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 34707.59667558452, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:39:52.524759Z</date>
+  <millis>1683560392524</millis>
+  <nanos>759000</nanos>
+  <sequence>78</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_75, Arrival Time 37979.215874841946, End Time 32700.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:00.594477Z</date>
+  <millis>1683560400594</millis>
+  <nanos>477000</nanos>
+  <sequence>79</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_128, Link ID 26499, Full Capacity 98.00, Reduced Capacity 71.54, Start Time 33719.0, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:00.638491100Z</date>
+  <millis>1683560400638</millis>
+  <nanos>491100</nanos>
+  <sequence>80</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_128, Arrival Time 39559.760617972664, End Time 36540.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:14.323078100Z</date>
+  <millis>1683560414323</millis>
+  <nanos>78100</nanos>
+  <sequence>81</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_58, Link ID 16143, Full Capacity 112.00, Reduced Capacity 96.32, Start Time 46236.0, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:14.337102500Z</date>
+  <millis>1683560414337</millis>
+  <nanos>102500</nanos>
+  <sequence>82</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 47862.260932671474, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:14.339101500Z</date>
+  <millis>1683560414339</millis>
+  <nanos>101500</nanos>
+  <sequence>83</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.optimizer.RequestHandler</class>
+  <method>handleRequest</method>
+  <thread>1</thread>
+  <message>Arrival Time is greater than incident End Time, No IMT Network Change Event. Request ID incident_58, Arrival Time 49786.35827525947, End Time 47520.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:14.933667Z</date>
+  <millis>1683560414933</millis>
+  <nanos>667000</nanos>
+  <sequence>84</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_45, Link ID 5243, Full Capacity 70.00, Reduced Capacity 58.10, Start Time 49003.0, End Time 50040.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:14.941685600Z</date>
+  <millis>1683560414941</millis>
+  <nanos>685600</nanos>
+  <sequence>85</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:15.983822800Z</date>
+  <millis>1683560415983</millis>
+  <nanos>822800</nanos>
+  <sequence>86</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_166, Link ID 11670, Full Capacity 98.00, Reduced Capacity 65.66, Start Time 56568.0, End Time 57780.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:16.004876500Z</date>
+  <millis>1683560416004</millis>
+  <nanos>876500</nanos>
+  <sequence>87</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:16.260759700Z</date>
+  <millis>1683560416260</millis>
+  <nanos>759700</nanos>
+  <sequence>88</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_109, Link ID 28783, Full Capacity 150.00, Reduced Capacity 112.50, Start Time 58717.0, End Time 61020.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:16.269789600Z</date>
+  <millis>1683560416269</millis>
+  <nanos>789600</nanos>
+  <sequence>89</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:17.107809600Z</date>
+  <millis>1683560417107</millis>
+  <nanos>809600</nanos>
+  <sequence>90</sequence>
+  <logger>IMT.events.IncidentNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.IncidentNetworkChangeEventGenerator</class>
+  <method>generateIncidentNetworkChangeEvents</method>
+  <thread>1</thread>
+  <message>Request ID incident_87, Link ID 21258, Full Capacity 112.00, Reduced Capacity 89.60, Start Time 66830.0, End Time 73380.0</message>
+</record>
+<record>
+  <date>2023-05-08T15:40:17.133866700Z</date>
+  <millis>1683560417133</millis>
+  <nanos>866700</nanos>
+  <sequence>91</sequence>
+  <logger>IMT.events.ImtNetworkChangeEventGenerator</logger>
+  <level>INFO</level>
+  <class>IMT.events.ImtNetworkChangeEventGenerator</class>
+  <method>addEventToNetwork</method>
+  <thread>1</thread>
+  <message>Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589</message>
+</record>
+</log>
