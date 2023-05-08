@@ -16,6 +16,7 @@ public class IncidentApplicator {
 
 	private static final Logger LOGGER = Logger.getLogger(IncidentApplicator.class.getName());
 
+	// ensure that this value matches the parameter set in the config file
 	private static final double FLOW_CAPACITY_FACTOR = 0.01;
 
 	private final Network network;
@@ -26,7 +27,8 @@ public class IncidentApplicator {
 	 * Creates an incident applicator for the given network and selected incidents.
 	 *
 	 * @param network           the network to apply incidents to
-	 * @param incidentsSelected the incidents to apply to the network
+	 * @param incidentsSelected the incidents to apply to the network, will usually be either randomly selected
+	 *                          or all of the incidents from a CSV read into the incidentReader class
 	 * @throws IllegalArgumentException if any incident's link ID does not exist in the network
 	 */
 	public IncidentApplicator(Network network, List<Incident> incidentsSelected) {
@@ -58,11 +60,13 @@ public class IncidentApplicator {
 			double capacity = link.getCapacity() * FLOW_CAPACITY_FACTOR;
 			double reducedCapacity = capacity - (capacity * incident.getCapacityReduction());
 
+			// initial networkChangeEvent when the incident occurs @StartTime
 			NetworkChangeEvent startEvent = new NetworkChangeEvent(incident.getStartTime());
 			startEvent.setFlowCapacityChange(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, reducedCapacity));
 			startEvent.addLink(link);
 			NetworkUtils.addNetworkChangeEvent(network, startEvent);
 
+			// secondary networkChangeEvent when the incident ends @EndTime
 			NetworkChangeEvent endEvent = new NetworkChangeEvent(incident.getEndTime());
 			endEvent.setFlowCapacityChange(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, capacity));
 			endEvent.addLink(link);

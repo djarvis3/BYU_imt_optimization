@@ -16,7 +16,7 @@ public class IncidentReader {
 	/**
 	 * Constructs a new instance of IncidentReader with the given CSV file.
 	 *
-	 * @param csvFilePath
+	 * @param csvFilePath the filepath
 	 */
 	@Inject
 	public IncidentReader(String csvFilePath) {
@@ -38,7 +38,7 @@ public class IncidentReader {
 	 * the probabilistic functions defined in the IncidentNumber class
 	 *
 	 * @param incidents the list of incidents to select from
-	 * @return the random list of incidents
+	 * @return randomIncidents the random list of incidents
 	 */
 	private List<Incident> selectRandomIncidentsFromList(List<Incident> incidents) {
 		IncidentNumber generator = new IncidentNumber();

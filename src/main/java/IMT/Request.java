@@ -36,8 +36,10 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 	// Define a private final variable toLink of type Link
 	private final Link toLink;
 
-	// Constructor that takes the input parameters id, toLink, submissionTime, endTime, capacityReduction, and respondingIMTs and assigns them to the corresponding private final variables
-	public Request(Id<org.matsim.contrib.dvrp.optimizer.Request> id, Link toLink, double submissionTime, double endTime, double capacityReduction, int respondingIMTs) {
+	// Constructor that takes the input parameters id, toLink, submissionTime, endTime, capacityReduction,
+	// and respondingIMTs and assigns them to the corresponding private final variables
+	public Request(Id<org.matsim.contrib.dvrp.optimizer.Request> id, Link toLink, double submissionTime,
+				   double endTime, double capacityReduction, int respondingIMTs) {
 		this.id = id;
 		this.toLink = toLink;
 		this.submissionTime = submissionTime;
@@ -52,7 +54,8 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 		return id;
 	}
 
-	// Implement the getSubmissionTime method defined in the Request interface and return the value of the submissionTime variable
+	// Implement the getSubmissionTime method defined in the Request interface and
+	// return the value of the submissionTime variable
 	@Override
 	public double getSubmissionTime() {
 		return submissionTime;

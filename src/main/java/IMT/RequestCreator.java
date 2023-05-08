@@ -87,7 +87,8 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 		double endTime = incident.getEndTime();
 		double capacityReduction = incident.getCapacityReduction();
 		int respondingIMTs = incident.getRespondingIMTs();
-		return new Request(Id.create(requestId, org.matsim.contrib.dvrp.optimizer.Request.class), toLink, submissionTime, endTime, capacityReduction, respondingIMTs);
+		return new Request(Id.create(requestId, org.matsim.contrib.dvrp.optimizer.Request.class),
+				toLink, submissionTime, endTime, capacityReduction, respondingIMTs);
 	}
 
 	// Called at the end of each simulation step

@@ -1,7 +1,7 @@
 package IMT.optimizer;
 
-import IMT.ServeTask;
 import IMT.Request;
+import IMT.ServeTask;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.path.VrpPathWithTravelData;
@@ -62,18 +62,23 @@ public class ScheduleUpdater {
 				Math.max(imtUnit.getServiceBeginTime(), currentTime) :
 				Schedules.getLastTask(schedule).getEndTime();
 
-		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(lastTask.getLink(), toLink, startTime, router, travelTime);
+		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(lastTask.getLink(), toLink, startTime,
+				router, travelTime);
 		double arrivalTime = pathToIncident.getArrivalTime();
 		schedule.addTask(new DefaultDriveTask(Optimizer.ImtTaskType.DRIVE_TO_INCIDENT, pathToIncident));
 		schedule.addTask(new ServeTask(Optimizer.ImtTaskType.ARRIVE, arrivalTime, arrivalTime, toLink, request));
 
 		if (arrivalTime < endTime) {
-			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, endTime, toLink, request));
-			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, Double.POSITIVE_INFINITY, toLink));
+			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, endTime,
+					toLink, request));
+			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime,
+					Double.POSITIVE_INFINITY, toLink));
 		}
 		else {
-			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, arrivalTime, toLink, request));
-			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, arrivalTime, Double.POSITIVE_INFINITY, toLink));
+			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, arrivalTime,
+					toLink, request));
+			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, arrivalTime,
+					Double.POSITIVE_INFINITY, toLink));
 
 		}
 

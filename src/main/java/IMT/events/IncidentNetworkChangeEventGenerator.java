@@ -1,4 +1,4 @@
-package IMT.networkChangesEvents;
+package IMT.events;
 
 import IMT.Request;
 import org.matsim.api.core.v01.Scenario;
@@ -30,7 +30,8 @@ public class IncidentNetworkChangeEventGenerator {
 	}
 
 	/**
-	 * Generates network change events for the given incident link, reduced capacity, full capacity, start time, and end time.
+	 * Generates network change events from the given incident link, reduced capacity, full capacity, start time,
+	 * and end time.
 	 *
 	 * @param incidentLink the incident link to generate events for
 	 * @param reducedCapacity the reduced capacity of the incident link
@@ -44,22 +45,25 @@ public class IncidentNetworkChangeEventGenerator {
 													double startTime, double endTime, Request request) {
 		Objects.requireNonNull(incidentLink, "incidentLink must not be null");
 
+		// Generate start event
 		NetworkChangeEvent startEvent = new NetworkChangeEvent(startTime);
-		startEvent.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
-				(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, reducedCapacity));
+		startEvent.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(
+				NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, reducedCapacity));
 		startEvent.addLink(incidentLink);
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), startEvent);
 
+		// Generate end event
 		NetworkChangeEvent endEvent = new NetworkChangeEvent(endTime);
-		endEvent.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
-				(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, fullCapacity));
+		endEvent.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(
+				NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, fullCapacity));
 		endEvent.addLink(incidentLink);
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
 
+		// Log incident information
 		String incidentInfo = String.format("Request ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
 				request.getId(), incidentLink.getId(), fullCapacity, reducedCapacity, startTime, endTime);
-
 		LOGGER.info(incidentInfo);
 	}
 }
+

@@ -17,7 +17,7 @@ public class IncidentParser {
 	 * Parses incident data from the specified CSV file.
 	 *
 	 * @param csvFilePath the path to the CSV file containing the incident data
-	 * @return a list of {@code Incident} objects representing the parsed data
+	 * @return a list of {@Incident} objects representing the parsed data
 	 * @throws IllegalArgumentException if the CSV file path is invalid
 	 * @throws IllegalStateException if there is an error parsing the CSV file
 	 */

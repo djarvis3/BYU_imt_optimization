@@ -1,8 +1,7 @@
 /**
  A class that generates a random incident number based on pre-defined probability ranges. The incident number
  is selected randomly using a number generator between 1 and 100. The corresponding incident number is assigned
- based on the probability ranges defined in the class. This class provides a convenient way to generate a random
- incident number for use in various applications.
+ based on the probability ranges defined in the class.
  */
 
 package incidents;
