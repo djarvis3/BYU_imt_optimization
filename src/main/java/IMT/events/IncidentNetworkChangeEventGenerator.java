@@ -1,0 +1,65 @@
+package IMT.networkChangesEvents;
+
+import IMT.Request;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.network.Link;
+import org.matsim.core.network.NetworkChangeEvent;
+import org.matsim.core.network.NetworkUtils;
+
+import java.util.Objects;
+import java.util.logging.Logger;
+
+/**
+ * The IncidentNetworkChangeEventGenerator class generates network change events for a given incident upon request
+ * during the scenario.
+ */
+public class IncidentNetworkChangeEventGenerator {
+
+	private static final Logger LOGGER = Logger.getLogger(IncidentNetworkChangeEventGenerator.class.getName());
+
+	private final Scenario scenario;
+
+	/**
+	 * Constructs an IncidentNetworkChangeEventGenerator with the given scenario.
+	 *
+	 * @param scenario the scenario to generate events for
+	 * @throws NullPointerException if scenario is null
+	 */
+	public IncidentNetworkChangeEventGenerator(Scenario scenario) {
+		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
+	}
+
+	/**
+	 * Generates network change events for the given incident link, reduced capacity, full capacity, start time, and end time.
+	 *
+	 * @param incidentLink the incident link to generate events for
+	 * @param reducedCapacity the reduced capacity of the incident link
+	 * @param fullCapacity the full capacity of the incident link
+	 * @param startTime the start time of the incident
+	 * @param endTime the end time of the incident
+	 * @param request the request associated with the incident
+	 * @throws NullPointerException if incidentLink is null
+	 */
+	public void generateIncidentNetworkChangeEvents(Link incidentLink, double reducedCapacity, double fullCapacity,
+													double startTime, double endTime, Request request) {
+		Objects.requireNonNull(incidentLink, "incidentLink must not be null");
+
+		NetworkChangeEvent startEvent = new NetworkChangeEvent(startTime);
+		startEvent.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
+				(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, reducedCapacity));
+		startEvent.addLink(incidentLink);
+		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), startEvent);
+
+		NetworkChangeEvent endEvent = new NetworkChangeEvent(endTime);
+		endEvent.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
+				(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, fullCapacity));
+		endEvent.addLink(incidentLink);
+		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
+
+		String incidentInfo = String.format("Request ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
+						"Start Time %s, End Time %s",
+				request.getId(), incidentLink.getId(), fullCapacity, reducedCapacity, startTime, endTime);
+
+		LOGGER.info(incidentInfo);
+	}
+}
