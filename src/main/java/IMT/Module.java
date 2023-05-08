@@ -43,39 +43,53 @@ import java.net.URL;
 /**
  * @author Michal Maciejewski (michalm)
  */
+
+/**
+ * The Module class represents a DVRP mode module for IMT vehicles.
+ * This module installs routing and fleet modules for the DVRP mode, and creates a truck type for the simulation.
+ */
 public class Module extends AbstractDvrpModeModule {
+	/**
+	 * The URL of the fleet specification.
+	 */
 	private final URL fleetSpecificationUrl;
+
+	/**
+	 * Creates a new Module object with the given fleet specification URL.
+	 * @param fleetSpecificationUrl the URL of the fleet specification.
+	 */
 	public Module(URL fleetSpecificationUrl) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
 	}
 
+	/**
+	 * Installs the DVRP mode module.
+	 * This method registers the DVRP mode, installs a routing network module, binds a travel time component,
+	 * installs a fleet module, and configures the QSim module for the DVRP mode.
+	 */
 	@Override
 	public void install() {
-
 		DvrpModes.registerDvrpMode(binder(), getMode());
 		install(new DvrpModeRoutingNetworkModule(getMode(), false));
 		bindModal(TravelTime.class).to(Key.get(TravelTime.class, Names.named(DvrpTravelTimeModule.DVRP_ESTIMATED)));
-
 		install(new FleetModule(getMode(), fleetSpecificationUrl, createTruckType()));
-
 		installQSimModule(new AbstractDvrpModeQSimModule(getMode()) {
 			@Override
 			protected void configureQSim() {
 				install(new VrpAgentSourceQSimModule(getMode()));
-
-				// Add an ImtRequestCreator modal component
 				addModalComponent(RequestCreator.class);
-
-				// Bind the VrpOptimizer class to the ImtOptimizer class as a singleton instance
 				bindModal(VrpOptimizer.class).to(Optimizer.class).asEagerSingleton();
-
-				// Bind the VrpAgentLogic.DynActionCreator class to the ImtActionCreator class as a singleton instance
 				bindModal(VrpAgentLogic.DynActionCreator.class).to(ActionCreator.class).asEagerSingleton();
 			}
 		});
 	}
 
+	/**
+	 * Creates a truck type for vehicle simulation.
+	 * This method creates and returns a VehicleType object representing a truck for vehicle simulation.
+	 * @return the truck VehicleType object.
+	 */
 	private static VehicleType createTruckType() {
 		VehicleType truckType = VehicleUtils.getFactory().createVehicleType(Id.create("truckType", VehicleType.class));
 		truckType.setLength(15.);
@@ -84,3 +98,4 @@ public class Module extends AbstractDvrpModeModule {
 		return truckType;
 	}
 }
+

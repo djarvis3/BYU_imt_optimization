@@ -36,7 +36,7 @@ public class RequestHandler {
 	 */
 	private static final Logger LOGGER = Logger.getLogger(ImtNetworkChangeEventGenerator.class.getName());
 
-	// These fields store references to objects used by this class.
+	// These fields store references to the objects used by this class.
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
 	private final MobsimTimer timer;
@@ -97,10 +97,11 @@ public class RequestHandler {
 						currLinkCapacity, request, arrivalTime);
 				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity);
 			} else {
+				String imtLog = ("IMT Log: ");
 				String output = ("Arrival Time is greater than incident End Time, No IMT Network Change Event. ");
 				String incidentInfo = String.format("Request ID %s, Arrival Time %s, End Time %s", request.getId(),
 						arrivalTime, endTime);
-				LOGGER.info(output + incidentInfo);
+				LOGGER.info(imtLog + output + incidentInfo);
 			}
 		}
 	}

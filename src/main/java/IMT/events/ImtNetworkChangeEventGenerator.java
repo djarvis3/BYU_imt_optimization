@@ -53,15 +53,17 @@ public class ImtNetworkChangeEventGenerator {
 		// Generate Network Change Event
 		NetworkChangeEvent restoreCapacityEvent = new NetworkChangeEvent(arrivalTime);
 		restoreCapacityEvent.setFlowCapacityChange
-				(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, currLinkCapacity));
+				(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.
+						ABSOLUTE_IN_SI_UNITS, currLinkCapacity));
 		restoreCapacityEvent.addLink(toLink);
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), restoreCapacityEvent);
 
+		String imtLog = ("IMT Log: ");
 		String output = ("Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. ");
 		String incidentInfo = String.format("Request ID %s, # of IMTs %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
-						"Arrival Time %s",
-				request.getId(), request.getRespondingIMTs(), fullCapacity, reducedCapacity, arrivalTime);
+						"Current Capacity %.2f, Arrival Time %s",
+				request.getId(), request.getRespondingIMTs(), fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime);
 
-		LOGGER.info(output + incidentInfo);
+		LOGGER.info(imtLog + output + incidentInfo);
 	}
 }

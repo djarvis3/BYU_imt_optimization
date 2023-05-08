@@ -25,18 +25,38 @@ import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.schedule.DefaultStayTask;
 
 /**
- * @author michalm
+ * The ServeTask class represents a task for serving a request.
+ *
+ * This class extends the DefaultStayTask class and adds a reference to the Request object being served.
  */
 public class ServeTask extends DefaultStayTask {
+	/**
+	 * The request being served by this task.
+	 */
 	private final Request request;
 
+	/**
+	 * Creates a new ServeTask object with the given task type, time bounds, link, and request.
+	 *
+	 * @param taskType  the type of task.
+	 * @param beginTime the begin time of the task.
+	 * @param endTime   the end time of the task.
+	 * @param link      the link associated with the task.
+	 * @param request   the request being served by the task.
+	 */
 	public ServeTask(Optimizer.ImtTaskType taskType, double beginTime, double endTime, Link link,
 					 Request request) {
 		super(taskType, beginTime, endTime, link);
 		this.request = request;
 	}
 
+	/**
+	 * Returns the request being served by this task.
+	 *
+	 * @return the request being served by the task.
+	 */
 	public Request getRequest() {
 		return request;
 	}
 }
+

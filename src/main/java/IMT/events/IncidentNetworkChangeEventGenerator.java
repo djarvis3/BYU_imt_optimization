@@ -60,10 +60,11 @@ public class IncidentNetworkChangeEventGenerator {
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
 
 		// Log incident information
+		String imtLog = ("IMT Log: ");
 		String incidentInfo = String.format("Request ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
 				request.getId(), incidentLink.getId(), fullCapacity, reducedCapacity, startTime, endTime);
-		LOGGER.info(incidentInfo);
+		LOGGER.info(imtLog + incidentInfo);
 	}
 }
 
