@@ -62,11 +62,9 @@ public final class Optimizer implements VrpOptimizer {
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
 		TravelTime travelTime = new FreeSpeedTravelTime();
 		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime), travelTime);
-
-
+		initWaitTasks();
 		this.requestHandler = new RequestHandler(fleet, router, travelTime, timer, scenario);
 		this.timingUpdater = new TimingUpdater(timer);
-		initWaitTasks();
 	}
 
 	/**

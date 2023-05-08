@@ -16,7 +16,8 @@ import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 /**
- * ClosestVehicleFinder is a class that provides a method to find the closest vehicles from a given incident based on their estimated arrival time. It uses a priority queue to store vehicles and their estimated arrival time to the given link.
+ * ClosestVehicleFinder is a class that provides a method to find the closest vehicles from a given incident based on their estimated arrival time.
+ * It uses a priority queue to store vehicles and their estimated arrival time to the given link.
  */
 public class ClosestVehicleFinder {
 
@@ -34,18 +35,6 @@ public class ClosestVehicleFinder {
 	}
 
 	/**
-	 * Returns a list of the closest vehicles to a given link based on the estimated arrival time.
-	 * @return a list of the closest vehicles.
-	 */
-	public List<DvrpVehicle> getClosestVehicles(Link toLink, int respondingIMTs) {
-		PriorityQueue<DvrpVehicle> closestVehicles = new PriorityQueue<>(Comparator.comparingDouble(vehicle -> calculateArrivalTime(vehicle, toLink)));
-		closestVehicles.addAll(fleet.getVehicles().values());
-		return closestVehicles.stream()
-				.limit(Math.min(respondingIMTs, closestVehicles.size()))
-				.collect(Collectors.toList());
-	}
-
-	/**
 	 * Calculates the estimated arrival time of a given vehicle to a given link.
 	 * @return the estimated arrival time of the vehicle to the given link.
 	 */
@@ -58,6 +47,18 @@ public class ClosestVehicleFinder {
 		double time_zero = 0;
 		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(fromLink, toLink, time_zero, router, travelTime);
 		return pathToIncident.getArrivalTime();
+	}
+
+	/**
+	 * Returns a list of the closest vehicles to a given link based on the estimated arrival time.
+	 * @return a list of the closest vehicles.
+	 */
+	public List<DvrpVehicle> getClosestVehicles(Link toLink, int respondingIMTs) {
+		PriorityQueue<DvrpVehicle> closestVehicles = new PriorityQueue<>(Comparator.comparingDouble(vehicle -> calculateArrivalTime(vehicle, toLink)));
+		closestVehicles.addAll(fleet.getVehicles().values());
+		return closestVehicles.stream()
+				.limit(Math.min(respondingIMTs, closestVehicles.size()))
+				.collect(Collectors.toList());
 	}
 }
 

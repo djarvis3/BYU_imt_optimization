@@ -18,7 +18,8 @@
  * *********************************************************************** */
 package run;
 
-import incidents.IncidentSelector_ReadAll;
+import incidents.IncidentApplicator;
+import incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.otfvis.OTFVisLiveModule;
@@ -38,7 +39,7 @@ import java.io.IOException;
 
 public class RunOnlyIncidents {
 
-	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
+	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
 
 	public static void run(String configFile, boolean otfvis) throws IOException {
 		// load config
@@ -47,12 +48,25 @@ public class RunOnlyIncidents {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		// apply incidents to the scenario
-		IncidentSelector_ReadAll incidentReader = new IncidentSelector_ReadAll(scenario.getNetwork());
-		incidentReader.readIncidents("incidents/IncidentData_UtahTest.csv");
+		// read the incidentCSV
+		IncidentReader incidents = new IncidentReader("scenarios/berlin/IncidentData_Berlin.csv");
+		IncidentApplicator applyIncidents =
+				// to apply random incidents from the CSV to the network use incidents.getRandomIncidents
 
 
-		// setup controler
+				/*
+				new IncidentApplicator(scenario.getNetwork(), incidents.getRandomIncidents());
+				applyIncidents.apply();
+				*/
+
+
+				// to apply all the incidents from the CSV to the network use incidents.getAllIncidents
+
+				new IncidentApplicator(scenario.getNetwork(), incidents.getAllIncidents());
+				applyIncidents.apply();
+
+
+				// setup controler
 		Controler controler = new Controler(scenario);
 
 		if (otfvis) {

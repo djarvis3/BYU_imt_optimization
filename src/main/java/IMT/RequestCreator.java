@@ -19,10 +19,9 @@
 
 package IMT;
 import incidents.Incident;
-import incidents.RandomIncidentSelector;
+import incidents.IncidentReader;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
@@ -44,38 +43,40 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	private final PriorityQueue<Request> requests = new PriorityQueue<>(100,
 			Comparator.comparing(org.matsim.contrib.dvrp.optimizer.Request::getSubmissionTime));
 	private final Network network;
-	List<Incident> incidentsSelected = IncidentManager.getIncidentsSelected();
+	List<Incident> incidentsList = IncidentManager.getIncidentsSelected();
 
 	// Constructor
 	@Inject
 	public RequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
-						  @DvrpMode(TransportMode.truck) Network network,
-						  Scenario scenario) {
+						  @DvrpMode(TransportMode.truck) Network network) {
 
 		// Initialize instance variables
 		this.optimizer = optimizer;
 		this.network = network;
 
-		// Read incidents from the CSV file and select only the "incidentsSelected" list
-		if (incidentsSelected == null) {
-			incidentsSelected = readIncidentsFromCsv(scenario);
-			IncidentManager.setIncidentsSelected(incidentsSelected);
+		// Read incidents from the CSV file and select only the "incidentsList" list
+		if (incidentsList == null) {
+			incidentsList = readIncidentsFromCsv();
+			IncidentManager.setIncidentsSelected(incidentsList);
 		}
 
-		// Create a new request for each responding IMT for each incident and add it to the requests PriorityQueue
-		for (Incident incident : incidentsSelected) {
+		// Create a new request for each  incident and add it to the requests PriorityQueue
+		for (Incident incident : incidentsList) {
 			requests.add(createRequest(incident));
 		}
 	}
 
-	// Reads incidents from the CSV file and selects only the "incidentsSelected" list
-	private List<Incident> readIncidentsFromCsv(Scenario scenario) {
-		if (incidentsSelected == null) {
-			RandomIncidentSelector randomIncidentSelector = new RandomIncidentSelector(scenario.getNetwork());
-			randomIncidentSelector.readIncidents("incidents/IncidentData_UtahTest.csv");
-			incidentsSelected = randomIncidentSelector.getIncidentsSelected();
+	// Reads incidents from the CSV file and selects only the "incidentsList" list
+	private List<Incident> readIncidentsFromCsv() {
+		if (incidentsList == null) {
+			IncidentReader incidents = new IncidentReader("scenarios/berlin/IncidentData_Berlin.csv");
+			// to select random incidents from the CSV use incidents.getRandomIncidents();
+			// incidentsList = incidents.randomIncidents();
+
+			// to select all the incidents from the CSV use incidents.getAllIncidents();
+			incidentsList = incidents.getAllIncidents();
 		}
-		return incidentsSelected;
+		return incidentsList;
 	}
 
 	// Creates a new request from an incident and a responding unit ID

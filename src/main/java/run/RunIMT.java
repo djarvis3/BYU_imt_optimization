@@ -36,11 +36,12 @@ import java.io.IOException;
 
 public class RunIMT {
 
-	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
+	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
 
-	public static final String TRUCK_FILE = "ImtVehicles.xml";
+	public static final String TRUCK_FILE = "ImtVehicles5.xml";
 
 	public static void run(String configFile, String trucksFile, boolean otfvis) throws IOException {
+		
 		// load config
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup());
 

@@ -12,7 +12,6 @@ import org.matsim.contrib.dynagent.DynAgent;
 import org.matsim.contrib.dynagent.IdleDynActivity;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 
-// Make this class final to prevent it from being subclassed
 public final class ActionCreator implements VrpAgentLogic.DynActionCreator {
 
 	// Define a private final variable timer of type MobsimTimer

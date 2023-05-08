@@ -20,6 +20,7 @@ package run;
 
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
+import org.matsim.contrib.otfvis.OTFVisLiveModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
@@ -33,9 +34,9 @@ import java.io.IOException;
  */
 public class RunMatsim{
 
-	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
+	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
 
-	public static void run(String configFile, boolean dvrp) throws IOException {
+	public static void run(String configFile, boolean otfvis) throws IOException {
 		// load config
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup());
 
@@ -44,6 +45,10 @@ public class RunMatsim{
 
 		// setup controler
 		Controler controler = new Controler(scenario);
+
+		if (otfvis) {
+			controler.addOverridingModule(new OTFVisLiveModule()); // OTFVis visualisation
+		}
 
 		// run simulation
 		controler.run();
