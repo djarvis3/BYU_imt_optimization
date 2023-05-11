@@ -1,0 +1,322 @@
+May 10, 2023 1:43:04 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+May 10, 2023 1:43:04 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+May 10, 2023 1:43:05 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+May 10, 2023 1:43:05 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+May 10, 2023 1:43:10 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+May 10, 2023 1:43:10 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+May 10, 2023 1:43:10 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+May 10, 2023 1:43:16 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+May 10, 2023 1:43:16 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+May 10, 2023 1:43:16 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+May 10, 2023 1:43:22 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+May 10, 2023 1:43:22 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+May 10, 2023 1:43:31 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+May 10, 2023 1:43:31 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+May 10, 2023 1:43:31 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+May 10, 2023 1:43:31 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+May 10, 2023 1:43:31 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+May 10, 2023 1:43:33 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+May 10, 2023 1:43:33 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+May 10, 2023 1:43:33 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+May 10, 2023 1:43:33 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+May 10, 2023 1:43:34 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+May 10, 2023 1:43:34 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+May 10, 2023 1:44:25 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+May 10, 2023 1:44:26 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+May 10, 2023 1:44:26 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+May 10, 2023 1:44:26 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+May 10, 2023 1:44:33 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+May 10, 2023 1:44:33 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+May 10, 2023 1:44:33 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+May 10, 2023 1:44:44 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+May 10, 2023 1:44:44 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+May 10, 2023 1:44:44 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+May 10, 2023 1:44:54 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+May 10, 2023 1:44:55 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+May 10, 2023 1:45:07 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+May 10, 2023 1:45:07 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+May 10, 2023 1:45:07 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+May 10, 2023 1:45:07 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+May 10, 2023 1:45:07 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+May 10, 2023 1:45:09 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+May 10, 2023 1:45:09 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+May 10, 2023 1:45:09 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+May 10, 2023 1:45:09 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+May 10, 2023 1:45:10 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+May 10, 2023 1:45:10 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+May 10, 2023 1:46:01 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+May 10, 2023 1:46:01 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+May 10, 2023 1:46:01 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+May 10, 2023 1:46:01 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+May 10, 2023 1:46:09 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+May 10, 2023 1:46:09 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+May 10, 2023 1:46:09 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+May 10, 2023 1:46:18 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+May 10, 2023 1:46:18 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+May 10, 2023 1:46:18 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+May 10, 2023 1:46:26 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+May 10, 2023 1:46:26 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+May 10, 2023 1:46:39 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+May 10, 2023 1:46:39 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+May 10, 2023 1:46:39 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+May 10, 2023 1:46:39 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+May 10, 2023 1:46:39 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+May 10, 2023 1:46:40 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+May 10, 2023 1:46:40 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+May 10, 2023 1:46:41 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+May 10, 2023 1:46:41 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+May 10, 2023 1:46:41 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+May 10, 2023 1:46:41 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+May 10, 2023 3:01:55 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+May 10, 2023 3:01:55 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+May 10, 2023 3:01:55 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+May 10, 2023 3:01:55 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+May 10, 2023 3:02:02 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+May 10, 2023 3:02:02 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+May 10, 2023 3:02:02 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+May 10, 2023 3:02:09 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+May 10, 2023 3:02:09 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+May 10, 2023 3:02:09 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+May 10, 2023 3:02:15 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+May 10, 2023 3:02:15 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+May 10, 2023 3:02:24 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+May 10, 2023 3:02:24 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+May 10, 2023 3:02:24 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+May 10, 2023 3:02:25 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+May 10, 2023 3:02:25 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+May 10, 2023 3:02:26 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+May 10, 2023 3:02:26 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+May 10, 2023 3:02:26 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+May 10, 2023 3:02:26 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+May 10, 2023 3:02:27 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+May 10, 2023 3:02:27 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+May 10, 2023 3:03:22 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+May 10, 2023 3:03:22 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+May 10, 2023 3:03:23 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+May 10, 2023 3:03:23 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+May 10, 2023 3:03:33 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+May 10, 2023 3:03:33 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+May 10, 2023 3:03:33 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+May 10, 2023 3:03:42 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+May 10, 2023 3:03:42 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+May 10, 2023 3:03:42 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+May 10, 2023 3:03:49 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+May 10, 2023 3:03:49 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+May 10, 2023 3:03:59 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+May 10, 2023 3:03:59 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+May 10, 2023 3:03:59 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+May 10, 2023 3:04:00 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+May 10, 2023 3:04:00 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+May 10, 2023 3:04:01 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+May 10, 2023 3:04:01 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+May 10, 2023 3:04:01 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+May 10, 2023 3:04:01 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+May 10, 2023 3:04:02 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+May 10, 2023 3:04:02 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+May 10, 2023 3:04:47 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+May 10, 2023 3:04:47 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+May 10, 2023 3:04:47 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+May 10, 2023 3:04:47 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+May 10, 2023 3:04:53 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+May 10, 2023 3:04:53 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+May 10, 2023 3:04:53 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+May 10, 2023 3:05:02 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+May 10, 2023 3:05:02 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+May 10, 2023 3:05:02 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+May 10, 2023 3:05:10 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+May 10, 2023 3:05:10 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+May 10, 2023 3:05:23 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+May 10, 2023 3:05:23 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+May 10, 2023 3:05:23 PM IMT.events.ImtEventHandler handleImtGenerator
+WARNING: IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+May 10, 2023 3:05:23 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+May 10, 2023 3:05:24 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+May 10, 2023 3:05:25 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+May 10, 2023 3:05:25 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+May 10, 2023 3:05:25 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+May 10, 2023 3:05:25 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+May 10, 2023 3:05:26 PM IMT.events.ImtEventHandler handleIncidentNetworkChangeEvent
+WARNING: IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+May 10, 2023 3:05:26 PM IMT.events.ImtEventHandler handleImtNetworkChangeEvent
+WARNING: IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+2023-05-10T15:22:34.873 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+2023-05-10T15:22:34.973 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+2023-05-10T15:22:35.343 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+2023-05-10T15:22:35.384 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+2023-05-10T15:22:41.204 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+2023-05-10T15:22:41.217 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+2023-05-10T15:22:41.217 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+2023-05-10T15:22:47.693 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+2023-05-10T15:22:47.709 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+2023-05-10T15:22:47.714 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+2023-05-10T15:22:53.817 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+2023-05-10T15:22:53.870 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+2023-05-10T15:23:03.104 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+2023-05-10T15:23:03.123 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+2023-05-10T15:23:03.123 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+2023-05-10T15:23:03.680 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+2023-05-10T15:23:03.687 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+2023-05-10T15:23:04.737 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+2023-05-10T15:23:04.758 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+2023-05-10T15:23:04.993 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+2023-05-10T15:23:05.005 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+2023-05-10T15:23:05.775 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+2023-05-10T15:23:05.798 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589
+2023-05-10T15:23:56.833 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_12, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 24618.0, End Time 27600.0
+2023-05-10T15:23:56.851 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_12, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 25882.821801269343
+2023-05-10T15:23:57.303 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_94, # of IMTs 1, Full Capacity 88.48, Reduced Capacity 112.00, Start Time 28519.0, End Time 29400.0
+2023-05-10T15:23:57.329 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_94, # of IMTs 1, Arrival Time 31274.32428933544
+2023-05-10T15:24:03.521 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_23, # of IMTs 2, Full Capacity 56.00, Reduced Capacity 112.00, Start Time 29817.0, End Time 34677.0
+2023-05-10T15:24:03.531 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 98.00, Arrival Time 33335.28150245577
+2023-05-10T15:24:03.532 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_23, # of IMTs 2, Full Capacity 112.00, Reduced Capacity 56.00, Current Capacity 108.50, Arrival Time 31906.377439571694
+2023-05-10T15:24:12.643 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_75, # of IMTs 2, Full Capacity 73.92, Reduced Capacity 112.00, Start Time 31453.0, End Time 32700.0
+2023-05-10T15:24:12.663 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 34707.59667558452
+2023-05-10T15:24:12.663 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_75, # of IMTs 2, Arrival Time 37979.215874841946
+2023-05-10T15:24:23.796 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_128, # of IMTs 1, Full Capacity 71.54, Reduced Capacity 98.00, Start Time 33719.0, End Time 36540.0
+2023-05-10T15:24:23.879 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_128, # of IMTs 1, Arrival Time 39559.760617972664
+2023-05-10T15:24:43.225 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_58, # of IMTs 2, Full Capacity 96.32, Reduced Capacity 112.00, Start Time 46236.0, End Time 47520.0
+2023-05-10T15:24:43.260 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 47862.260932671474
+2023-05-10T15:24:43.264 WARNING - IMT: An IMT is being dispatched to the incident, but may arrive after the incident 'ends' Request ID incident_58, # of IMTs 2, Arrival Time 49786.35827525947
+2023-05-10T15:24:44.582 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_45, # of IMTs 1, Full Capacity 58.10, Reduced Capacity 70.00, Start Time 49003.0, End Time 50040.0
+2023-05-10T15:24:44.599 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_45, # of IMTs 1, Full Capacity 70.00, Reduced Capacity 58.10, Current Capacity 67.03, Arrival Time 49086.977977749266
+2023-05-10T15:24:45.914 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_166, # of IMTs 1, Full Capacity 65.66, Reduced Capacity 98.00, Start Time 56568.0, End Time 57780.0
+2023-05-10T15:24:45.945 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_166, # of IMTs 1, Full Capacity 98.00, Reduced Capacity 65.66, Current Capacity 89.91, Arrival Time 35100.51221330099
+2023-05-10T15:24:46.194 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_109, # of IMTs 1, Full Capacity 112.50, Reduced Capacity 150.00, Start Time 58717.0, End Time 61020.0
+2023-05-10T15:24:46.205 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_109, # of IMTs 1, Full Capacity 150.00, Reduced Capacity 112.50, Current Capacity 140.63, Arrival Time 50439.602663389946
+2023-05-10T15:24:47.110 WARNING - IMT: Network change events have been generated for the incident. Request ID incident_87, # of IMTs 1, Full Capacity 89.60, Reduced Capacity 112.00, Start Time 66830.0, End Time 73380.0
+2023-05-10T15:24:47.141 WARNING - IMT: Arrival Time is less than incident End Time, Network Change Event Added Upon IMT Arrival. Request ID incident_87, # of IMTs 1, Full Capacity 112.00, Reduced Capacity 89.60, Current Capacity 106.40, Arrival Time 63736.5878287589

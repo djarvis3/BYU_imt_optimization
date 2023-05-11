@@ -26,18 +26,19 @@ import org.matsim.api.core.v01.network.Link;
  * @author michalm
  */
 public final class Request implements org.matsim.contrib.dvrp.optimizer.Request {
-	// Define private final variables id, submissionTime, endTime, capacityReduction, and respondingIMTs
+	// Define private final variables id, submissionTime, endTime, capacityReduction, totalIMTs, and numIMT
 	private final Id<org.matsim.contrib.dvrp.optimizer.Request> id;
 	private final double submissionTime;
 	private final double endTime;
 	private final double capacityReduction;
-	private final int respondingIMTs;
+	private final int totalIMTs;
+	private int numIMT;
 
 	// Define a private final variable toLink of type Link
 	private final Link toLink;
 
 	// Constructor that takes the input parameters id, toLink, submissionTime, endTime, capacityReduction,
-	// and respondingIMTs and assigns them to the corresponding private final variables
+	// and totalIMTs and assigns them to the corresponding private final variables
 	public Request(Id<org.matsim.contrib.dvrp.optimizer.Request> id, Link toLink, double submissionTime,
 				   double endTime, double capacityReduction, int respondingIMTs) {
 		this.id = id;
@@ -45,7 +46,7 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 		this.submissionTime = submissionTime;
 		this.endTime = endTime;
 		this.capacityReduction = capacityReduction;
-		this.respondingIMTs = respondingIMTs;
+		this.totalIMTs = respondingIMTs;
 	}
 
 	// Implement the getId method defined in the Request interface and return the value of the id variable
@@ -76,8 +77,16 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 		return capacityReduction;
 	}
 
-	// Create a getter method called getRespondingIMTs that returns the value of the respondingIMTs variable
-	public int getRespondingIMTs() {
-		return respondingIMTs;
+	// Create a getter method called getTotalIMTs that returns the value of the totalIMTs variable
+	public int getTotalIMTs() {
+		return totalIMTs;
+	}
+
+	public int getNumIMT() {
+		return numIMT;
+	}
+
+	public void setNumIMT(int numIMT) {
+		this.numIMT = numIMT;
 	}
 }

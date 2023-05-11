@@ -33,8 +33,6 @@ import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
 
 public class RunIMT {
 
@@ -65,17 +63,7 @@ public class RunIMT {
 		controler.run();
 	}
 
-
 	public static void main(String[] args) throws IOException {
-	// create a new file handler for the logger
-		FileHandler imtHandler = new FileHandler("ImtLogFile.log");
-
-	// create a custom filter for the handler
-		imtHandler.setFilter(record -> record.getMessage().contains("IMT"));
-
-	// configure the logger to use the file handler
-		Logger.getLogger("").addHandler(imtHandler);
-
 		// run the simulation
 		run(CONFIG_FILE, TRUCK_FILE, false);
 	}

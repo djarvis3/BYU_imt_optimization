@@ -7,15 +7,12 @@ import org.matsim.core.network.NetworkChangeEvent;
 import org.matsim.core.network.NetworkUtils;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  * The IncidentNetworkChangeEventGenerator class generates network change events for a given incident upon request
  * during the scenario.
  */
 public class IncidentNetworkChangeEventGenerator {
-
-	private static final Logger LOGGER = Logger.getLogger(IncidentNetworkChangeEventGenerator.class.getName());
 
 	private final Scenario scenario;
 
@@ -60,11 +57,7 @@ public class IncidentNetworkChangeEventGenerator {
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
 
 		// Log incident information
-		String imtLog = ("IMT Log: ");
-		String incidentInfo = String.format("Request ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
-						"Start Time %s, End Time %s",
-				request.getId(), incidentLink.getId(), fullCapacity, reducedCapacity, startTime, endTime);
-		LOGGER.info(imtLog + incidentInfo);
+		ImtEventHandler.handleIncidentNetworkChangeEvent(request,  fullCapacity, reducedCapacity, startTime, endTime);
 	}
 }
 

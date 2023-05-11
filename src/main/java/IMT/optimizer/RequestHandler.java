@@ -1,6 +1,7 @@
 package IMT.optimizer;
 
 import IMT.Request;
+import IMT.events.ImtEventHandler;
 import IMT.events.ImtNetworkChangeEventGenerator;
 import IMT.events.IncidentNetworkChangeEventGenerator;
 import org.matsim.api.core.v01.Scenario;
@@ -12,7 +13,6 @@ import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  The RequestHandler class is responsible for handling incident requests. It updates the schedules of the closest
@@ -21,8 +21,7 @@ import java.util.logging.Logger;
  */
 public class RequestHandler {
 
-	// This value represents the flow capacity factor, which should match the parameter set in the config file.
-	private static final double FLOW_CAPACITY_FACTOR = 0.01;
+	private static double FLOW_CAPACITY_FACTOR;
 
 	/*
 	 This value represents the percentage of capacity restored upon IMT arrival.
@@ -30,11 +29,6 @@ public class RequestHandler {
 	 upon the vehicle's arrival.
 	 */
 	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.25;
-
-	/**
-	 * This logger is used to log information about the network change event.
-	 */
-	private static final Logger LOGGER = Logger.getLogger(ImtNetworkChangeEventGenerator.class.getName());
 
 	// These fields store references to the objects used by this class.
 	private final LeastCostPathCalculator router;
@@ -56,9 +50,10 @@ public class RequestHandler {
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
 		this.timer = Objects.requireNonNull(timer, "timer must not be null");
 		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
-
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incidentNCE = new IncidentNetworkChangeEventGenerator(scenario);
+
+		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
 	}
 
 	/**
@@ -78,14 +73,16 @@ public class RequestHandler {
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
 
 		// Generate incident network change events.
-		incidentNCE.generateIncidentNetworkChangeEvents(request.getToLink(), reducedLinkCapacity,
-				fullLinkCapacity, request.getSubmissionTime(), request.getEndTime(), request);
+		incidentNCE.generateIncidentNetworkChangeEvents(request.getToLink(), fullLinkCapacity,
+				reducedLinkCapacity, request.getSubmissionTime(), request.getEndTime(), request);
 
 		// Update the schedules of the closest vehicles and add an IMT network change event.
 		double endTime = request.getEndTime();
-		int respondingIMTs = request.getRespondingIMTs();
+		int respondingIMTs = request.getTotalIMTs();
 		List<DvrpVehicle> closestVehicles = closestVehicleFinder.getClosestVehicles(request.getToLink(), respondingIMTs);
+		int numIMT = 0; // Initialize the counter variable to 1
 		for (DvrpVehicle imtUnit : closestVehicles) {
+			numIMT+= 1; // Increase numIMT by 1
 			Schedule schedule = imtUnit.getSchedule();
 			ScheduleUpdater updater = new ScheduleUpdater(router, travelTime, timer);
 			double currLinkCapacity = fullLinkCapacity - (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
@@ -97,12 +94,10 @@ public class RequestHandler {
 						currLinkCapacity, request, arrivalTime);
 				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity);
 			} else {
-				String imtLog = ("IMT Log: ");
-				String output = ("Arrival Time is greater than incident End Time, No IMT Network Change Event. ");
-				String incidentInfo = String.format("Request ID %s, Arrival Time %s, End Time %s", request.getId(),
-						arrivalTime, endTime);
-				LOGGER.info(imtLog + output + incidentInfo);
+				// Log IMT information
+				ImtEventHandler.handleImtGenerator(request, arrivalTime);
 			}
+			request.setNumIMT(numIMT);
 		}
 	}
 }
