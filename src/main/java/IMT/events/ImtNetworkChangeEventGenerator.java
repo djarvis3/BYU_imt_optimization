@@ -53,6 +53,6 @@ public class ImtNetworkChangeEventGenerator {
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), restoreCapacityEvent);
 
 		// Log incident information
-		ImtEventHandler.handleImtNetworkChangeEvent(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime);
+		EventHandler.handleImtNetworkChangeEvent(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime);
 	}
 }

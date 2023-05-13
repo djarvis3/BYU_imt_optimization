@@ -1,7 +1,7 @@
 package IMT.optimizer;
 
 import IMT.Request;
-import IMT.events.ImtEventHandler;
+import IMT.events.EventHandler;
 import IMT.events.ImtNetworkChangeEventGenerator;
 import IMT.events.IncidentNetworkChangeEventGenerator;
 import org.matsim.api.core.v01.Scenario;
@@ -95,7 +95,7 @@ public class RequestHandler {
 				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity);
 			} else {
 				// Log IMT information
-				ImtEventHandler.handleImtGenerator(request, arrivalTime);
+				EventHandler.handleImtGenerator(request, arrivalTime);
 			}
 			request.setNumIMT(numIMT);
 		}

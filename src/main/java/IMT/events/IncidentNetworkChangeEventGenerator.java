@@ -57,7 +57,7 @@ public class IncidentNetworkChangeEventGenerator {
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
 
 		// Log incident information
-		ImtEventHandler.handleIncidentNetworkChangeEvent(request,  fullCapacity, reducedCapacity, startTime, endTime);
+		EventHandler.handleIncidentNetworkChangeEvent(request,  fullCapacity, reducedCapacity, startTime, endTime);
 	}
 }
 
