@@ -4,7 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -13,17 +12,11 @@ hs_err_pid*
 /.settings/
 /.project
 /.classpath
-/target/
 /output/
 /bin/
-/src/main/java/network
-/src/main/java/readers
 
 
 /.idea/
 *.iml
-sfOutput/
 
 arcGIS-maps.zip
-
-test/output/
