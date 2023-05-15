@@ -19,7 +19,7 @@
 
 package IMT;
 import incidents.Incident;
-import incidents.IncidentParser;
+
 import incidents.IncidentReader;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Id;
@@ -70,12 +70,12 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	// Reads incidents from the CSV file and selects only the "incidentsList" list
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
-			IncidentReader incidents = new IncidentReader("scenarios/berlin/IncidentData_Berlin.csv");
+			IncidentReader incidents = new IncidentReader("scenarios/utah/IncidentData_Utah.csv");
 			// to select random incidents from the CSV use incidents.getRandomIncidents();
 			// incidentsList = incidents.randomIncidents();
 
 			// to select all the incidents from the CSV use incidents.getAllIncidents();
-			incidentsList = incidents.getAllIncidents();
+			incidentsList = incidents.getSeededIncidents(10,1234);
 		}
 		return incidentsList;
 	}

@@ -19,10 +19,8 @@ public class EventHandler {
 
 	public EventHandler(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
-		LOGGER.info(outputDirectory);
-
+		Integer lastIteration = scenario.getConfig().controler().getLastIteration();
 		try {
-			// Create a new file handler that writes log messages to a file named "ImtEvents.log"
 			FileHandler fileHandler = new FileHandler(outputDirectory + "/logIMT.log", true);
 
 			// Set the log level to INFO
@@ -52,8 +50,6 @@ public class EventHandler {
 			LOGGER.log(Level.WARNING, "Failed to create file handler for ImtEvents.log", e);
 		}
 	}
-
-
 	/**
 	 * Handle IMT log information from ImtNetworkChangeEventGenerator.
 	 * @param request the request associated with the network change event

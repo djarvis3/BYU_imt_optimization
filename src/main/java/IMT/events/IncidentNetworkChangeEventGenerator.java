@@ -15,6 +15,7 @@ import java.util.Objects;
 public class IncidentNetworkChangeEventGenerator {
 
 	private final Scenario scenario;
+	private final EventHandler incidentEvents;
 
 	/**
 	 * Constructs an IncidentNetworkChangeEventGenerator with the given scenario.
@@ -24,6 +25,7 @@ public class IncidentNetworkChangeEventGenerator {
 	 */
 	public IncidentNetworkChangeEventGenerator(Scenario scenario) {
 		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
+		this.incidentEvents = new EventHandler(scenario);
 	}
 
 	/**
@@ -57,7 +59,9 @@ public class IncidentNetworkChangeEventGenerator {
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
 
 		// Log incident information
-		EventHandler.handleIncidentNetworkChangeEvent(request,  fullCapacity, reducedCapacity, startTime, endTime);
+		incidentEvents.handleIncidentNetworkChangeEvent(request,  fullCapacity, reducedCapacity, startTime, endTime);
 	}
 }
+
+
 
