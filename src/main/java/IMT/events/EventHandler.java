@@ -18,8 +18,8 @@ public class EventHandler {
 
 	static {
 		try {
-			// Create a new file handler that writes log messages to a file named "ImtEvents.log"
-			FileHandler fileHandler = new FileHandler("output/berlin_IMT/ImtEvents.log", true);
+			// Create a new file handler that writes log messages to a file named "logIMT.log"
+			FileHandler fileHandler = new FileHandler("output/berlin_IMT/logIMT.log", true);
 
 			// Set the log level to INFO
 			fileHandler.setLevel(Level.INFO);
@@ -45,7 +45,7 @@ public class EventHandler {
 			LOGGER.addHandler(fileHandler);
 
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Failed to create file handler for ImtEvents.log", e);
+			LOGGER.log(Level.WARNING, "Failed to create file handler for logIMT.log", e);
 		}
 	}
 
