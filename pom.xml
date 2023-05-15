@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
+	<!-- not sure what to update groupID to -->
 	<groupId>org.matsim</groupId>
-	<artifactId>matsim-example-project</artifactId>
+	<artifactId>BYU_imt_optimization</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>MATSim example project</name>
-	<description>MATSim example project</description>
+	<description>IMT deployment for MATSim </description>
 
 	<properties>
 		<!-- release -->
@@ -24,6 +25,8 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
+
+	<!--Might need to configure <distributionManagement> and 	<build> not sure? <-->
 
 	<repositories>
 		<!--Note that in general repositories are not transitive, so they need to be repeated at every level where needed.-->
@@ -110,60 +113,33 @@
 		<!--some contribs:-->
 		<dependency>
 			<groupId>org.matsim.contrib</groupId>
-			<artifactId>minibus</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
 			<artifactId>otfvis</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>noise</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>roadpricing</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
+
+		<!--deleted mini bus, noise, roadpricing, av freight, bicycle, emissions-->
+
+
 		<dependency>
 			<groupId>org.matsim.contrib</groupId>
 			<artifactId>taxi</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>av</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>freight</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>bicycle</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>emissions</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
+
+
 		<dependency>
 			<groupId>org.matsim.contrib</groupId>
 			<artifactId>application</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
 			<version>24.0.1</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -171,7 +147,12 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!--Dependencies from where stated above to here are added as a service; they can be removed if you don't need them-->
+		<!--include dvrp dependency-->
+		<dependency>
+			<groupId>org.matsim.contrib</groupId>
+			<artifactId>dvrp</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
 
 	</dependencies>
 
