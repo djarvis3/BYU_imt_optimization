@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="matsim-example-project" />
+        <module name="BYU_imt_optimization" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="matsim-maas" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="matsim-maas" options="-Xmaxwarns 4000 -Xmaxerrs 100" />
+    </option>
+  </component>
+</project>
