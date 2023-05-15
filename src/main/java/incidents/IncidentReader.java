@@ -16,41 +16,13 @@ public class IncidentReader {
 	/**
 	 * Constructs a new instance of IncidentReader with the given CSV file.
 	 *
-	 * @param csvFilePath the filepath
+	 * @param csvFilePath    the filepath
 	 */
 	@Inject
 	public IncidentReader(String csvFilePath) {
-		this.csvFilePath = csvFilePath;}
-
-	/**
-	 * Reads the incidents from the given CSV file, selects a random set of incidents
-	 * and returns them.
-	 *
-	 * @return the random list of incidents
-	 */
-	public List<Incident> getRandomIncidents() {
-		List<Incident> incidents = IncidentParser.parse(csvFilePath);
-		return selectRandomIncidentsFromList(incidents);
+		this.csvFilePath = csvFilePath;
 	}
 
-	/**
-	 * Selects a random number of incidents determined by
-	 * the probabilistic functions defined in the IncidentNumber class
-	 *
-	 * @param incidents the list of incidents to select from
-	 * @return randomIncidents the random list of incidents
-	 */
-	private List<Incident> selectRandomIncidentsFromList(List<Incident> incidents) {
-		IncidentNumber generator = new IncidentNumber();
-		int incidentNumber = generator.getIncNum();
-		Random random = new Random();
-		List<Incident> randomIncidents = new ArrayList<>();
-		for (int i = 1; i <= incidentNumber; i++) {
-			int randomIndex = random.nextInt(incidents.size());
-			randomIncidents.add(incidents.get(randomIndex));
-		}
-		return randomIncidents;
-	}
 
 	/**
 	 * Reads the incidents from the given CSV file, selects all the incidents
@@ -61,6 +33,68 @@ public class IncidentReader {
 	public List<Incident> getAllIncidents() {
 		return IncidentParser.parse(csvFilePath);
 	}
+
+	/**
+	 * Reads the incidents from the given CSV file, selects a random set of incidents
+	 * and returns them.
+	 *
+	 * @return the random list of incidents
+	 */
+	public List<Incident> getRandomIncidents(int incidentNumber) {
+		List<Incident> incidents = IncidentParser.parse(csvFilePath);
+		return selectRandomSubset(incidents, incidentNumber);
+	}
+
+	/**
+	 * Reads the incidents from the given CSV file and returns a specific set of incidents
+	 * based on the incidentNumber and seed parameters.
+	 *
+	 * @param incidentNumber the number of incidents to select
+	 * @param seed           the seed value to use for randomization
+	 * @return the selected incidents
+	 */
+	public List<Incident> getSeededIncidents(int incidentNumber, long seed) {
+		List<Incident> incidents = IncidentParser.parse(csvFilePath);
+		return selectRandomSubset(incidents, incidentNumber, seed);
+	}
+
+
+	private List<Incident> selectRandomSubset(List<Incident> incidents, int incidentNumber) {
+		if (incidentNumber > incidents.size()) {
+			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
+		}
+		Random random = new Random();
+		List<Incident> selectedIncidents = new ArrayList<>();
+		while (selectedIncidents.size() < incidentNumber) {
+			int randomIndex = random.nextInt(incidents.size());
+			Incident randomIncident = incidents.get(randomIndex);
+			if (!selectedIncidents.contains(randomIncident)) {
+				selectedIncidents.add(randomIncident);
+			}
+		}
+		return selectedIncidents;
+	}
+
+
+	private List<Incident> selectRandomSubset(List<Incident> incidents, int incidentNumber, long seed) {
+		if (incidentNumber > incidents.size()) {
+			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
+		}
+		Random random = new Random(seed);
+		List<Incident> selectedIncidents = new ArrayList<>();
+		while (selectedIncidents.size() < incidentNumber) {
+			int randomIndex = random.nextInt(incidents.size());
+			Incident randomIncident = incidents.get(randomIndex);
+			if (!selectedIncidents.contains(randomIncident)) {
+				selectedIncidents.add(randomIncident);
+			}
+		}
+		return selectedIncidents;
+	}
 }
+
+
+
+
 
 

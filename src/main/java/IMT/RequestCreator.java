@@ -19,6 +19,7 @@
 
 package IMT;
 import incidents.Incident;
+import incidents.IncidentParser;
 import incidents.IncidentReader;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Id;
