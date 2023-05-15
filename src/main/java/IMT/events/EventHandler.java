@@ -1,5 +1,6 @@
 package IMT.events;
 import IMT.Request;
+import org.matsim.api.core.v01.Scenario;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -16,10 +17,13 @@ import java.util.logging.*;
 public class EventHandler {
 	private static final Logger LOGGER = Logger.getLogger(EventHandler.class.getName());
 
-	static {
+	public EventHandler(Scenario scenario) {
+		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
+		LOGGER.info(outputDirectory);
+
 		try {
-			// Create a new file handler that writes log messages to a file named "logIMT.log"
-			FileHandler fileHandler = new FileHandler("output/berlin_IMT/logIMT.log", true);
+			// Create a new file handler that writes log messages to a file named "ImtEvents.log"
+			FileHandler fileHandler = new FileHandler(outputDirectory + "/logIMT.log", true);
 
 			// Set the log level to INFO
 			fileHandler.setLevel(Level.INFO);
@@ -45,9 +49,10 @@ public class EventHandler {
 			LOGGER.addHandler(fileHandler);
 
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Failed to create file handler for logIMT.log", e);
+			LOGGER.log(Level.WARNING, "Failed to create file handler for ImtEvents.log", e);
 		}
 	}
+
 
 	/**
 	 * Handle IMT log information from ImtNetworkChangeEventGenerator.
