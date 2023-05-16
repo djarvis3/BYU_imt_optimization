@@ -19,7 +19,6 @@
 package run;
 
 import incidents.IncidentApplicator;
-import incidents.IncidentParser;
 import incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
@@ -49,7 +48,11 @@ public class RunOnlyIncidents {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		// read the incidentCSV
+
+
+
+		// setup controler
+		Controler controler = new Controler(scenario);
 		IncidentReader incidents = new IncidentReader("scenarios/utah/IncidentData_Utah.csv");
 		IncidentApplicator applyIncidents =
 				// to apply random incidents from the CSV to the network use incidents.getRandomIncidents
@@ -60,11 +63,7 @@ public class RunOnlyIncidents {
 
 				// to apply seeded incidents from the CSV to the network use incidents.getSeededIncidents
 				new IncidentApplicator(scenario, incidents.getSeededIncidents(10,1234));
-				applyIncidents.apply();
-
-
-		// setup controler
-		Controler controler = new Controler(scenario);
+		applyIncidents.apply();
 
 		if (otfvis) {
 			controler.addOverridingModule(new OTFVisLiveModule()); // OTFVis visualisation
@@ -72,8 +71,10 @@ public class RunOnlyIncidents {
 
 		// run simulation
 		controler.run();
-	}
 
+		// read the incidentCSV
+
+	}
 
 	public static void main(String[] args) throws IOException {run(CONFIG_FILE, false);}
 }

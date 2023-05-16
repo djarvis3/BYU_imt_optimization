@@ -1,6 +1,7 @@
 package IMT.events;
 import IMT.Request;
 import org.matsim.api.core.v01.Scenario;
+import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,21 +14,25 @@ import java.util.logging.*;
 /**
  * Handles logging for network change events associated with incidents or IMT arrival events.
  */
-
 public class EventHandler {
 	private static final Logger LOGGER = Logger.getLogger(EventHandler.class.getName());
+	private static int iterationCount = 0;
 
+	/**
+	 * Constructs an EventHandler object.
+	 *
+	 * @param scenario the scenario object to retrieve the output directory from
+	 */
 	public EventHandler(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
-		Integer lastIteration = scenario.getConfig().controler().getLastIteration();
 		try {
-			FileHandler fileHandler = new FileHandler(outputDirectory + "/logIMT.log", true);
+			FileHandler imtHandler = new FileHandler(outputDirectory + "/logIMT.log", true);
 
 			// Set the log level to INFO
-			fileHandler.setLevel(Level.INFO);
+			imtHandler.setLevel(Level.INFO);
 
 			// Use a custom formatter to format the log messages with the desired date format
-			fileHandler.setFormatter(new Formatter() {
+			imtHandler.setFormatter(new Formatter() {
 				private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
 				@Override
@@ -44,29 +49,40 @@ public class EventHandler {
 			});
 
 			// Add the file handler to the logger
-			LOGGER.addHandler(fileHandler);
+			LOGGER.addHandler(imtHandler);
+
+			logIterationBegin();
 
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Failed to create file handler for ImtEvents.log", e);
+			LOGGER.log(Level.WARNING, "Failed to create file handler for logIMT.log", e);
 		}
 	}
+
+	// Add Iteration Counter and separated lines
+	private void logIterationBegin() {
+		LOGGER.severe("########################## ITERATION " + iterationCount + " BEGINS ##########################");
+		iterationCount++;
+	}
+
 	/**
 	 * Handle IMT log information from ImtNetworkChangeEventGenerator.
-	 * @param request the request associated with the network change event
-	 * @param fullCapacity the full capacity of the link
-	 * @param reducedCapacity the reduced capacity of the link
+	 *
+	 * @param request          the request associated with the network change event
+	 * @param fullCapacity     the full capacity of the link
+	 * @param reducedCapacity  the reduced capacity of the link
 	 * @param currLinkCapacity the current capacity of the link
-	 * @param arrivalTime the time when the IMT arrives
+	 * @param arrivalTime      the time when the IMT arrives
+	 * @param imtUnit          the vehicle sent to the incident
 	 */
-	public static void handleImtNetworkChangeEvent(Request request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime) {
+	public static void handleImtNetworkChangeEvent(Request request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime, DvrpVehicle imtUnit) {
 		String imtLog = ("IMT: ");
 		Duration arrival = Duration.ofSeconds((long) arrivalTime);
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(arrival);
 		String formattedArrival = String.format("%02d:%02d:%02d", localArrival.getHour(), localArrival.getMinute(), localArrival.getSecond());
 		String incidentInfo = String.format("Request ID %s, IMT %s of %s, " +
-						"Full Capacity %.2f, Reduced Capacity %.2f, " +
+						"Vehicle ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Current Capacity %.2f, Arrival Time %s",
-				request.getId(), (request.getNumIMT()+1), request.getTotalIMTs(), fullCapacity,
+				request.getId(), (request.getNumIMT() + 1), request.getTotalIMTs(), imtUnit.getId(), fullCapacity,
 				reducedCapacity, currLinkCapacity, formattedArrival);
 		String logMsg = imtLog + incidentInfo;
 
@@ -74,11 +90,13 @@ public class EventHandler {
 	}
 
 	/**
-	 * Handle IMT log information from ImtGenerator.
-	 * @param request the request associated with the IMT
+	 * Handles the logging of IMT log information from ImtGenerator for late IMT arrival.
+	 *
+	 * @param request     the request associated with the IMT
 	 * @param arrivalTime the time when the IMT arrives
+	 * @param imtUnit     the vehicle sent to the incident
 	 */
-	public static void handleImtGenerator(Request request, double arrivalTime) {
+	public static void handleLateImtArrival(Request request, double arrivalTime, DvrpVehicle imtUnit) {
 		String imtLog = ("IMT: ");
 		Duration arrival = Duration.ofSeconds((long) arrivalTime);
 		Duration endTime = Duration.ofSeconds((long) request.getEndTime());
@@ -88,21 +106,23 @@ public class EventHandler {
 		String formattedEndTime = String.format("%02d:%02d:%02d", localEndTime.getHour(), localEndTime.getMinute(), localEndTime.getSecond());
 
 		String incidentInfo = String.format("Request ID %s, IMT %s of %s, " +
-						"Arrival Time %s, End Time %s. ",
-				request.getId(), (request.getNumIMT()+1), request.getTotalIMTs(), formattedArrival, formattedEndTime);
+						"Vehicle ID %s, Arrival Time %s, End Time %s. ",
+				request.getId(), (request.getNumIMT() + 1), request.getTotalIMTs(), imtUnit.getId(), formattedArrival, formattedEndTime);
 		String output = ("Late Arrival");
 		String logMsg = imtLog + incidentInfo + output;
 
 		LOGGER.info(String.format("%-80s", logMsg));
 	}
 
+
 	/**
-	 * Handle IMT log information from IncidentNetworkChangeEventGenerator.
-	 * @param request the request associated with the incident
-	 * @param fullCapacity the full capacity of the incident link
+	 * Handles the logging of IMT log information from IncidentNetworkChangeEventGenerator for an incident network change event.
+	 *
+	 * @param request         the request associated with the incident
 	 * @param reducedCapacity the reduced capacity of the incident link
-	 * @param startTime the start time of the incident
-	 * @param endTime the end time of the incident
+	 * @param fullCapacity    the full capacity of the incident link
+	 * @param startTime       the start time of the incident
+	 * @param endTime         the end time of the incident
 	 */
 	public static void handleIncidentNetworkChangeEvent(Request request, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {

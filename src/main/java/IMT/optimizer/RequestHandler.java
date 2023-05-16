@@ -92,10 +92,10 @@ public class RequestHandler {
 			if (arrivalTime < endTime) {
 				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario, request.getToLink(),
 						currLinkCapacity, request, arrivalTime);
-				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity);
+				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity, imtUnit);
 			} else {
 				// Log IMT information
-				EventHandler.handleImtGenerator(request, arrivalTime);
+				EventHandler.handleLateImtArrival(request, arrivalTime, imtUnit);
 			}
 			request.setNumIMT(numIMT);
 		}

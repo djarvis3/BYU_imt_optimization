@@ -3,6 +3,7 @@ package IMT.events;
 import IMT.Request;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
+import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.core.network.NetworkChangeEvent;
 import org.matsim.core.network.NetworkUtils;
 
@@ -29,8 +30,7 @@ public class ImtNetworkChangeEventGenerator {
 	 @param arrivalTime the time when the IMT arrives
 	 @throws NullPointerException if any of the non-primitive arguments are null
 	 */
-	public ImtNetworkChangeEventGenerator(Scenario scenario, Link toLink, double currLinkCapacity, Request request,
-										  double arrivalTime) {
+	public ImtNetworkChangeEventGenerator(Scenario scenario, Link toLink, double currLinkCapacity, Request request, double arrivalTime) {
 		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
 		this.toLink = Objects.requireNonNull(toLink, "toLink must not be null");
 		this.currLinkCapacity = currLinkCapacity;
@@ -42,7 +42,7 @@ public class ImtNetworkChangeEventGenerator {
 	 @param fullCapacity the full capacity of the link
 	 @param reducedCapacity the reduced capacity of the link
 	 */
-	public void addEventToNetwork(double fullCapacity, double reducedCapacity) {
+	public void addEventToNetwork(double fullCapacity, double reducedCapacity, DvrpVehicle imtUnit) {
 
 		// Generate Network Change Event
 		NetworkChangeEvent restoreCapacityEvent = new NetworkChangeEvent(arrivalTime);
@@ -53,6 +53,6 @@ public class ImtNetworkChangeEventGenerator {
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), restoreCapacityEvent);
 
 		// Log incident information
-		EventHandler.handleImtNetworkChangeEvent(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime);
+		EventHandler.handleImtNetworkChangeEvent(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime, imtUnit);
 	}
 }

@@ -3,7 +3,6 @@ package incidents;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
@@ -13,8 +12,6 @@ import org.matsim.core.network.NetworkChangeEvent.ChangeValue;
 import org.matsim.core.network.NetworkUtils;
 
 public class IncidentApplicator {
-
-	private static final Logger LOGGER = Logger.getLogger(IncidentApplicator.class.getName());
 
 	// ensure that this value matches the parameter set in the config file
 	private static double FLOW_CAPACITY_FACTOR;
@@ -29,6 +26,7 @@ public class IncidentApplicator {
 	 * @param scenario           the scenario with the network to apply incidents to
 	 * @param incidentsSelected the incidents to apply to the network, will usually be either randomly selected
 	 *                          or all of the incidents from a CSV read into the incidentReader class
+	 *
 	 * @throws IllegalArgumentException if any incident's link ID does not exist in the network
 	 */
 	public IncidentApplicator(Scenario scenario, List<Incident> incidentsSelected) {
@@ -56,7 +54,6 @@ public class IncidentApplicator {
 	 * Applies the selected incidents to the network.
 	 */
 	public void apply() {
-		int totalIncidents = incidentsSelected.size();
 
 		incidentsSelected.parallelStream().forEach(incident -> {
 			Link link = linkMap.get(incident.getLinkId());
@@ -74,14 +71,6 @@ public class IncidentApplicator {
 			endEvent.setFlowCapacityChange(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, capacity));
 			endEvent.addLink(link);
 			NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), endEvent);
-
-			String incidentInfo = String.format("Incident ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, Start Time %s, End Time %s, Total Incidents %d",
-					incident.getIncidentID(), incident.getLinkId(), capacity, reducedCapacity, incident.getStartTime(), incident.getEndTime(), totalIncidents);
-
-
-			LOGGER.info(incidentInfo);
 		});
 	}
 }
-
-
