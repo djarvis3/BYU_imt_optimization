@@ -8,6 +8,7 @@ import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.schedule.*;
+import org.matsim.core.controler.Controler;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
@@ -49,7 +50,7 @@ public class RequestHandler {
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
 		this.timer = Objects.requireNonNull(timer, "timer must not be null");
-		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
+		this.scenario = Objects.requireNonNull(scenario, "controler must not be null");
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incidentNCE = new IncidentNetworkChangeEventGenerator(scenario);
 
@@ -70,11 +71,12 @@ public class RequestHandler {
 		// Calculate the link capacities for the incident.
 		double fullLinkCapacity = request.getToLink().getCapacity() * FLOW_CAPACITY_FACTOR;
 		double reducedLinkCapacity = fullLinkCapacity * (1 - request.getCapacityReduction());
+		double initialReducedCapacity = reducedLinkCapacity;
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
 
 		// Generate incident network change events.
-		incidentNCE.generateIncidentNetworkChangeEvents(request.getToLink(), fullLinkCapacity,
-				reducedLinkCapacity, request.getSubmissionTime(), request.getEndTime(), request);
+		incidentNCE.generateIncidentEvent(request.getToLink(), reducedLinkCapacity,
+				fullLinkCapacity, request.getSubmissionTime(), request.getEndTime(), request);
 
 		// Update the schedules of the closest vehicles and add an IMT network change event.
 		double endTime = request.getEndTime();
@@ -85,8 +87,9 @@ public class RequestHandler {
 			numIMT+= 1; // Increase numIMT by 1
 			Schedule schedule = imtUnit.getSchedule();
 			ScheduleUpdater updater = new ScheduleUpdater(router, travelTime, timer);
-			double currLinkCapacity = fullLinkCapacity - (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
+			double currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
 			linkCapacityGap = fullLinkCapacity - currLinkCapacity;
+			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
 			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit);
 
 			if (arrivalTime < endTime) {

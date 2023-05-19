@@ -18,7 +18,9 @@
  * *********************************************************************** */
 package run;
 
-import IMT.Module;
+import IMT.ImtModule;
+import incidents.IncidentApplicator;
+import incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
@@ -42,10 +44,11 @@ import java.io.IOException;
  */
 public class RunIMT {
 
-	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_25.xml";
+	public static final String CONFIG_FILE = "scenarios/equil/config_withinday.xml";
+	//public static final String TRUCK_FILE = "ImtVehicles_25.xml";
 	// use the no vehicles TRUCK_FILE to create an "Incidents Only" MATSim Run
-	// public static final String TRUCK_FILE = "NoVehicles.xml";
+	//public static final String TRUCK_FILE = "NoVehicles.xml";
+	public static final String TRUCK_FILE = "OneImtVehicles.xml";
 
 	/**
 	 * Runs the MATSim simulation.
@@ -62,14 +65,22 @@ public class RunIMT {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
+		// add incident to the scenario
+		IncidentReader incidents = new IncidentReader("scenarios/equil/IncidentData_Equil.csv");
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(1,4));
+		applyIncidents.apply();
+
+
 		// setup controler
 		Controler controler = new Controler(scenario);
 
 		// add modules for handling incidents and IMTs (Incident Management Teams)
 		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new Module(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
+
 
 		// enable OTFVis visualization if specified
 		if (otfvis) {
@@ -79,6 +90,7 @@ public class RunIMT {
 		// run simulation
 		controler.run();
 	}
+
 
 	/**
 	 * Main method to start the MATSim simulation.

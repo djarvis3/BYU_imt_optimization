@@ -10,14 +10,21 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\scenarios\utah\IncidentData_Utah.csv">
+        <entry key="\scenarios\equil\IncidentData_Equil.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\scenarios\utah\IncidentData_UtahTest.csv">
+        <entry key="\scenarios\siouxfalls\IncidentData_SiouxFalls.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\scenarios\utah\IncidentData_Utah.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

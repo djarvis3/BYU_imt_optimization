@@ -43,7 +43,7 @@ public class IncidentParser {
 			incidents = records.stream()
 					.map(record -> {
 						String linkId = record.getString("MATSim Link");
-						int incidentId = record.getInt("ID");
+						String incidentId = record.getString("ID");
 						int respondingIMTs = record.getInt("Responding IMTs");
 						double startTimeSec = record.getDouble("Start Time (sec)");
 						double endTimeSec = record.getDouble("End Time (sec)");

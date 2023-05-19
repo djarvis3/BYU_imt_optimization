@@ -1,9 +1,13 @@
 package IMT.events;
 import IMT.Request;
+
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -26,7 +30,19 @@ public class EventHandler {
 	public EventHandler(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		try {
-			FileHandler imtHandler = new FileHandler(outputDirectory + "/logIMT.log", true);
+			// Create the output directory if it doesn't exist
+			Path outputDirPath = Paths.get(outputDirectory);
+			if (!Files.exists(outputDirPath)) {
+				Files.createDirectories(outputDirPath);
+			}
+
+			// Create the imtITERS directory if it doesn't exist
+			Path imtItersDirPath = Paths.get(outputDirectory, "imtITERS");
+			if (!Files.exists(imtItersDirPath)) {
+				Files.createDirectories(imtItersDirPath);
+			}
+
+			FileHandler imtHandler = new FileHandler(outputDirectory + "/imtITERS/logIMT.log", true);
 
 			// Set the log level to INFO
 			imtHandler.setLevel(Level.INFO);
@@ -80,10 +96,10 @@ public class EventHandler {
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(arrival);
 		String formattedArrival = String.format("%02d:%02d:%02d", localArrival.getHour(), localArrival.getMinute(), localArrival.getSecond());
 		String incidentInfo = String.format("Request ID %s, IMT %s of %s, " +
-						"Vehicle ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
+						"Vehicle ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Current Capacity %.2f, Arrival Time %s",
-				request.getId(), (request.getNumIMT() + 1), request.getTotalIMTs(), imtUnit.getId(), fullCapacity,
-				reducedCapacity, currLinkCapacity, formattedArrival);
+				request.getId(), (request.getNumIMT() + 1), request.getTotalIMTs(), imtUnit.getId(),
+				request.getToLink().getId(), fullCapacity, reducedCapacity, currLinkCapacity, formattedArrival);
 		String logMsg = imtLog + incidentInfo;
 
 		LOGGER.info(String.format("%-80s", logMsg));
@@ -134,9 +150,9 @@ public class EventHandler {
 		String formattedStart = String.format("%02d:%02d:%02d", localArrival.getHour(), localArrival.getMinute(), localArrival.getSecond());
 		String formattedEnd = String.format("%02d:%02d:%02d", localEndTime.getHour(), localEndTime.getMinute(), localEndTime.getSecond());
 		String incidentInfo = String.format("Request ID %s, %s IMT(s), " +
-						"Full Capacity %.2f, Reduced Capacity %.2f, " +
+						"Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
-				request.getId(), request.getTotalIMTs(), fullCapacity, reducedCapacity,
+				request.getId(), request.getTotalIMTs(), request.getToLink().getId(), fullCapacity, reducedCapacity,
 				formattedStart, formattedEnd);
 
 		String logMsg = imtLog + incidentInfo;

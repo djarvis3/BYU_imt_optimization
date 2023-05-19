@@ -34,7 +34,7 @@ import java.io.IOException;
  */
 public class RunMatsim{
 
-	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
+	public static final String CONFIG_FILE = "scenarios/utah/config_withinday.xml";
 
 	public static void run(String configFile, boolean otfvis) throws IOException {
 		// load config

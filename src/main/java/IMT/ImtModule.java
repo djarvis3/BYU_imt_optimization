@@ -48,17 +48,18 @@ import java.net.URL;
  * The Module class represents a DVRP mode module for IMT vehicles.
  * This module installs routing and fleet modules for the DVRP mode, and creates a truck type for the simulation.
  */
-public class Module extends AbstractDvrpModeModule {
+public class ImtModule extends AbstractDvrpModeModule {
 	/**
 	 * The URL of the fleet specification.
 	 */
 	private final URL fleetSpecificationUrl;
 
+
 	/**
 	 * Creates a new Module object with the given fleet specification URL.
 	 * @param fleetSpecificationUrl the URL of the fleet specification.
 	 */
-	public Module(URL fleetSpecificationUrl) {
+	public ImtModule(URL fleetSpecificationUrl) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
 	}

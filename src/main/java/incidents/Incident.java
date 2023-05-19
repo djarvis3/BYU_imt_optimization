@@ -8,13 +8,13 @@ package incidents;
 
 public class Incident {
 	private String linkId;
-	private Integer incidentID;
+	private String incidentID;
 	private Integer respondingIMTs;
 	private Double start;
 	private Double end;
 	private Double reduction;
 
-	public Incident(String linkId, Integer incidentID, Integer respondingIMTs, Double start, Double end, Double reduction) {
+	public Incident(String linkId, String incidentID, Integer respondingIMTs, Double start, Double end, Double reduction) {
 		this.linkId = linkId;
 		this.incidentID = incidentID;
 		this.respondingIMTs = respondingIMTs;
@@ -32,11 +32,11 @@ public class Incident {
 		this.linkId = linkId;
 	}
 
-	public Integer getIncidentID() {
+	public String getIncidentID() {
 		return incidentID;
 	}
 
-	public void setIncidentID(Integer incidentID) {
+	public void setIncidentID(String incidentID) {
 		this.incidentID = incidentID;
 	}
 

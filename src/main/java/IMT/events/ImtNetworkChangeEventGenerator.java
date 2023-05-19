@@ -4,6 +4,7 @@ import IMT.Request;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
+import org.matsim.core.controler.Controler;
 import org.matsim.core.network.NetworkChangeEvent;
 import org.matsim.core.network.NetworkUtils;
 
@@ -23,12 +24,12 @@ public class ImtNetworkChangeEventGenerator {
 
 	/**
 	 Constructs a new instance of the ImtNetworkChangeEventGenerator class.
-	 @param scenario the scenario where the network change event occurs
-	 @param toLink the link to which the network change event is applied
-	 @param currLinkCapacity the current capacity of the link
-	 @param request the request associated with the network change event
-	 @param arrivalTime the time when the IMT arrives
 	 @throws NullPointerException if any of the non-primitive arguments are null
+	  * @param scenario the scenario where the network change event occurs
+	 * @param toLink the link to which the network change event is applied
+	 * @param currLinkCapacity the current capacity of the link
+	 * @param request the request associated with the network change event
+	 * @param arrivalTime the time when the IMT arrives
 	 */
 	public ImtNetworkChangeEventGenerator(Scenario scenario, Link toLink, double currLinkCapacity, Request request, double arrivalTime) {
 		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");

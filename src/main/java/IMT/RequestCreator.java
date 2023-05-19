@@ -70,12 +70,13 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	// Reads incidents from the CSV file and selects only the "incidentsList" list
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
-			IncidentReader incidents = new IncidentReader("scenarios/utah/IncidentData_Utah.csv");
+			IncidentReader incidents = new IncidentReader("scenarios/equil/IncidentData_Equil.csv");
 			// to select random incidents from the CSV use incidents.getRandomIncidents();
 			// incidentsList = incidents.randomIncidents();
 
-			// to select all the incidents from the CSV use incidents.getAllIncidents();
-			incidentsList = incidents.getSeededIncidents(10,1234);
+			// to select all the incidents from the CSV use
+			incidentsList = incidents.getSeededIncidents(1,4);
+			// incidentsList = incidents.getSeededIncidents(23,1234);
 		}
 		return incidentsList;
 	}

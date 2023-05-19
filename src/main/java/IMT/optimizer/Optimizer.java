@@ -30,6 +30,7 @@ import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
 import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
+import org.matsim.core.controler.Controler;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
@@ -61,6 +62,7 @@ public final class Optimizer implements VrpOptimizer {
 	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet,
 					 MobsimTimer timer, Scenario scenario) {
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
+		Objects.requireNonNull(scenario, "scenario cannot be null");
 		TravelTime travelTime = new FreeSpeedTravelTime();
 		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network,
 				new TimeAsTravelDisutility(travelTime), travelTime);
