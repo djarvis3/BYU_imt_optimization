@@ -39,7 +39,7 @@ import java.io.IOException;
 
 public class RunOnlyIncidents {
 
-	public static final String CONFIG_FILE = "scenarios/equil/config_withinday.xml";
+	public static final String CONFIG_FILE = "scenarios/equil/config_withinday_incidents.xml";
 
 	public static void run(String configFile, boolean otfvis) throws IOException {
 		// load config

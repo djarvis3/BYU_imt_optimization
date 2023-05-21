@@ -108,6 +108,10 @@ public class RequestHandler {
 			if (arrivalTime < endTime) {
 				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario, request.getToLink(),
 						currLinkCapacity, request, arrivalTime);
+				changeEvent.addNetworkChangeEvent(String.valueOf(arrivalTime), String.valueOf(request.getToLink().getId()), String.valueOf(currLinkCapacity));
+
+				changeEvent.saveToFile(scenario);
+
 				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity, imtUnit);
 			} else {
 				// Log IMT information

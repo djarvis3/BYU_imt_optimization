@@ -102,6 +102,7 @@ public class EventHandler {
 				request.getToLink().getId(), fullCapacity, reducedCapacity, currLinkCapacity, formattedArrival);
 		String logMsg = imtLog + incidentInfo;
 
+		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class
 		LOGGER.info(String.format("%-80s", logMsg));
 	}
 
@@ -127,6 +128,7 @@ public class EventHandler {
 		String output = ("Late Arrival");
 		String logMsg = imtLog + incidentInfo + output;
 
+		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class
 		LOGGER.info(String.format("%-80s", logMsg));
 	}
 
@@ -155,8 +157,8 @@ public class EventHandler {
 				request.getId(), request.getTotalIMTs(), request.getToLink().getId(), fullCapacity, reducedCapacity,
 				formattedStart, formattedEnd);
 
-		String logMsg = imtLog + incidentInfo;
-
-		LOGGER.warning(String.format("%-80s", logMsg));
+		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class
+		LOGGER.info(String.format("%-80s", incidentInfo));
 	}
 }
+

@@ -10,4 +10,9 @@
         <link refId="22"/>
         <flowCapacity type="absolute" value="10.0"/>
     </networkChangeEvent>
+    
+    <networkChangeEvent startTime="00:42:00">
+        <link refId="22"/>
+        <flowCapacity type="absolute" value="2.5"/>
+    </networkChangeEvent>
 </networkChangeEvents>

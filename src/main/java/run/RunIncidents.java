@@ -33,20 +33,15 @@ import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
-import java.io.IOException;
-
 /**
  * The RunIMT class is responsible for running the MATSim simulation for Incident Management Teams (IMTs) and incidents.
  * It loads the MATSim configuration and scenario, sets up the controler, and executes the simulation.
  * The class provides a main method to start the simulation with default configuration values.
  * To customize the simulation, different configuration files and options can be specified.
  */
-public class RunIMT {
+public class RunIncidents {
 
 	public static final String CONFIG_FILE = "scenarios/equil/config_withinday.xml";
-	//public static final String TRUCK_FILE = "ImtVehicles_25.xml";
-	// use the no vehicles TRUCK_FILE to create an "Incidents Only" MATSim Run
-	//public static final String TRUCK_FILE = "ImtVehicles_Null.xml";
 	public static final String TRUCK_FILE = "ImtVehicles_1.xml";
 
 	/**
@@ -54,17 +49,27 @@ public class RunIMT {
 	 *
 	 * @param configFile Path to the MATSim configuration file.
 	 * @param trucksFile Path to the file containing information about trucks.
-	 * @throws IOException if there is an error loading the configuration or scenario.
 	 */
-	public static void run(String configFile, String trucksFile) throws IOException {
+	public static void runIncidents(String configFile, String trucksFile) {
 		// load config
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup());
 
+		// Set inputChangeEventsFile parameter to null
+		config.network().setChangeEventsInputFile(null);
+
+		// Set lastIteration parameter
+		config.controler().setLastIteration(5);
+
 		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_IMT");
+		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_IncidentsOnly");
 
 		// load scenario
 		MutableScenario scenario = (MutableScenario) ScenarioUtils.loadScenario(config);
+
+		// add incident to the scenario
+		IncidentReader incidents = new IncidentReader("scenarios/equil/IncidentData_Equil.csv");
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(1,4));
+		applyIncidents.apply();
 
 		// setup controler
 		Controler controler = new Controler(scenario);
@@ -79,16 +84,15 @@ public class RunIMT {
 		controler.run();
 	}
 
-
 	/**
 	 * Main method to start the MATSim simulation.
 	 *
 	 * @param args Command line arguments (not used).
-	 * @throws IOException if there is an error running the simulation.
+	 *
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		// Run the MATSim simulation
-		RunIncidents.runIncidents(CONFIG_FILE, TRUCK_FILE);
-		run(CONFIG_FILE, TRUCK_FILE);
+		runIncidents(CONFIG_FILE, TRUCK_FILE);
 	}
 }
+
