@@ -34,7 +34,10 @@ import org.matsim.contrib.dvrp.run.DvrpModes;
 import org.matsim.contrib.dvrp.trafficmonitoring.DvrpTravelTimeModule;
 import org.matsim.contrib.dvrp.vrpagent.VrpAgentLogic;
 import org.matsim.contrib.dvrp.vrpagent.VrpAgentSourceQSimModule;
+import org.matsim.core.config.Config;
 import org.matsim.core.router.util.TravelTime;
+import org.matsim.core.scenario.MutableScenario;
+import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vehicles.VehicleType;
 import org.matsim.vehicles.VehicleUtils;
 
@@ -53,15 +56,25 @@ public class ImtModule extends AbstractDvrpModeModule {
 	 * The URL of the fleet specification.
 	 */
 	private final URL fleetSpecificationUrl;
+	private final Config config;
+	private static MutableScenario scenario;
+	private static ImtModule instance;
+
+
 
 
 	/**
 	 * Creates a new Module object with the given fleet specification URL.
 	 * @param fleetSpecificationUrl the URL of the fleet specification.
+	 * @param scenario
 	 */
-	public ImtModule(URL fleetSpecificationUrl) {
+	public ImtModule(URL fleetSpecificationUrl, Config config, MutableScenario scenario) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
+		this.config = config;
+		this.scenario = scenario;
+		instance = this;
+
 	}
 
 	/**
@@ -75,6 +88,8 @@ public class ImtModule extends AbstractDvrpModeModule {
 		install(new DvrpModeRoutingNetworkModule(getMode(), false));
 		bindModal(TravelTime.class).to(Key.get(TravelTime.class, Names.named(DvrpTravelTimeModule.DVRP_ESTIMATED)));
 		install(new FleetModule(getMode(), fleetSpecificationUrl, createTruckType()));
+
+
 		installQSimModule(new AbstractDvrpModeQSimModule(getMode()) {
 			@Override
 			protected void configureQSim() {
@@ -98,5 +113,15 @@ public class ImtModule extends AbstractDvrpModeModule {
 		truckType.getCapacity().setSeats(1);
 		return truckType;
 	}
-}
 
+	public static MutableScenario getScenario() {
+		return scenario;
+	}
+
+	public static MutableScenario getSharedScenario() {
+		if (instance == null) {
+			throw new IllegalStateException("ImtModule instance has not been initialized");
+		}
+		return instance.getScenario();
+	}
+}

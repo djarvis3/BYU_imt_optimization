@@ -4,9 +4,9 @@ import IMT.Request;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
-import org.matsim.core.controler.Controler;
 import org.matsim.core.network.NetworkChangeEvent;
 import org.matsim.core.network.NetworkUtils;
+import org.matsim.core.scenario.MutableScenario;
 
 import java.util.Objects;
 
@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class ImtNetworkChangeEventGenerator {
 
-	private final Scenario scenario;
+	private final MutableScenario scenario;
 	private final Link toLink;
 	private final double currLinkCapacity;
 	private final Request request;
@@ -31,7 +31,7 @@ public class ImtNetworkChangeEventGenerator {
 	 * @param request the request associated with the network change event
 	 * @param arrivalTime the time when the IMT arrives
 	 */
-	public ImtNetworkChangeEventGenerator(Scenario scenario, Link toLink, double currLinkCapacity, Request request, double arrivalTime) {
+	public ImtNetworkChangeEventGenerator(MutableScenario scenario, Link toLink, double currLinkCapacity, Request request, double arrivalTime) {
 		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
 		this.toLink = Objects.requireNonNull(toLink, "toLink must not be null");
 		this.currLinkCapacity = currLinkCapacity;
@@ -44,7 +44,6 @@ public class ImtNetworkChangeEventGenerator {
 	 @param reducedCapacity the reduced capacity of the link
 	 */
 	public void addEventToNetwork(double fullCapacity, double reducedCapacity, DvrpVehicle imtUnit) {
-
 		// Generate Network Change Event
 		NetworkChangeEvent restoreCapacityEvent = new NetworkChangeEvent(arrivalTime);
 		restoreCapacityEvent.setFlowCapacityChange
@@ -52,6 +51,9 @@ public class ImtNetworkChangeEventGenerator {
 						ABSOLUTE_IN_SI_UNITS, currLinkCapacity));
 		restoreCapacityEvent.addLink(toLink);
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), restoreCapacityEvent);
+
+		String eventName = "ImtNetworkChange_" + System.currentTimeMillis(); // Unique name with timestamp
+		scenario.addScenarioElement(eventName, restoreCapacityEvent);
 
 		// Log incident information
 		EventHandler.handleImtNetworkChangeEvent(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime, imtUnit);

@@ -19,18 +19,15 @@
 package run;
 
 import IMT.ImtModule;
-import incidents.IncidentApplicator;
-import incidents.IncidentReader;
-import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
-import org.matsim.contrib.otfvis.OTFVisLiveModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
+import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
@@ -55,21 +52,19 @@ public class RunIMT {
 	 *
 	 * @param configFile Path to the MATSim configuration file.
 	 * @param trucksFile Path to the file containing information about trucks.
-	 * @param otfvis     Flag indicating whether to enable OTFVis visualization.
 	 * @throws IOException if there is an error loading the configuration or scenario.
 	 */
-	public static void run(String configFile, String trucksFile, boolean otfvis) throws IOException {
+	public static void run(String configFile, String trucksFile) throws IOException {
 		// load config
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup());
 
 		// load scenario
-		Scenario scenario = ScenarioUtils.loadScenario(config);
+		MutableScenario scenario = (MutableScenario) ScenarioUtils.loadScenario(config);
 
 		// add incident to the scenario
-		IncidentReader incidents = new IncidentReader("scenarios/equil/IncidentData_Equil.csv");
+/*		IncidentReader incidents = new IncidentReader("scenarios/equil/IncidentData_Equil.csv");
 		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(1,4));
-		applyIncidents.apply();
-
+		applyIncidents.apply();*/
 
 		// setup controler
 		Controler controler = new Controler(scenario);
@@ -77,15 +72,8 @@ public class RunIMT {
 		// add modules for handling incidents and IMTs (Incident Management Teams)
 		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
-
+		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile), config, scenario));
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
-
-
-		// enable OTFVis visualization if specified
-		if (otfvis) {
-			controler.addOverridingModule(new OTFVisLiveModule());
-		}
 
 		// run simulation
 		controler.run();
@@ -100,7 +88,6 @@ public class RunIMT {
 	 */
 	public static void main(String[] args) throws IOException {
 		// Run the MATSim simulation
-		run(CONFIG_FILE, TRUCK_FILE, false);
+		run(CONFIG_FILE, TRUCK_FILE);
 	}
 }
-

@@ -56,8 +56,8 @@ public class RunOnlyIncidents {
 				// to apply all the incidents from the CSV to the network use incidents.getAllIncidents
 				new IncidentApplicator(scenario, incidents.getAllIncidents());
 
-				// to apply seeded incidents from the CSV to the network use incidents.getSeededIncidents
-				//new IncidentApplicator(scenario, incidents.getSeededIncidents(23,1234));
+		// to apply seeded incidents from the CSV to the network use incidents.getSeededIncidents
+		//new IncidentApplicator(scenario, incidents.getSeededIncidents(23,1234));
 		applyIncidents.apply();
 
 

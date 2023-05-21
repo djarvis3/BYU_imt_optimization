@@ -10,7 +10,7 @@
 	<module name="network">
 		<param name="inputNetworkFile" value="network.xml" />
 		<param name="timeVariantNetwork" value="true"/>
-		<!-- param name="inputChangeEventsFile" value=""/ if timeVariantNetwork -->
+		<param name="inputChangeEventsFile" value="ChangeFile.xml" />
 	</module>
 
 	<module name="dvrp">
@@ -24,7 +24,7 @@
 		<param name="outputDirectory" value="output/equil" />
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="1" />
+		<param name="lastIteration" value="5" />
 		<param name="mobsim" value="qsim" />
 		<param name= "routingAlgorithmType" value="FastAStarLandmarks" />
 	</module>

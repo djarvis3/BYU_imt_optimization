@@ -1,6 +1,7 @@
 package IMT.optimizer;
 
 import IMT.Request;
+import IMT.events.ChangeEvent;
 import IMT.events.EventHandler;
 import IMT.events.ImtNetworkChangeEventGenerator;
 import IMT.events.IncidentNetworkChangeEventGenerator;
@@ -12,6 +13,8 @@ import org.matsim.core.controler.Controler;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
+import org.matsim.core.scenario.MutableScenario;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -35,17 +38,18 @@ public class RequestHandler {
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
 	private final MobsimTimer timer;
-	private final Scenario scenario;
+	private final MutableScenario scenario;
 	private final ClosestVehicleFinder closestVehicleFinder;
 	private final IncidentNetworkChangeEventGenerator incidentNCE;
+	private final ChangeEvent changeEvent;
+
 
 	/**
 	 * This constructor initializes the RequestHandler class.
 	 *
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
-	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer,
-						  Scenario scenario) {
+	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, MutableScenario scenario) {
 		Objects.requireNonNull(fleet, "fleet must not be null");
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
@@ -53,6 +57,8 @@ public class RequestHandler {
 		this.scenario = Objects.requireNonNull(scenario, "controler must not be null");
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incidentNCE = new IncidentNetworkChangeEventGenerator(scenario);
+		this.changeEvent = new ChangeEvent();
+
 
 		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
 	}
@@ -73,6 +79,13 @@ public class RequestHandler {
 		double reducedLinkCapacity = fullLinkCapacity * (1 - request.getCapacityReduction());
 		double initialReducedCapacity = reducedLinkCapacity;
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
+
+
+		changeEvent.addNetworkChangeEvent(String.valueOf(request.getSubmissionTime()), String.valueOf(request.getToLink().getId()), String.valueOf(initialReducedCapacity));
+		changeEvent.addNetworkChangeEvent(String.valueOf(request.getEndTime()), String.valueOf(request.getToLink().getId()), String.valueOf(fullLinkCapacity));
+
+		changeEvent.saveToFile(scenario);
+
 
 		// Generate incident network change events.
 		incidentNCE.generateIncidentEvent(request.getToLink(), reducedLinkCapacity,

@@ -30,7 +30,7 @@ public class ScheduleUpdater {
 	 * @throws NullPointerException if any of the arguments are null
 	 */
 	public ScheduleUpdater(LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer) {
-				this.router = Objects.requireNonNull(router, "router must not be null");
+		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
 		this.timer = Objects.requireNonNull(timer, "timer must not be null");
 	}

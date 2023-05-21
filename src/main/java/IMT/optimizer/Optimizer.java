@@ -19,6 +19,7 @@
 
 package IMT.optimizer;
 
+import IMT.ImtModule;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
@@ -30,15 +31,16 @@ import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
 import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
-import org.matsim.core.controler.Controler;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
+import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.trafficmonitoring.FreeSpeedTravelTime;
 
 import java.util.Objects;
 import java.util.Optional;
+
 
 /**
  * @author michalm
@@ -54,14 +56,16 @@ public final class Optimizer implements VrpOptimizer {
 	private final Fleet fleet;
 	private final RequestHandler requestHandler;
 	private final TimingUpdater timingUpdater;
+	MutableScenario scenario = ImtModule.getScenario();
+
 
 	/**
 	 * Constructs a new Optimizer instance.
 	 */
 	@Inject
-	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet,
-					 MobsimTimer timer, Scenario scenario) {
+	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer) {
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
+		// scenario.setNetwork(network);
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 		TravelTime travelTime = new FreeSpeedTravelTime();
 		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network,
