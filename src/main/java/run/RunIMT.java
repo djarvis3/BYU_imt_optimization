@@ -19,6 +19,11 @@
 package run;
 
 import IMT.ImtModule;
+import decongestion.DecongestionConfigGroup;
+import decongestion.DecongestionModule;
+import decongestion.DecongestionRunExampleFromConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
@@ -29,7 +34,6 @@ import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
 import java.io.IOException;
 
@@ -42,7 +46,8 @@ import java.io.IOException;
 public class RunIMT {
 
 	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_5.xml";
+	public static final String TRUCK_FILE = "ImtVehicles_35.xml";
+	private static final Logger log = LogManager.getLogger(DecongestionRunExampleFromConfig.class);
 
 	/**
 	 * Runs the MATSim simulation.
@@ -53,7 +58,7 @@ public class RunIMT {
 	 */
 	public static void run(String configFile, String trucksFile) throws IOException {
 		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup());
+		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
 
 		// Set outputDirectory filepath
 		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_IMT");
@@ -63,6 +68,12 @@ public class RunIMT {
 
 		// setup controler
 		Controler controler = new Controler(scenario);
+
+		// #############################################################
+
+		// congestion toll computation
+
+		controler.addOverridingModule(new DecongestionModule(scenario));
 
 		// add modules for handling incidents and IMTs (Incident Management Teams)
 		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
@@ -83,7 +94,12 @@ public class RunIMT {
 	 */
 	public static void main(String[] args) throws IOException {
 		// Run the MATSim simulation
+		log.info("Starting simulation run with the following arguments:");
+		log.info("config file: "+ CONFIG_FILE);
 		RunIncidents.runIncidents(CONFIG_FILE, TRUCK_FILE);
+
+		log.info("Starting simulation run with the following arguments:");
+		log.info("config file: "+ CONFIG_FILE);
 		run(CONFIG_FILE, TRUCK_FILE);
 	}
 }

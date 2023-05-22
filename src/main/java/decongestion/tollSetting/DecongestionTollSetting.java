@@ -1,9 +1,9 @@
 /* *********************************************************************** *
- * project: org.matsim.*												   *
+ * project: org.matsim.*
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008 by the members listed in the COPYING,        *
+ * copyright       : (C) 2015 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -16,41 +16,17 @@
  *   See also COPYING, LICENSE and WARRANTY file                           *
  *                                                                         *
  * *********************************************************************** */
-package run;
 
-import org.matsim.api.core.v01.Scenario;
-import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
-import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.controler.Controler;
-import org.matsim.core.scenario.ScenarioUtils;
-
-import java.io.IOException;
+package decongestion.tollSetting;
 
 /**
- * @author nagel
+ * Computes the initial tolls per link and time bin and updates the tolls.
  *
+ * @author ikaddoura
  */
-public class RunMatsim{
 
-	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
+public interface DecongestionTollSetting {
 
-	public static void run(String configFile) throws IOException {
-		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup());
-
-		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_BaseLine");
-
-		// load scenario
-		Scenario scenario = ScenarioUtils.loadScenario(config);
-
-		// setup controler
-		Controler controler = new Controler(scenario);
-
-		// run simulation
-		controler.run();
-	}
-
-	public static void main(String[] args) throws IOException {run(CONFIG_FILE);}
+	public void updateTolls();
 }
+

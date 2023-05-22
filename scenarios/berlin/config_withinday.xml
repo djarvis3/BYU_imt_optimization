@@ -24,7 +24,7 @@
 		<param name="outputDirectory" value="./output/berlin" />
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="3" />
+		<param name="lastIteration" value="50" />
 		<param name="mobsim" value="qsim" />
 	</module>
 
@@ -118,6 +118,10 @@
 			<param name="strategyName" value="TimeAllocationMutator"/>
 			<param name="weight" value="0.1"/>
 		</parameterset>
+	</module>
+
+	<module name="decongestion">
+		<param name="enableDecongestionPricing" value="false"/>
 	</module>
 
 </config>

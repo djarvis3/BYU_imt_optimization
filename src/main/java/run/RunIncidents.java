@@ -19,6 +19,8 @@
 package run;
 
 import IMT.ImtModule;
+import decongestion.DecongestionConfigGroup;
+import decongestion.DecongestionModule;
 import incidents.IncidentApplicator;
 import incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
@@ -31,7 +33,8 @@ import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.vis.otfvis.OTFVisConfigGroup;
+
+import java.io.IOException;
 
 /**
  * The RunIMT class is responsible for running the MATSim simulation for Incident Management Teams (IMTs) and incidents.
@@ -42,7 +45,7 @@ import org.matsim.vis.otfvis.OTFVisConfigGroup;
 public class RunIncidents {
 
 	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_5.xml";
+	public static final String TRUCK_FILE = "ImtVehicles_35.xml";
 
 	/**
 	 * Runs the MATSim simulation.
@@ -50,9 +53,9 @@ public class RunIncidents {
 	 * @param configFile Path to the MATSim configuration file.
 	 * @param trucksFile Path to the file containing information about trucks.
 	 */
-	public static void runIncidents(String configFile, String trucksFile) {
+	public static void runIncidents(String configFile, String trucksFile) throws IOException {
 		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new OTFVisConfigGroup());
+		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
 
 		// Set inputChangeEventsFile parameter to null
 		config.network().setChangeEventsInputFile(null);
@@ -68,11 +71,15 @@ public class RunIncidents {
 
 		// add incident to the scenario
 		IncidentReader incidents = new IncidentReader("scenarios/berlin/IncidentData_Berlin.csv");
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(2,4589));
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(15,4589));
 		applyIncidents.apply();
 
 		// setup controler
 		Controler controler = new Controler(scenario);
+
+		// congestion toll computation
+
+		controler.addOverridingModule(new DecongestionModule(scenario));
 
 		// add modules for handling incidents and IMTs (Incident Management Teams)
 		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
@@ -90,7 +97,7 @@ public class RunIncidents {
 	 * @param args Command line arguments (not used).
 	 *
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// Run the MATSim simulation
 		runIncidents(CONFIG_FILE, TRUCK_FILE);
 	}

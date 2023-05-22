@@ -1,9 +1,10 @@
 /* *********************************************************************** *
- * project: org.matsim.*												   *
+ * project: org.matsim.*
+ * DefaultTravelCostCalculatorFactoryImpl
  *                                                                         *
  * *********************************************************************** *
  *                                                                         *
- * copyright       : (C) 2008 by the members listed in the COPYING,        *
+ * copyright       : (C) 2009 by the members listed in the COPYING,        *
  *                   LICENSE and WARRANTY file.                            *
  * email           : info at matsim dot org                                *
  *                                                                         *
@@ -16,41 +17,38 @@
  *   See also COPYING, LICENSE and WARRANTY file                           *
  *                                                                         *
  * *********************************************************************** */
-package run;
+package decongestion.routing;
 
+import com.google.inject.Inject;
+import decongestion.data.DecongestionInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
-import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.controler.Controler;
-import org.matsim.core.scenario.ScenarioUtils;
+import org.matsim.core.router.costcalculators.TravelDisutilityFactory;
+import org.matsim.core.router.util.TravelDisutility;
+import org.matsim.core.router.util.TravelTime;
 
-import java.io.IOException;
 
 /**
- * @author nagel
+ * @author ikaddoura
  *
  */
-public class RunMatsim{
+public final class TollTimeDistanceTravelDisutilityFactory implements TravelDisutilityFactory {
+	private static final Logger log = LogManager.getLogger(TollTimeDistanceTravelDisutilityFactory.class);
 
-	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
+	@Inject
+	private Scenario scenario;
 
-	public static void run(String configFile) throws IOException {
-		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup());
+	@Inject
+	private DecongestionInfo info;
 
-		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_BaseLine");
-
-		// load scenario
-		Scenario scenario = ScenarioUtils.loadScenario(config);
-
-		// setup controler
-		Controler controler = new Controler(scenario);
-
-		// run simulation
-		controler.run();
+	public TollTimeDistanceTravelDisutilityFactory() {
+		log.info("Using the toll-adjusted travel disutility factory in the decongestion package.");
 	}
 
-	public static void main(String[] args) throws IOException {run(CONFIG_FILE);}
+	@Override
+	public final TravelDisutility createTravelDisutility(TravelTime timeCalculator) {
+		return new TollTimeDistanceTravelDisutility(timeCalculator, scenario.getConfig(), info);
+	}
+
 }
