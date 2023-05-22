@@ -19,8 +19,7 @@
 package run;
 
 import IMT.ImtModule;
-import incidents.IncidentApplicator;
-import incidents.IncidentReader;
+import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
@@ -29,7 +28,6 @@ import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
-import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.vis.otfvis.OTFVisConfigGroup;
 
@@ -64,7 +62,7 @@ public class RunIMT {
 		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_IMT");
 
 		// load scenario
-		MutableScenario scenario = (MutableScenario) ScenarioUtils.loadScenario(config);
+		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 		// setup controler
 		Controler controler = new Controler(scenario);
@@ -72,7 +70,7 @@ public class RunIMT {
 		// add modules for handling incidents and IMTs (Incident Management Teams)
 		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile), config, scenario));
+		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
 		// run simulation

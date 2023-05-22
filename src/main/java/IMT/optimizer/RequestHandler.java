@@ -2,18 +2,16 @@ package IMT.optimizer;
 
 import IMT.Request;
 import IMT.events.ChangeEvent;
-import IMT.events.EventHandler;
+import IMT.events.EventHandler_IMT;
 import IMT.events.ImtNetworkChangeEventGenerator;
 import IMT.events.IncidentNetworkChangeEventGenerator;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.schedule.*;
-import org.matsim.core.controler.Controler;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
-import org.matsim.core.scenario.MutableScenario;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +36,7 @@ public class RequestHandler {
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
 	private final MobsimTimer timer;
-	private final MutableScenario scenario;
+	private final Scenario scenario;
 	private final ClosestVehicleFinder closestVehicleFinder;
 	private final IncidentNetworkChangeEventGenerator incidentNCE;
 	private final ChangeEvent changeEvent;
@@ -49,12 +47,12 @@ public class RequestHandler {
 	 *
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
-	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, MutableScenario scenario) {
+	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, Scenario scenario) {
 		Objects.requireNonNull(fleet, "fleet must not be null");
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
 		this.timer = Objects.requireNonNull(timer, "timer must not be null");
-		this.scenario = Objects.requireNonNull(scenario, "controler must not be null");
+		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incidentNCE = new IncidentNetworkChangeEventGenerator(scenario);
 		this.changeEvent = new ChangeEvent();
@@ -87,8 +85,8 @@ public class RequestHandler {
 		changeEvent.saveToFile(scenario);
 
 
-		// Generate incident network change events.
-		incidentNCE.generateIncidentEvent(request.getToLink(), reducedLinkCapacity,
+		// Add incident network change event to LOG.
+		incidentNCE.addEventToLog(request.getToLink(), reducedLinkCapacity,
 				fullLinkCapacity, request.getSubmissionTime(), request.getEndTime(), request);
 
 		// Update the schedules of the closest vehicles and add an IMT network change event.
@@ -106,16 +104,18 @@ public class RequestHandler {
 			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit);
 
 			if (arrivalTime < endTime) {
-				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario, request.getToLink(),
+				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario,
 						currLinkCapacity, request, arrivalTime);
+				event.addEventToLog(fullLinkCapacity, initialReducedCapacity, imtUnit);
+
+
 				changeEvent.addNetworkChangeEvent(String.valueOf(arrivalTime), String.valueOf(request.getToLink().getId()), String.valueOf(currLinkCapacity));
 
 				changeEvent.saveToFile(scenario);
 
-				event.addEventToNetwork(fullLinkCapacity, reducedLinkCapacity, imtUnit);
 			} else {
 				// Log IMT information
-				EventHandler.handleLateImtArrival(request, arrivalTime, imtUnit);
+				EventHandler_IMT.handleLateImtArrival(request, arrivalTime, imtUnit);
 			}
 			request.setNumIMT(numIMT);
 		}

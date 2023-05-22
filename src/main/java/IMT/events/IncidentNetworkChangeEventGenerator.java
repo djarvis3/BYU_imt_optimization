@@ -12,6 +12,8 @@ import java.util.Objects;
  */
 public class IncidentNetworkChangeEventGenerator {
 
+	private final Scenario scenario;
+
 	/**
 	 * Constructs an IncidentNetworkChangeEventGenerator with the given scenario.
 	 *
@@ -19,7 +21,7 @@ public class IncidentNetworkChangeEventGenerator {
 	 * @throws NullPointerException if scenario is null
 	 */
 	public IncidentNetworkChangeEventGenerator(Scenario scenario) {
-		new EventHandler(scenario);
+		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
 	}
 
 	/**
@@ -34,11 +36,18 @@ public class IncidentNetworkChangeEventGenerator {
 	 * @param request the request associated with the incident
 	 * @throws NullPointerException if incidentLink is null
 	 */
-	public void generateIncidentEvent(Link incidentLink, double reducedCapacity, double fullCapacity,
-													double startTime, double endTime, Request request) {
+	public void addEventToLog(Link incidentLink, double reducedCapacity, double fullCapacity,
+							  double startTime, double endTime, Request request) {
 		Objects.requireNonNull(incidentLink, "incidentLink must not be null");
 
-		// Log incident information
-		EventHandler.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
+		String output = scenario.getConfig().controler().getOutputDirectory();
+		if (output.endsWith("IMT")) {
+			// Log incident information
+			EventHandler_IMT.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
+		}
+		else if (output.endsWith("Incidents")) {
+			// Log incident information
+			EventHandler_Incidents.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
+		}
 	}
 }

@@ -19,7 +19,8 @@
 
 package IMT.optimizer;
 
-import IMT.ImtModule;
+import IMT.events.EventHandler_IMT;
+import IMT.events.EventHandler_Incidents;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
@@ -31,11 +32,11 @@ import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
 import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
+
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
-import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.trafficmonitoring.FreeSpeedTravelTime;
 
 import java.util.Objects;
@@ -56,16 +57,15 @@ public final class Optimizer implements VrpOptimizer {
 	private final Fleet fleet;
 	private final RequestHandler requestHandler;
 	private final TimingUpdater timingUpdater;
-	MutableScenario scenario = ImtModule.getScenario();
 
 
 	/**
 	 * Constructs a new Optimizer instance.
 	 */
 	@Inject
-	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer) {
+	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario) {
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
-		// scenario.setNetwork(network);
+
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 		TravelTime travelTime = new FreeSpeedTravelTime();
 		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network,
@@ -73,6 +73,14 @@ public final class Optimizer implements VrpOptimizer {
 		initWaitTasks();
 		this.requestHandler = new RequestHandler(fleet, router, travelTime, timer, scenario);
 		this.timingUpdater = new TimingUpdater(timer);
+
+		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
+		if (outputDirectory.endsWith("Incidents")) {
+			new EventHandler_Incidents(scenario);
+		}
+		else if (outputDirectory.endsWith("IMT")) {
+			new EventHandler_IMT(scenario);
+		}
 	}
 
 	/**
