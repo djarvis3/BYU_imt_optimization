@@ -10,20 +10,21 @@
 	<module name="network">
 		<param name="inputNetworkFile" value="network.xml.gz" />
 		<param name="timeVariantNetwork" value="true"/>
+		<param name="inputChangeEventsFile" value="ChangeFile.xml" />
 	</module>
 
 	<module name="dvrp">
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans1.xml" /> <!-- 1% sample of commuters, 15931 agents -->
+		<param name="inputPlansFile" value="plans_hwh_1pct.xml.gz" /> <!-- 1% sample of commuters, 15931 agents -->
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="./output/berlin_Baseline" />
+		<param name="outputDirectory" value="./output/berlin" />
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0" />
-		<param name="lastIteration" value="1" />
+		<param name="lastIteration" value="3" />
 		<param name="mobsim" value="qsim" />
 	</module>
 

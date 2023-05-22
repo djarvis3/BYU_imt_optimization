@@ -5,6 +5,7 @@ import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.path.VrpPathWithTravelData;
 import org.matsim.contrib.dvrp.path.VrpPaths;
+import org.matsim.contrib.dvrp.schedule.Schedule;
 import org.matsim.contrib.dvrp.schedule.Schedules;
 import org.matsim.contrib.dvrp.schedule.Task;
 import org.matsim.core.router.util.LeastCostPathCalculator;
@@ -42,8 +43,8 @@ public class ClosestVehicleFinder {
 	 * or Double.POSITIVE_INFINITY if the vehicle cannot reach the link because it's not available.
 	 */
 	private double calculateArrivalTime(DvrpVehicle vehicle, Link toLink) {
-		Task lastTask = Schedules.getLastTask(vehicle.getSchedule());
-		if (lastTask.getTaskType() != Optimizer.ImtTaskType.WAIT) {
+		Task currentTask = vehicle.getSchedule().getCurrentTask();
+		if (currentTask.getTaskType() != Optimizer.ImtTaskType.WAIT) {
 			return Double.POSITIVE_INFINITY;
 		}
 		Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
@@ -71,4 +72,3 @@ public class ClosestVehicleFinder {
 				.collect(Collectors.toList());
 	}
 }
-

@@ -41,8 +41,8 @@ import org.matsim.vis.otfvis.OTFVisConfigGroup;
  */
 public class RunIncidents {
 
-	public static final String CONFIG_FILE = "scenarios/equil/config_withinday.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_1.xml";
+	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
+	public static final String TRUCK_FILE = "ImtVehicles_5.xml";
 
 	/**
 	 * Runs the MATSim simulation.
@@ -67,8 +67,8 @@ public class RunIncidents {
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 		// add incident to the scenario
-		IncidentReader incidents = new IncidentReader("scenarios/equil/IncidentData_Equil.csv");
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(1,4));
+		IncidentReader incidents = new IncidentReader("scenarios/berlin/IncidentData_Berlin.csv");
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(2,4589));
 		applyIncidents.apply();
 
 		// setup controler

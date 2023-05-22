@@ -41,11 +41,8 @@ import java.io.IOException;
  */
 public class RunIMT {
 
-	public static final String CONFIG_FILE = "scenarios/equil/config_withinday.xml";
-	//public static final String TRUCK_FILE = "ImtVehicles_25.xml";
-	// use the no vehicles TRUCK_FILE to create an "Incidents Only" MATSim Run
-	//public static final String TRUCK_FILE = "ImtVehicles_Null.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_1.xml";
+	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
+	public static final String TRUCK_FILE = "ImtVehicles_5.xml";
 
 	/**
 	 * Runs the MATSim simulation.

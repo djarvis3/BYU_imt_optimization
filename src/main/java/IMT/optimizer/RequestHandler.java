@@ -1,6 +1,8 @@
 package IMT.optimizer;
 
+import IMT.IncidentManager;
 import IMT.Request;
+import IMT.RequestCreator;
 import IMT.events.ChangeEvent;
 import IMT.events.EventHandler_IMT;
 import IMT.events.ImtNetworkChangeEventGenerator;
@@ -31,6 +33,9 @@ public class RequestHandler {
 	 upon the vehicle's arrival.
 	 */
 	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.25;
+
+	private int handleRequestCount = 0;
+
 
 	// These fields store references to the objects used by this class.
 	private final LeastCostPathCalculator router;
@@ -70,6 +75,10 @@ public class RequestHandler {
 	 @throws NullPointerException if the request is null
 	 */
 	public void handleRequest(Request request) {
+
+		int totalRequestCount = IncidentManager.getIncidentsSelected().size();
+		handleRequestCount++;
+
 		Objects.requireNonNull(request, "request must not be null");
 
 		// Calculate the link capacities for the incident.
@@ -82,8 +91,9 @@ public class RequestHandler {
 		changeEvent.addNetworkChangeEvent(String.valueOf(request.getSubmissionTime()), String.valueOf(request.getToLink().getId()), String.valueOf(initialReducedCapacity));
 		changeEvent.addNetworkChangeEvent(String.valueOf(request.getEndTime()), String.valueOf(request.getToLink().getId()), String.valueOf(fullLinkCapacity));
 
-		changeEvent.saveToFile(scenario);
-
+		if (totalRequestCount == handleRequestCount){
+			changeEvent.saveToFile(scenario);
+		}
 
 		// Add incident network change event to LOG.
 		incidentNCE.addEventToLog(request.getToLink(), reducedLinkCapacity,
@@ -108,14 +118,19 @@ public class RequestHandler {
 						currLinkCapacity, request, arrivalTime);
 				event.addEventToLog(fullLinkCapacity, initialReducedCapacity, imtUnit);
 
-
 				changeEvent.addNetworkChangeEvent(String.valueOf(arrivalTime), String.valueOf(request.getToLink().getId()), String.valueOf(currLinkCapacity));
 
-				changeEvent.saveToFile(scenario);
+				if (totalRequestCount == handleRequestCount){
+					changeEvent.saveToFile(scenario);
+				}
 
 			} else {
 				// Log IMT information
 				EventHandler_IMT.handleLateImtArrival(request, arrivalTime, imtUnit);
+
+				if (totalRequestCount == handleRequestCount){
+					changeEvent.saveToFile(scenario);
+				}
 			}
 			request.setNumIMT(numIMT);
 		}

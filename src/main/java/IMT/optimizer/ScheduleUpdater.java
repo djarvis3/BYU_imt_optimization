@@ -43,8 +43,7 @@ public class ScheduleUpdater {
 	 * @throws NullPointerException if any of the arguments are null
 	 * @throws IllegalArgumentException if the last task status is unexpected
 	 */
-	public double updateScheduleForVehicle(Schedule schedule, Link toLink, double endTime, Request request,
-										 DvrpVehicle imtUnit) {
+	public double updateScheduleForVehicle(Schedule schedule, Link toLink, double endTime, Request request, DvrpVehicle imtUnit) {
 		Objects.requireNonNull(schedule, "schedule must not be null");
 		Objects.requireNonNull(request, "request must not be null");
 		Objects.requireNonNull(imtUnit, "imtUnit must not be null");
@@ -84,4 +83,5 @@ public class ScheduleUpdater {
 
 		return arrivalTime;
 	}
+
 }
