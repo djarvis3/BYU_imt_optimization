@@ -62,8 +62,8 @@ public class ActivitySimPlansReader {
 
             // let's figure out if this is an activity or a leg
             if (record.getString("activityType") != null) { // this is an activity
-                Double x = record.getDouble("x");
-                Double y = record.getDouble("y");
+                Double x = record.getDouble("activityLocationX");
+                Double y = record.getDouble("activityLocationY");
                 Coord actCoord = CoordUtils.createCoord(x, y);
                 // The ct.transformation is necessary if the coordinates are not set to UTM 12N
 				// actCoord = ct.transform(actCoord);
@@ -73,10 +73,11 @@ public class ActivitySimPlansReader {
                 String actType = record.getString("activityType");
                 if (actType.equals("Home") || actType.equals("home")) {actType = "home";}
                 else if (actType.equals("atwork") || actType.equals("work") || actType.equals("Work")) {actType= "work";}
-                else if (actType.equals("escort") || actType.equals("social") ||
-						 actType.equals("school") || actType.equals("univ") ||
-                		 actType.equals("eatout") || actType.equals("othdiscr") ||
-						 actType.equals("othmaint") || actType.equals("shopping"))
+				else if (actType.equals("school") || actType.equals("univ")) {actType = "edu";}
+				else if (actType.equals("othdiscr") || actType.equals("shopping")) {actType = "shopping";}
+				else if (actType.equals("social") || actType.equals("eatout")) {actType = "leisure";}
+				else if (actType.equals("escort") || actType.equals("social") ||
+                		 actType.equals("eatout") || actType.equals("othmaint"))
   				{actType = "other";}
                 else {actType = "ADD ACTIVITY TYPE";}
 
@@ -84,8 +85,8 @@ public class ActivitySimPlansReader {
                 // if it's the last activity, then there won't be an end time
 
                 // if there is an end time, add it to the activity
-                if (record.getDouble("endTime") != null) {
-                    activity.setEndTime(record.getDouble("endTime") * 3600);
+                if (record.getDouble("activityEndTime") != null) {
+                    activity.setEndTime(record.getDouble("activityEndTime") * 3600);
                     plan.addActivity(activity);
                 }
 
@@ -127,8 +128,8 @@ public class ActivitySimPlansReader {
 
         public static void main (String[]args){
             ActivitySimPlansReader reader = new ActivitySimPlansReader();
-            reader.parseCsv("scenarios/utah/wfrc-100k-plans.csv");
-            reader.writeXml("scenarios/utah/wfrc-100k-plans.xml");
+            reader.parseCsv("scenarios/utahTAC/plans/plans.csv");
+            reader.writeXml("scenarios/utahTAC/plans/output_plans.xml");
         }
 
         private void writeXml (String outfile){

@@ -80,7 +80,7 @@ public class ChangeEvent {
 				scenarioFolder = configFilePath.substring(0, lastSeparatorIndex);
 			}
 
-			String fileName = scenarioFolder + "/ChangeFile.xml";
+			String fileName = scenarioFolder + "/changes/ChangeEvents.xml";
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");

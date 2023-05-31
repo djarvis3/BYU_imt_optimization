@@ -58,7 +58,7 @@ public class DecongestionRunExampleFromConfig {
 			log.info("config file: "+ configFile);
 
 		} else {
-			configFile = "path/to/config.xml";
+			configFile = "path/to/config_baseline.xml";
 		}
 
 		DecongestionRunExampleFromConfig main = new DecongestionRunExampleFromConfig();

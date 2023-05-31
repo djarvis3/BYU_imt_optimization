@@ -32,7 +32,7 @@ public class RequestHandler {
 	 For example, if LINK_CAPACITY_RESTORE_INTERVAL is 0.25, 25% of the "lost" capacity is restored
 	 upon the vehicle's arrival.
 	 */
-	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.25;
+	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.35;
 
 	private int handleRequestCount = 0;
 
@@ -117,6 +117,7 @@ public class RequestHandler {
 				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario,
 						currLinkCapacity, request, arrivalTime);
 				event.addEventToLog(fullLinkCapacity, initialReducedCapacity, imtUnit);
+				arrivalTime = arrivalTime+2;
 
 				changeEvent.addNetworkChangeEvent(String.valueOf(arrivalTime), String.valueOf(request.getToLink().getId()), String.valueOf(currLinkCapacity));
 

@@ -44,9 +44,6 @@ import java.io.IOException;
  */
 public class RunIncidents {
 
-	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_35.xml";
-
 	/**
 	 * Runs the MATSim simulation.
 	 *
@@ -60,9 +57,6 @@ public class RunIncidents {
 		// Set inputChangeEventsFile parameter to null
 		config.network().setChangeEventsInputFile(null);
 
-		// Set lastIteration parameter
-		// config.controler().setLastIteration(5);
-
 		// Set outputDirectory filepath
 		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_Incidents");
 
@@ -70,8 +64,8 @@ public class RunIncidents {
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 		// add incident to the scenario
-		IncidentReader incidents = new IncidentReader("scenarios/berlin/IncidentData_Berlin.csv");
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(15,4589));
+		IncidentReader incidents = new IncidentReader("scenarios/utahTAC/incidents/IncidentData_TAC.csv");
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getAllIncidents());
 		applyIncidents.apply();
 
 		// setup controler
@@ -98,8 +92,15 @@ public class RunIncidents {
 	 *
 	 */
 	public static void main(String[] args) throws IOException {
+		if(args.length != 2) {
+			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
+			System.exit(1);
+		}
+
+		String configFile = args[0];
+		String trucksFile = args[1];
+
 		// Run the MATSim simulation
-		runIncidents(CONFIG_FILE, TRUCK_FILE);
+		runIncidents(configFile, trucksFile);
 	}
 }
-

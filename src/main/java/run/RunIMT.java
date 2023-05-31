@@ -21,9 +21,6 @@ package run;
 import IMT.ImtModule;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
-import decongestion.DecongestionRunExampleFromConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
@@ -45,10 +42,6 @@ import java.io.IOException;
  */
 public class RunIMT {
 
-	public static final String CONFIG_FILE = "scenarios/berlin/config_withinday.xml";
-	public static final String TRUCK_FILE = "ImtVehicles_35.xml";
-	private static final Logger log = LogManager.getLogger(DecongestionRunExampleFromConfig.class);
-
 	/**
 	 * Runs the MATSim simulation.
 	 *
@@ -68,8 +61,6 @@ public class RunIMT {
 
 		// setup controler
 		Controler controler = new Controler(scenario);
-
-		// #############################################################
 
 		// congestion toll computation
 
@@ -93,13 +84,15 @@ public class RunIMT {
 	 * @throws IOException if there is an error running the simulation.
 	 */
 	public static void main(String[] args) throws IOException {
-		// Run the MATSim simulation
-		log.info("Starting simulation run with the following arguments:");
-		log.info("config file: "+ CONFIG_FILE);
-		RunIncidents.runIncidents(CONFIG_FILE, TRUCK_FILE);
+		if(args.length != 2) {
+			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
+			System.exit(1);
+		}
 
-		log.info("Starting simulation run with the following arguments:");
-		log.info("config file: "+ CONFIG_FILE);
-		run(CONFIG_FILE, TRUCK_FILE);
+		String configFile = args[0];
+		String trucksFile = args[1];
+
+
+		run(configFile, trucksFile);
 	}
 }
