@@ -7,11 +7,11 @@
 package incidents;
 
 public class Incident {
-	private String linkId;
+	private Integer linkId;
 	private String incidentID;
 	private Integer respondingIMTs;
-	private Double start;
-	private Double end;
+	private Integer start;
+	private Integer end;
 	private Double reduction;
 
 	public Incident(int linkId, String incidentID, Integer respondingIMTs, int start, int end, Double reduction) {
@@ -24,11 +24,11 @@ public class Incident {
 	}
 
 	// getters and setters for the fields
-	public String getLinkId() {
+	public int getLinkId() {
 		return linkId;
 	}
 
-	public void setLinkId(String linkId) {
+	public void setLinkId(Integer linkId) {
 		this.linkId = linkId;
 	}
 
@@ -48,19 +48,19 @@ public class Incident {
 		this.respondingIMTs = respondingIMTs;
 	}
 
-	public Double getStartTime() {
+	public Integer getStartTime() {
 		return start;
 	}
 
-	public void setStartTime(Double start) {
+	public void setStartTime(Integer start) {
 		this.start = start;
 	}
 
-	public Double getEndTime() {
+	public Integer getEndTime() {
 		return end;
 	}
 
-	public void setEndTime(Double end) {
+	public void setEndTime(Integer end) {
 		this.end = end;
 	}
 
