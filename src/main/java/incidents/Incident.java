@@ -14,7 +14,7 @@ public class Incident {
 	private Double end;
 	private Double reduction;
 
-	public Incident(String linkId, String incidentID, Integer respondingIMTs, Double start, Double end, Double reduction) {
+	public Incident(int linkId, String incidentID, Integer respondingIMTs, int start, int end, Double reduction) {
 		this.linkId = linkId;
 		this.incidentID = incidentID;
 		this.respondingIMTs = respondingIMTs;

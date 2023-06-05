@@ -3,6 +3,11 @@ package incidents;
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import com.vividsolutions.jts.geom.Coordinate;
+import org.matsim.api.core.v01.Coord;
+import org.matsim.api.core.v01.network.Link;
+import org.matsim.api.core.v01.network.Network;
+import org.matsim.core.network.NetworkUtils;
 
 import java.io.File;
 import java.util.List;
@@ -19,9 +24,9 @@ public class IncidentParser {
 	 * @param csvFilePath the path to the CSV file containing the incident data
 	 * @return a list of {@Incident} objects representing the parsed data
 	 * @throws IllegalArgumentException if the CSV file path is invalid
-	 * @throws IllegalStateException if there is an error parsing the CSV file
+	 * @throws IllegalStateException    if there is an error parsing the CSV file
 	 */
-	public static List<Incident> parse(String csvFilePath) throws IllegalArgumentException, IllegalStateException {
+	public static List<Incident> parse(String csvFilePath, Network network) throws IllegalArgumentException, IllegalStateException {
 		// Check if the file exists
 		File file = new File(csvFilePath);
 		if (!file.exists()) {
@@ -42,13 +47,21 @@ public class IncidentParser {
 			records = csvParser.parseAllRecords(file);
 			incidents = records.stream()
 					.map(record -> {
-						String linkId = record.getString("MATSim Link");
 						String incidentId = record.getString("ID");
-						int respondingIMTs = record.getInt("Responding IMTs");
-						double startTimeSec = record.getDouble("Start Time (sec)");
-						double endTimeSec = record.getDouble("End Time (sec)");
-						double capacityReductionTWA = record.getDouble("Capacity reduction (w/ TWA)");
-						return new Incident(linkId, incidentId, respondingIMTs, startTimeSec, endTimeSec, capacityReductionTWA);
+						double x = record.getDouble("x");
+						double y = record.getDouble("y");
+						Coord incidentCoord = new Coord(x, y);
+
+						Link incidentLink = NetworkUtils.getNearestLink(network, incidentCoord);
+						int linkId = Integer.parseInt(String.valueOf(incidentLink.getId()));
+
+
+						int respondingIMTs = record.getInt("IMTs");
+						double capReduction = record.getDouble("Cap reduction");
+						int startTime = record.getInt("Start");
+						int endTime = record.getInt("End");
+
+						return new Incident(linkId, incidentId, respondingIMTs, startTime, endTime, capReduction);
 					})
 					.collect(Collectors.toList());
 		} catch (Exception e) {

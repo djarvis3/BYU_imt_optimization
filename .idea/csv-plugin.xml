@@ -66,6 +66,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\scenarios\utah\incidents\UtahIncidents_MATSim.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\scenarios\utah\population-100.csv">
           <value>
             <Attribute>

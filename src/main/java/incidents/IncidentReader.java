@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.google.inject.Inject;
+import org.matsim.api.core.v01.network.Network;
 
 /**
  * A class that selects a set of incidents from a given CSV list of incidents
@@ -12,6 +13,7 @@ import com.google.inject.Inject;
 public class IncidentReader {
 
 	private final String csvFilePath;
+	private final Network network;
 
 	/**
 	 * Constructs a new instance of IncidentReader with the given CSV file.
@@ -19,8 +21,9 @@ public class IncidentReader {
 	 * @param csvFilePath    the filepath
 	 */
 	@Inject
-	public IncidentReader(String csvFilePath) {
+	public IncidentReader(String csvFilePath, Network network) {
 		this.csvFilePath = csvFilePath;
+		this.network = network;
 	}
 
 
@@ -31,7 +34,7 @@ public class IncidentReader {
 	 * @return the list of all incidents from the CSV file
 	 */
 	public List<Incident> getAllIncidents() {
-		return IncidentParser.parse(csvFilePath);
+		return IncidentParser.parse(csvFilePath, network);
 	}
 
 	/**
@@ -41,7 +44,7 @@ public class IncidentReader {
 	 * @return the random list of incidents
 	 */
 	public List<Incident> getRandomIncidents(int incidentNumber) {
-		List<Incident> incidents = IncidentParser.parse(csvFilePath);
+		List<Incident> incidents = IncidentParser.parse(csvFilePath, network);
 		return selectRandomSubset(incidents, incidentNumber);
 	}
 
@@ -54,7 +57,7 @@ public class IncidentReader {
 	 * @return the selected incidents
 	 */
 	public List<Incident> getSeededIncidents(int incidentNumber, long seed) {
-		List<Incident> incidents = IncidentParser.parse(csvFilePath);
+		List<Incident> incidents = IncidentParser.parse(csvFilePath, network);
 		return selectRandomSubset(incidents, incidentNumber, seed);
 	}
 

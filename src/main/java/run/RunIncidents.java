@@ -64,7 +64,7 @@ public class RunIncidents {
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 		// add incident to the scenario
-		IncidentReader incidents = new IncidentReader("scenarios/utahTAC/incidents/IncidentData_TAC.csv");
+		IncidentReader incidents = new IncidentReader("scenarios/utahTAC/incidents/IncidentData_TAC.csv", scenario.getNetwork());
 		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getAllIncidents());
 		applyIncidents.apply();
 
