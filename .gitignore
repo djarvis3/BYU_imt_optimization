@@ -14,6 +14,7 @@ hs_err_pid*
 /.project
 /.classpath
 /output/
+/examples/
 /bin/
 /scenarios/utah/wfrc_all_plans.csv
 /scenarios/utah/wfrc_all_plans.xml
