@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\scenarios\utah\IncidentData_Utah.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\scenarios\utah\incidents\IncidentData_TAC.csv">
           <value>
             <Attribute>
