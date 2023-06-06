@@ -18,18 +18,12 @@
  * *********************************************************************** */
 package run;
 
-import IMT.ImtModule;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
 import incidents.IncidentApplicator;
 import incidents.IncidentReader;
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.TransportMode;
-import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
-import org.matsim.contrib.dvrp.run.DvrpModule;
-import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
 import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
@@ -45,9 +39,6 @@ import java.io.IOException;
 
 
 public class RunIncidents {
-
-	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
-
 
 	/**
 	 * Runs the MATSim simulation.
@@ -66,7 +57,7 @@ public class RunIncidents {
 
 		// add incident to the scenario
 		IncidentReader incidents = new IncidentReader("scenarios/utah/incidents/UtahIncidents_MATSim.csv", scenario.getNetwork());
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(60,1234));
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getAllIncidents());
 		applyIncidents.apply();
 
 		// setup controler
@@ -86,20 +77,17 @@ public class RunIncidents {
 	 * @param args Command line arguments (not used).
 	 *
 	 */
-	public static void main(String[] args) throws IOException{
-		runIncidents(CONFIG_FILE);
-	}
 
-/*	public static void main(String[] args) throws IOException {
-		if(args.length != 2) {
+
+	public static void main(String[] args) throws IOException {
+		if(args.length != 1) {
 			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
 			System.exit(1);
 		}
 
 		String configFile = args[0];
-		String trucksFile = args[1];
 
 		// Run the MATSim simulation
-		runIncidents(configFile, trucksFile);
-	}*/
+		runIncidents(configFile);
+	}
 }
