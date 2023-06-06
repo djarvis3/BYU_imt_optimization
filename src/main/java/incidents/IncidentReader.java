@@ -5,6 +5,7 @@ import java.util.*;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.network.Network;
 
+import static incidents.IncidentSelector.*;
 /**
  * A class that selects a set of incidents from a given CSV list of incidents
  */
@@ -14,9 +15,10 @@ public class IncidentReader {
 	private final Network network;
 
 	/**
-	 * Constructs a new instance of IncidentReader with the given CSV file.
+	 * Constructs a new instance of IncidentReader with the given CSV file and Network.
 	 *
 	 * @param csvFilePath    the filepath
+	 * @param network		 the network to which the incidents are applied
 	 */
 	@Inject
 	public IncidentReader(String csvFilePath, Network network) {
@@ -24,16 +26,16 @@ public class IncidentReader {
 		this.network = network;
 	}
 
-
 	/**
 	 * Reads the incidents from the given CSV file, selects all the incidents
-	 * and returns them.
+	 * with unique link IDs and returns them.
 	 *
-	 * @return the list of all incidents from the CSV file
+	 * @return the list of all unique incidents from the CSV file
 	 */
 	public List<Incident> getAllIncidents() {
-		IncidentParser inc = new IncidentParser(network);
-		return inc.parse(csvFilePath);
+		IncidentParser incParse = new IncidentParser(network);
+		List<Incident> incidents = incParse.parse(csvFilePath);
+		return selectAllUniqueIncidents(incidents);
 	}
 
 	/**
@@ -43,9 +45,10 @@ public class IncidentReader {
 	 * @return the random list of incidents
 	 */
 	public List<Incident> getRandomIncidents(int incidentNumber) {
-		IncidentParser inc = new IncidentParser(network);
-		List<Incident> incidents = inc.parse(csvFilePath);
-		return selectRandomSubset(incidents, incidentNumber);
+		IncidentParser incParse = new IncidentParser(network);
+		List<Incident> incidents = incParse.parse(csvFilePath);
+		List<Incident> uniqueIncidents = selectAllUniqueIncidents(incidents);
+		return selectRandomSubset(incidents, uniqueIncidents, incidentNumber);
 	}
 
 	/**
@@ -57,48 +60,11 @@ public class IncidentReader {
 	 * @return the selected incidents
 	 */
 	public List<Incident> getSeededIncidents(int incidentNumber, long seed) {
-		IncidentParser inc = new IncidentParser(network);
-		List<Incident> incidents = inc.parse(csvFilePath);
-		return selectSeededSubset(incidents, incidentNumber, seed);
+		IncidentParser incParse = new IncidentParser(network);
+		List<Incident> incidents = incParse.parse(csvFilePath);
+		List<Incident> uniqueIncidents = selectAllUniqueIncidents(incidents);
+		return selectSeededSubset(incidents, uniqueIncidents, incidentNumber, seed);
 	}
-
-
-	private List<Incident> selectRandomSubset(List<Incident> incidents, int incidentNumber) {
-		if (incidentNumber > incidents.size()) {
-			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
-		}
-		Random random = new Random();
-		List<Incident> selectedIncidents = new ArrayList<>();
-		while (selectedIncidents.size() < incidentNumber) {
-			int randomIndex = random.nextInt(incidents.size());
-			Incident randomIncident = incidents.get(randomIndex);
-			if (!selectedIncidents.contains(randomIncident)) {
-				selectedIncidents.add(randomIncident);
-			}
-		}
-		return selectedIncidents;
-	}
-
-
-	private List<Incident> selectSeededSubset(List<Incident> incidents, int incidentNumber, long seed) {
-		if (incidentNumber > incidents.size()) {
-			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
-		}
-		Random random = new Random(seed);
-		List<Incident> selectedIncidents = new ArrayList<>();
-		Set<String> selectedLinkIds = new HashSet<>(); // Track selected linkIds
-
-		while (selectedIncidents.size() < incidentNumber) {
-			int randomIndex = random.nextInt(incidents.size());
-			Incident randomIncident = incidents.get(randomIndex);
-			if (!selectedLinkIds.contains(randomIncident.getLinkId())) {
-				selectedIncidents.add(randomIncident);
-				selectedLinkIds.add(randomIncident.getLinkId()); // Add the selected linkId
-			}
-		}
-		return selectedIncidents;
-	}
-
 }
 
 

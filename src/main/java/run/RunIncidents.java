@@ -66,7 +66,7 @@ public class RunIncidents {
 
 		// add incident to the scenario
 		IncidentReader incidents = new IncidentReader("scenarios/utah/incidents/UtahIncidents_MATSim.csv", scenario.getNetwork());
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(50,141));
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(60,1234));
 		applyIncidents.apply();
 
 		// setup controler

@@ -23,9 +23,9 @@ public class IncidentApplicator {
 	/**
 	 * Creates an incident applicator for the given network and selected incidents.
 	 *
-	 * @param scenario           the scenario with the network to apply incidents to
-	 * @param incidentsSelected the incidents to apply to the network, will usually be either randomly selected
-	 *                          or all of the incidents from a CSV read into the incidentReader class
+	 * @param scenario           	the scenario with the network to apply incidents to
+	 * @param incidentsSelected 	the incidents to apply to the network, will usually be either randomly selected
+	 *                          	or all of the incidents from a CSV read into the incidentReader class
 	 *
 	 * @throws IllegalArgumentException if any incident's link ID does not exist in the network
 	 */

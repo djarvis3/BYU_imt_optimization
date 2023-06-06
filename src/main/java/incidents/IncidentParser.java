@@ -27,6 +27,8 @@ public class IncidentParser {
 	private final Map<String, Link> motorwayLinkMap;
 
 	public IncidentParser(Network network) {
+
+		// maps incidents with type == "motorway" to ensure that incidents only occur on freeway links
 		motorwayLinkMap = new HashMap<>();
 		for (Link link : network.getLinks().values()) {
 			Attributes attributes = link.getAttributes();
@@ -92,6 +94,12 @@ public class IncidentParser {
 		return incidents;
 	}
 
+	/**
+	 * Returns the nearest motorway link to the specified coordinate.
+	 *
+	 * @param coord the coordinate for which to find the nearest motorway link
+	 * @return the nearest motorway {@link Link} to the specified coordinate
+	 */
 	public Link getNearestMotorwayLink(Coord coord){
 		Link nearestLink = null;
 		double shortDistance = Double.MAX_VALUE;
