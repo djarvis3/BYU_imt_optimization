@@ -11,19 +11,13 @@
 	<description>IMT deployment for MATSim </description>
 
 	<properties>
-		<!-- release -->
-		<matsim.version>14.0</matsim.version>
-
-		<!-- PR (= pull request) release -->
-		<!--		<matsim.version>13.1-PR1536</matsim.version> -->
-
-		<!-- for dependency sharing in IDE -->
-		<!--				<matsim.version>15.0-SNAPSHOT</matsim.version>-->
+		<!-- Options: stable build based on pull requests (e.g. 15.0-PR2344), weekly (e.g. 15.0-2023w01) or official (e.g. 14.0) releases -->
+		<!--		<matsim.version>16.0-PR2509</matsim.version>-->
+		<matsim.version>15.0</matsim.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.release>17</maven.compiler.release>
 	</properties>
 
 	<!--Might need to configure <distributionManagement> and 	<build> not sure? <-->
@@ -153,6 +147,16 @@
 			<artifactId>dvrp</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.matsim.contrib</groupId>
+			<artifactId>application</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.matsim.contrib</groupId>
+			<artifactId>vsp</artifactId>
+			<version>${matsim.version}</version>
+		</dependency>
 
 	</dependencies>
 
@@ -174,7 +178,7 @@
 				<!--				https://stackoverflow.com/questions/27429097/geotools-cannot-find-hsql-epsg-db-throws-error-nosuchauthoritycodeexception/27431381#27431381)-->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.2</version>
+				<version>3.4.1</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -213,11 +217,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>17</source>
-					<target>17</target>
-					<compilerArgs>--enable-preview</compilerArgs>
-				</configuration>
+				<version>3.11.0</version>
 			</plugin>
 		</plugins>
 	</build>
