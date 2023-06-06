@@ -10,16 +10,20 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
 /.settings/
 /.project
 /.classpath
 /output/
 /examples/
+/target/
+/test/output/
 /bin/
 /scenarios/utah/networks/
-
-
 
 *.iml
 
 arcGIS-maps.zip
+
+# IntelliJ
+/.idea/
