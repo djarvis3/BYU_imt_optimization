@@ -3,6 +3,8 @@ package incidents;
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
  * A utility class for parsing incident data from a CSV file.
  */
 public class IncidentParser {
+
+	private final static Logger log = LogManager.getLogger(IncidentParser.class);
 
 	private final Map<String, Link> motorwayLinkMap;
 
@@ -106,6 +110,10 @@ public class IncidentParser {
 				shortDistance = dist;
 				nearestLink = link;
 			}
+		}
+
+		if (nearestLink == null) {
+			log.warn("[nearestMotorwayLink not found. Maybe run NetworkCleaner?]");
 		}
 
 		return  nearestLink;
