@@ -7,14 +7,14 @@
 package incidents;
 
 public class Incident {
-	private Integer linkId;
+	private String linkId;
 	private String incidentID;
 	private Integer respondingIMTs;
 	private Integer start;
 	private Integer end;
 	private Double reduction;
 
-	public Incident(int linkId, String incidentID, Integer respondingIMTs, int start, int end, Double reduction) {
+	public Incident(String linkId, String incidentID, Integer respondingIMTs, int start, int end, Double reduction) {
 		this.linkId = linkId;
 		this.incidentID = incidentID;
 		this.respondingIMTs = respondingIMTs;
@@ -24,11 +24,11 @@ public class Incident {
 	}
 
 	// getters and setters for the fields
-	public int getLinkId() {
+	public String getLinkId() {
 		return linkId;
 	}
 
-	public void setLinkId(Integer linkId) {
+	public void setLinkId(String linkId) {
 		this.linkId = linkId;
 	}
 

@@ -3,19 +3,40 @@ package incidents;
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
+import org.matsim.api.core.v01.network.Node;
 import org.matsim.core.network.NetworkUtils;
+import org.matsim.core.utils.geometry.CoordUtils;
+import org.matsim.utils.objectattributes.attributable.Attributes;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * A utility class for parsing incident data from a CSV file.
  */
 public class IncidentParser {
+
+	private static final Logger log = Logger.getLogger(IncidentParser.class);
+	private final Map<String, Link> motorwayLinkMap;
+
+	public IncidentParser(Network network) {
+		motorwayLinkMap = new HashMap<>();
+		for (Link link : network.getLinks().values()) {
+			Attributes attributes = link.getAttributes();
+			String linkType = (String) attributes.getAttribute("type");
+			if ("motorway".equals(linkType)) {
+				String linkId = String.valueOf(link.getId());
+				motorwayLinkMap.put(linkId, link);
+			}
+		}
+	}
 
 	/**
 	 * Parses incident data from the specified CSV file.
@@ -25,7 +46,8 @@ public class IncidentParser {
 	 * @throws IllegalArgumentException if the CSV file path is invalid
 	 * @throws IllegalStateException    if there is an error parsing the CSV file
 	 */
-	public static List<Incident> parse(String csvFilePath, Network network) throws IllegalArgumentException, IllegalStateException {
+	public List<Incident> parse(String csvFilePath) throws IllegalArgumentException, IllegalStateException {
+
 		// Check if the file exists
 		File file = new File(csvFilePath);
 		if (!file.exists()) {
@@ -50,10 +72,8 @@ public class IncidentParser {
 						double x = record.getDouble("x");
 						double y = record.getDouble("y");
 						Coord incidentCoord = new Coord(x, y);
-
-						Link incidentLink = NetworkUtils.getNearestLink(network, incidentCoord);
-						int linkId = Integer.parseInt(String.valueOf(incidentLink.getId()));
-
+						Link nearestMotorwayLink = getNearestMotorwayLink(incidentCoord);
+						String linkId = String.valueOf(nearestMotorwayLink.getId());
 
 						int respondingIMTs = record.getInt("IMTs");
 						double capReduction = record.getDouble("Cap reduction");
@@ -70,5 +90,24 @@ public class IncidentParser {
 		}
 
 		return incidents;
+	}
+
+	public Link getNearestMotorwayLink(Coord coord){
+		Link nearestLink = null;
+		double shortDistance = Double.MAX_VALUE;
+
+		for (Link link : motorwayLinkMap.values()){
+			double dist = CoordUtils.distancePointLinesegment(link.getFromNode().getCoord(), link.getToNode().getCoord(), coord);
+			if (dist < shortDistance) {
+				shortDistance = dist;
+				nearestLink = link;
+			}
+		}
+
+		if (nearestLink == null){
+			log.warn("[nearestMotorwayLink not found. Maybe run NetworkCleaner?]");
+		}
+
+		return  nearestLink;
 	}
 }

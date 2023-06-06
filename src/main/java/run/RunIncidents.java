@@ -42,20 +42,21 @@ import java.io.IOException;
  * The class provides a main method to start the simulation with default configuration values.
  * To customize the simulation, different configuration files and options can be specified.
  */
+
+
 public class RunIncidents {
+
+	public static final String CONFIG_FILE = "scenarios/utah/config.xml";
+
 
 	/**
 	 * Runs the MATSim simulation.
 	 *
 	 * @param configFile Path to the MATSim configuration file.
-	 * @param trucksFile Path to the file containing information about trucks.
 	 */
-	public static void runIncidents(String configFile, String trucksFile) throws IOException {
+	public static void runIncidents(String configFile) throws IOException {
 		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
-
-		// Set inputChangeEventsFile parameter to null
-		config.network().setChangeEventsInputFile(null);
+		Config config = ConfigUtils.loadConfig(configFile, new DecongestionConfigGroup());
 
 		// Set outputDirectory filepath
 		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_Incidents");
@@ -64,8 +65,8 @@ public class RunIncidents {
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
 		// add incident to the scenario
-		IncidentReader incidents = new IncidentReader("scenarios/utahTAC/incidents/IncidentData_TAC.csv", scenario.getNetwork());
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getAllIncidents());
+		IncidentReader incidents = new IncidentReader("scenarios/utah/incidents/UtahIncidents_MATSim.csv", scenario.getNetwork());
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(50,141));
 		applyIncidents.apply();
 
 		// setup controler
@@ -74,12 +75,6 @@ public class RunIncidents {
 		// congestion toll computation
 
 		controler.addOverridingModule(new DecongestionModule(scenario));
-
-		// add modules for handling incidents and IMTs (Incident Management Teams)
-		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
-		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
-		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
 		// run simulation
 		controler.run();
@@ -91,7 +86,11 @@ public class RunIncidents {
 	 * @param args Command line arguments (not used).
 	 *
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException{
+		runIncidents(CONFIG_FILE);
+	}
+
+/*	public static void main(String[] args) throws IOException {
 		if(args.length != 2) {
 			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
 			System.exit(1);
@@ -102,5 +101,5 @@ public class RunIncidents {
 
 		// Run the MATSim simulation
 		runIncidents(configFile, trucksFile);
-	}
+	}*/
 }

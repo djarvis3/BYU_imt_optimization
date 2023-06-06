@@ -1,8 +1,6 @@
 package incidents;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.network.Network;
@@ -34,7 +32,8 @@ public class IncidentReader {
 	 * @return the list of all incidents from the CSV file
 	 */
 	public List<Incident> getAllIncidents() {
-		return IncidentParser.parse(csvFilePath, network);
+		IncidentParser inc = new IncidentParser(network);
+		return inc.parse(csvFilePath);
 	}
 
 	/**
@@ -44,7 +43,8 @@ public class IncidentReader {
 	 * @return the random list of incidents
 	 */
 	public List<Incident> getRandomIncidents(int incidentNumber) {
-		List<Incident> incidents = IncidentParser.parse(csvFilePath, network);
+		IncidentParser inc = new IncidentParser(network);
+		List<Incident> incidents = inc.parse(csvFilePath);
 		return selectRandomSubset(incidents, incidentNumber);
 	}
 
@@ -57,8 +57,9 @@ public class IncidentReader {
 	 * @return the selected incidents
 	 */
 	public List<Incident> getSeededIncidents(int incidentNumber, long seed) {
-		List<Incident> incidents = IncidentParser.parse(csvFilePath, network);
-		return selectRandomSubset(incidents, incidentNumber, seed);
+		IncidentParser inc = new IncidentParser(network);
+		List<Incident> incidents = inc.parse(csvFilePath);
+		return selectSeededSubset(incidents, incidentNumber, seed);
 	}
 
 
@@ -79,21 +80,25 @@ public class IncidentReader {
 	}
 
 
-	private List<Incident> selectRandomSubset(List<Incident> incidents, int incidentNumber, long seed) {
+	private List<Incident> selectSeededSubset(List<Incident> incidents, int incidentNumber, long seed) {
 		if (incidentNumber > incidents.size()) {
 			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
 		}
 		Random random = new Random(seed);
 		List<Incident> selectedIncidents = new ArrayList<>();
+		Set<String> selectedLinkIds = new HashSet<>(); // Track selected linkIds
+
 		while (selectedIncidents.size() < incidentNumber) {
 			int randomIndex = random.nextInt(incidents.size());
 			Incident randomIncident = incidents.get(randomIndex);
-			if (!selectedIncidents.contains(randomIncident)) {
+			if (!selectedLinkIds.contains(randomIncident.getLinkId())) {
 				selectedIncidents.add(randomIncident);
+				selectedLinkIds.add(randomIncident.getLinkId()); // Add the selected linkId
 			}
 		}
 		return selectedIncidents;
 	}
+
 }
 
 
