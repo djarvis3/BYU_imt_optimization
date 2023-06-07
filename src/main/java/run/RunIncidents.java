@@ -57,7 +57,7 @@ public class RunIncidents {
 
 		// add incident to the scenario
 		IncidentReader incidents = new IncidentReader("scenarios/utah/incidents/UtahIncidents_MATSim.csv", scenario.getNetwork());
-		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getAllIncidents());
+		IncidentApplicator applyIncidents = new IncidentApplicator(scenario, incidents.getSeededIncidents(10,6725));
 		applyIncidents.apply();
 
 		// setup controler
@@ -81,7 +81,7 @@ public class RunIncidents {
 
 	public static void main(String[] args) throws IOException {
 		if(args.length != 1) {
-			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
+			System.err.println("Usage: java RunIncidents <configFile>");
 			System.exit(1);
 		}
 

@@ -68,7 +68,7 @@ public class RunMatsim {
 
 	public static void main(String[] args) throws IOException {
 		if(args.length != 1) {
-			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
+			System.err.println("Usage: java RunMatsim <configFile>");
 			System.exit(1);
 		}
 

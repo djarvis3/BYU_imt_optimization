@@ -26,11 +26,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>Plans.jar</outputFile>
+              <outputFile>Incidents.jar</outputFile>
               <transformers>
                 <transformer>
                   <manifestEntries>
-                    <Main-Class>readers.ActivitySimPlansReader</Main-Class>
+                    <Main-Class>run.RunIncidents</Main-Class>
                     <Specification-Vendor>org.matsim</Specification-Vendor>
                     <Implementation-Vendor>org.matsim</Implementation-Vendor>
                     <Implementation-Version>${project.version}</Implementation-Version>

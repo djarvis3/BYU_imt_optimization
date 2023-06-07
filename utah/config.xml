@@ -8,7 +8,7 @@
 	</module>
 
 	<module name="network">
-		<param name="inputNetworkFile" value="networks/network_simple.xml"/>
+		<param name="inputNetworkFile" value="networks/physsim-network_2.5k.xml"/>
 		<param name="timeVariantNetwork" value="true"/>
 		<!-- param name="inputChangeEventsFile" value=""/ if timeVariantNetwork -->
 	</module>
