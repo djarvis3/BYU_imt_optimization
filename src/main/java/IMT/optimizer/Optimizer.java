@@ -19,8 +19,8 @@
 
 package IMT.optimizer;
 
-import IMT.events.EventHandler_IMT;
-import IMT.events.EventHandler_Incidents;
+import IMT.events.eventHanlders.EventHandler_IMT;
+import IMT.events.eventHanlders.EventHandler_Incidents;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
