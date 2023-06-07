@@ -128,8 +128,8 @@ public class ActivitySimPlansReader {
 
         public static void main (String[]args){
             ActivitySimPlansReader reader = new ActivitySimPlansReader();
-            reader.parseCsv("scenarios/utahTAC/plans/plans.csv");
-            reader.writeXml("scenarios/utahTAC/plans/output_plans.xml");
+            reader.parseCsv("scenarios/utah/plans/wfrc_calibrated_no_RH_plans.csv");
+            reader.writeXml("scenarios/utah/plans/wfrc_calibrated_no_RH_plans.xml");
         }
 
         private void writeXml (String outfile){

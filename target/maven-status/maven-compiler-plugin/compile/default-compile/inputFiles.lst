@@ -6,6 +6,7 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtActionCreator.
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionAnalysisModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentReader.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtServeTask.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\network\NetworkCleaner.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionRunExampleFromConfig.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\optimizer\Optimizer.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\package-info.java
@@ -22,11 +23,11 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\handler\Person
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentParser.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\events\EventHandler_Incidents.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\optimizer\RequestHandler.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentSelector.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\data\LinkInfo.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\network\RunPNetworkGenerator.java
-C:\Users\djarvis3\BYU_imt_optimization\src\main\java\readers\IncidentSimPlansReader.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\RequestCreator.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\handler\IntervalBasedTolling.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\ActionCreator.java

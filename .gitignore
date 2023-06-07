@@ -20,6 +20,8 @@ hs_err_pid*
 /test/output/
 /bin/
 /scenarios/utah/networks/
+/scenarios/utah/plans/
+
 
 *.iml
 

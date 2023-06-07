@@ -186,12 +186,12 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>Incidents.jar</outputFile>
+							<outputFile>Plans.jar</outputFile>
 							<transformers>
 								<!-- The following sets the main class for the executable jar as you otherwise would with the assembly plugin -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
-										<Main-Class>run.RunIncidents</Main-Class>
+										<Main-Class>readers.ActivitySimPlansReader</Main-Class>
 										<Specification-Vendor>org.matsim</Specification-Vendor>
 										<Implementation-Vendor>org.matsim</Implementation-Vendor>
 										<Implementation-Version>${project.version}</Implementation-Version>
