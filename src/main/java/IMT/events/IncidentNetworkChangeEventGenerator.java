@@ -1,8 +1,8 @@
 package IMT.events;
 
 import IMT.Request;
-import IMT.events.eventHanlders.EventHandler_IMT;
-import IMT.events.eventHanlders.EventHandler_Incidents;
+import IMT.events.eventHanlders.EventHandler_IMT_Log;
+import IMT.events.eventHanlders.EventHandler_Incidents_Log;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
 
@@ -45,11 +45,11 @@ public class IncidentNetworkChangeEventGenerator {
 		String output = scenario.getConfig().controler().getOutputDirectory();
 		if (output.endsWith("IMT")) {
 			// Log incident information
-			EventHandler_IMT.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
+			EventHandler_IMT_Log.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
 		}
 		else if (output.endsWith("Incidents")) {
 			// Log incident information
-			EventHandler_Incidents.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
+			EventHandler_Incidents_Log.handleIncidentNetworkChangeEvent(request, reducedCapacity, fullCapacity, startTime, endTime);
 		}
 	}
 }

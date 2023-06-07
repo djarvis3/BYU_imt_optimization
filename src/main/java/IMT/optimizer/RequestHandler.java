@@ -3,7 +3,7 @@ package IMT.optimizer;
 import IMT.IncidentManager;
 import IMT.Request;
 import IMT.events.ChangeEvent;
-import IMT.events.eventHanlders.EventHandler_IMT;
+import IMT.events.eventHanlders.EventHandler_IMT_Log;
 import IMT.events.ImtNetworkChangeEventGenerator;
 import IMT.events.IncidentNetworkChangeEventGenerator;
 import org.matsim.api.core.v01.Scenario;
@@ -126,7 +126,7 @@ public class RequestHandler {
 
 			} else {
 				// Log IMT information
-				EventHandler_IMT.handleLateImtArrival(request, arrivalTime, imtUnit);
+				EventHandler_IMT_Log.handleLateImtArrival(request, arrivalTime, imtUnit);
 
 				if (totalRequestCount == handleRequestCount){
 					changeEvent.saveToFile(scenario);

@@ -18,8 +18,8 @@ import java.util.logging.*;
 /**
  * Handles logging for network change events associated with incidents or IMT arrival events.
  */
-public class EventHandler_IMT {
-	private static final Logger LOGGER = Logger.getLogger(EventHandler_IMT.class.getName());
+public class EventHandler_IMT_Log {
+	private static final Logger LOGGER = Logger.getLogger(EventHandler_IMT_Log.class.getName());
 	private static int iterationCount = 0;
 
 	/**
@@ -27,7 +27,7 @@ public class EventHandler_IMT {
 	 *
 	 * @param scenario the scenario object to retrieve the output directory from
 	 */
-	public EventHandler_IMT(Scenario scenario) {
+	public EventHandler_IMT_Log(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 
 		try {
