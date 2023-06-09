@@ -1,7 +1,6 @@
 package IMT.events;
 
 import IMT.Request;
-import IMT.events.eventHanlders.EventHandler_IMT_Log;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 
@@ -51,7 +50,7 @@ public class ImtNetworkChangeEventGenerator {
 		String output = scenario.getConfig().controler().getOutputDirectory();
 		if (output.endsWith("IMT")) {
 			// Log incident information
-			EventHandler_IMT_Log.handleImtNetworkChangeEvent(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime, imtUnit);
+			// EventHandler_IMT_Log.logImtArrival(request, fullCapacity, reducedCapacity, currLinkCapacity, arrivalTime, imtUnit);
 		}
 	}
 }

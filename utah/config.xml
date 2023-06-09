@@ -8,21 +8,23 @@
 	</module>
 
 	<module name="network">
-		<param name="inputNetworkFile" value="networks/physsim-network_2.5k.xml"/>
+		<param name="inputNetworkFile" value="networks/network_simple.xml"/>
 		<param name="timeVariantNetwork" value="true"/>
 		<!-- param name="inputChangeEventsFile" value=""/ if timeVariantNetwork -->
 	</module>
 
+	<module name="dvrp">
+	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans/population-100.xml"/>
+		<param name="inputPlansFile" value="plans/population_NULL.xml"/>
 	</module>
 
 	<module name="controler">
 		<param name="outputDirectory" value="output/utah"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="1"/>
+		<param name="lastIteration" value="0"/>
 		<param name="mobsim" value="qsim" />
 	</module>
 

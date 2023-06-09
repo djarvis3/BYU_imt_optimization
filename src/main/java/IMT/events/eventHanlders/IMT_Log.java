@@ -18,8 +18,8 @@ import java.util.logging.*;
 /**
  * Handles logging for network change events associated with incidents or IMT arrival events.
  */
-public class EventHandler_IMT_Log {
-	private static final Logger LOGGER = Logger.getLogger(EventHandler_IMT_Log.class.getName());
+public class IMT_Log {
+	private static final Logger LOGGER = Logger.getLogger(IMT_Log.class.getName());
 	private static int iterationCount = 0;
 
 	/**
@@ -27,7 +27,7 @@ public class EventHandler_IMT_Log {
 	 *
 	 * @param scenario the scenario object to retrieve the output directory from
 	 */
-	public EventHandler_IMT_Log(Scenario scenario) {
+	public IMT_Log(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 
 		try {
@@ -91,7 +91,7 @@ public class EventHandler_IMT_Log {
 	 * @param arrivalTime      the time when the IMT arrives
 	 * @param imtUnit          the vehicle sent to the incident
 	 */
-	public static void handleImtNetworkChangeEvent(Request request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime, DvrpVehicle imtUnit) {
+	public static void logImtArrival(Request request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime, DvrpVehicle imtUnit) {
 		String imtLog = ("IMT: ");
 		Duration arrival = Duration.ofSeconds((long) arrivalTime);
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(arrival);

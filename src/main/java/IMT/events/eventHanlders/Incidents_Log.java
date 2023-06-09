@@ -16,8 +16,8 @@ import java.util.logging.*;
 /**
  * The EventHandler_Incidents class handles incidents-related events and logging.
  */
-public class EventHandler_Incidents_Log {
-	private static final Logger LOGGER = Logger.getLogger(EventHandler_Incidents_Log.class.getName());
+public class Incidents_Log {
+	private static final Logger LOGGER = Logger.getLogger(Incidents_Log.class.getName());
 	private static int iterationCount = 0;
 
 	/**
@@ -25,7 +25,7 @@ public class EventHandler_Incidents_Log {
 	 *
 	 * @param scenario the scenario object containing the configuration information
 	 */
-	public EventHandler_Incidents_Log(Scenario scenario) {
+	public Incidents_Log(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		try {
 			Path outputDirPath = Paths.get(outputDirectory);

@@ -23,6 +23,7 @@ import incidents.Incident;
 import incidents.IncidentReader;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
@@ -55,6 +56,7 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 		this.optimizer = optimizer;
 		this.network = network;
 
+
 		// Read incidents from the CSV file and select only the "incidentsList" list
 		if (incidentsList == null) {
 			incidentsList = readIncidentsFromCsv();
@@ -64,18 +66,19 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 		// Create a new request for each  incident and add it to the requests PriorityQueue
 		for (Incident incident : incidentsList) {
 			requests.add(createRequest(incident));
+
 		}
 	}
 
 	// Reads incidents from the CSV file and selects only the "incidentsList" list
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
-			IncidentReader incidents = new IncidentReader("scenarios/utah/incidents/UtahIncidents_MATSim.csv", network);
+			IncidentReader incidents = new IncidentReader("examples/equil/IncidentData_Equil_1.csv", network);
 			// to select random incidents from the CSV use incidents.getRandomIncidents();
 			// incidentsList = incidents.randomIncidents();
 
 			// to select all the incidents from the CSV use
-			incidentsList = incidents.getAllIncidents();
+			incidentsList = incidents.getSeededIncidents(1,1234);
 			// incidentsList = incidents.getSeededIncidents(23,1234);
 		}
 		return incidentsList;

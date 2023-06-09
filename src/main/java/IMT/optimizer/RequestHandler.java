@@ -3,7 +3,7 @@ package IMT.optimizer;
 import IMT.IncidentManager;
 import IMT.Request;
 import IMT.events.ChangeEvent;
-import IMT.events.eventHanlders.EventHandler_IMT_Log;
+import IMT.events.eventHanlders.IMT_Log;
 import IMT.events.ImtNetworkChangeEventGenerator;
 import IMT.events.IncidentNetworkChangeEventGenerator;
 import org.matsim.api.core.v01.Scenario;
@@ -110,7 +110,7 @@ public class RequestHandler {
 			double currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
 			linkCapacityGap = fullLinkCapacity - currLinkCapacity;
 			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
-			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit);
+			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit, currLinkCapacity);
 
 			if (arrivalTime < endTime) {
 				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario,
@@ -126,7 +126,7 @@ public class RequestHandler {
 
 			} else {
 				// Log IMT information
-				EventHandler_IMT_Log.handleLateImtArrival(request, arrivalTime, imtUnit);
+				IMT_Log.handleLateImtArrival(request, arrivalTime, imtUnit);
 
 				if (totalRequestCount == handleRequestCount){
 					changeEvent.saveToFile(scenario);

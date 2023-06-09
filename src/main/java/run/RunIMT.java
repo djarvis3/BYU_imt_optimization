@@ -19,6 +19,7 @@
 package run;
 
 import IMT.ImtModule;
+import IMT.events.eventHanlders.ArriveEventHandler;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
 import org.matsim.api.core.v01.Scenario;
@@ -29,6 +30,7 @@ import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
 
@@ -62,6 +64,15 @@ public class RunIMT {
 		// setup controler
 		Controler controler = new Controler(scenario);
 
+		// add event handler
+		ArriveEventHandler arriveEventHandler = new ArriveEventHandler(scenario);
+		controler.addOverridingModule(new AbstractModule() {
+			@Override
+			public void install() {
+				this.addEventHandlerBinding().toInstance(arriveEventHandler);
+			}
+		});
+
 		// congestion toll computation
 
 		controler.addOverridingModule(new DecongestionModule(scenario));
@@ -71,6 +82,7 @@ public class RunIMT {
 		controler.addOverridingModule(new DvrpModule());
 		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
+
 
 		// run simulation
 		controler.run();

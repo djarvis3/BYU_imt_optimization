@@ -19,8 +19,8 @@
 
 package IMT.optimizer;
 
-import IMT.events.eventHanlders.EventHandler_IMT_Log;
-import IMT.events.eventHanlders.EventHandler_Incidents_Log;
+import IMT.events.eventHanlders.IMT_Log;
+import IMT.events.eventHanlders.Incidents_Log;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
@@ -76,10 +76,10 @@ public final class Optimizer implements VrpOptimizer {
 
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		if (outputDirectory.endsWith("Incidents")) {
-			new EventHandler_Incidents_Log(scenario);
+			new Incidents_Log(scenario);
 		}
 		else if (outputDirectory.endsWith("IMT")) {
-			new EventHandler_IMT_Log(scenario);
+			new IMT_Log(scenario);
 		}
 	}
 

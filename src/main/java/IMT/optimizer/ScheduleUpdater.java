@@ -2,6 +2,7 @@ package IMT.optimizer;
 
 import IMT.Request;
 import IMT.ServeTask;
+import IMT.events.eventHanlders.IMT_Log;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.path.VrpPathWithTravelData;
@@ -26,6 +27,7 @@ public class ScheduleUpdater {
 	private final TravelTime travelTime;
 	private final MobsimTimer timer;
 
+
 	/**
 	 * Constructs a new ScheduleUpdater object with the given the closest vehicle finder, the least cost path calculator,
 	 * travel time, and mobsim timer.
@@ -47,13 +49,15 @@ public class ScheduleUpdater {
 	 * @throws NullPointerException if any of the arguments are null
 	 * @throws IllegalArgumentException if the last task status is unexpected
 	 */
-	public double updateScheduleForVehicle(Schedule schedule, Link toLink, double endTime, Request request, DvrpVehicle imtUnit) {
+	public double updateScheduleForVehicle(Schedule schedule, Link toLink, double endTime, Request request, DvrpVehicle imtUnit, Double currentLinkCapacity) {
 		Objects.requireNonNull(schedule, "schedule must not be null");
 		Objects.requireNonNull(request, "request must not be null");
 		Objects.requireNonNull(imtUnit, "imtUnit must not be null");
 
 		StayTask lastTask = (StayTask) Schedules.getLastTask(schedule);
 		double currentTime = timer.getTimeOfDay();
+		double fullCapacity = request.getToLink().getCapacity();
+		double reducedCapacity = (request.getToLink().getCapacity()-(request.getToLink().getCapacity()*request.getCapacityReduction()));
 
 		switch (lastTask.getStatus()) {
 			case PLANNED -> schedule.removeLastTask();
@@ -70,6 +74,9 @@ public class ScheduleUpdater {
 		double arrivalTime = pathToIncident.getArrivalTime();
 		schedule.addTask(new DefaultDriveTask(Optimizer.ImtTaskType.DRIVE_TO_INCIDENT, pathToIncident));
 		schedule.addTask(new ServeTask(Optimizer.ImtTaskType.ARRIVE, arrivalTime, arrivalTime, toLink, request));
+		// log IMT arrival
+		IMT_Log.logImtArrival(request,fullCapacity,reducedCapacity,currentLinkCapacity,arrivalTime,imtUnit);
+
 
 		if (arrivalTime < endTime) {
 			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, endTime,
