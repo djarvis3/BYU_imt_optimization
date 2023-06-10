@@ -78,7 +78,7 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 			// incidentsList = incidents.randomIncidents();
 
 			// to select all the incidents from the CSV use
-			incidentsList = incidents.getSeededIncidents(1,1234);
+			incidentsList = incidents.getSeededIncidents(2,1234);
 			// incidentsList = incidents.getSeededIncidents(23,1234);
 		}
 		return incidentsList;

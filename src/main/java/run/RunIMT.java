@@ -19,7 +19,9 @@
 package run;
 
 import IMT.ImtModule;
+import IMT.events.CustomEventWriterXML;
 import IMT.events.eventHanlders.ArriveEventHandler;
+import IMT.events.eventHanlders.CustomEventHandler;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
 import org.matsim.api.core.v01.Scenario;
@@ -27,14 +29,19 @@ import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
+import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
+import org.matsim.core.mobsim.qsim.AbstractQSimModule;
 import org.matsim.core.scenario.ScenarioUtils;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * The RunIMT class is responsible for running the MATSim simulation for Incident Management Teams (IMTs) and incidents.
@@ -55,16 +62,17 @@ public class RunIMT {
 		// load config
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
 
-		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory()+"_IMT");
+// Set outputDirectory filepath
+		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_IMT");
 
-		// load scenario
+// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		// setup controler
+// setup controler
 		Controler controler = new Controler(scenario);
 
-		// add event handler
+
+// add event handler
 		ArriveEventHandler arriveEventHandler = new ArriveEventHandler(scenario);
 		controler.addOverridingModule(new AbstractModule() {
 			@Override
@@ -73,28 +81,47 @@ public class RunIMT {
 			}
 		});
 
-		// congestion toll computation
+// initialize EventWriter
+		EventsManager events = controler.getEvents();
+		CustomEventWriterXML writer = null;
+		try {
+			OutputStream out = Files.newOutputStream(Paths.get("output_events.xml.gz"));
+			writer = new CustomEventWriterXML(out);
 
-		controler.addOverridingModule(new DecongestionModule(scenario));
+			// initialize CustomEventHandler with writer and register it to the events manager
+			CustomEventHandler handler = new CustomEventHandler(writer);
+			events.addHandler(handler);
 
-		// add modules for handling incidents and IMTs (Incident Management Teams)
-		// comment out these three lines to run a "Baseline" MATSim Run with no incidents or IMTs
-		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
-		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
+			controler.addOverridingModule(new AbstractModule() {
+				@Override
+				public void install() {
+					this.addEventHandlerBinding().toInstance(handler);
+				}
+			});
 
+			// add modules, run simulation, etc
+			controler.addOverridingModule(new DecongestionModule(scenario));
+			controler.addOverridingModule(new DvrpModule());
+			controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+			controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
-		// run simulation
-		controler.run();
+			// run simulation
+			controler.run();
+		} finally {
+			// ensure all events are written and the file is properly closed
+			if (writer != null) {
+				writer.closeFile();
+			}
+		}
 	}
 
 
-	/**
-	 * Main method to start the MATSim simulation.
-	 *
-	 * @param args Command line arguments (not used).
-	 * @throws IOException if there is an error running the simulation.
-	 */
+		/**
+		 * Main method to start the MATSim simulation.
+		 *
+		 * @param args Command line arguments (not used).
+		 * @throws IOException if there is an error running the simulation.
+		 */
 	public static void main(String[] args) throws IOException {
 		if(args.length != 2) {
 			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");

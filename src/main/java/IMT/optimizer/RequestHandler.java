@@ -10,6 +10,7 @@ import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.schedule.*;
+import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
@@ -44,6 +45,7 @@ public class RequestHandler {
 	private final ClosestVehicleFinder closestVehicleFinder;
 	private final IncidentNetworkChangeEventGenerator incidentNCE;
 	private final ChangeEvent changeEvent;
+	private final EventsManager events;
 
 
 	/**
@@ -51,7 +53,7 @@ public class RequestHandler {
 	 *
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
-	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, Scenario scenario) {
+	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(fleet, "fleet must not be null");
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
@@ -60,6 +62,7 @@ public class RequestHandler {
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incidentNCE = new IncidentNetworkChangeEventGenerator(scenario);
 		this.changeEvent = new ChangeEvent();
+		this.events = Objects.requireNonNull(events, "events must not be null");
 
 
 		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
@@ -106,11 +109,12 @@ public class RequestHandler {
 		for (DvrpVehicle imtUnit : closestVehicles) {
 			numIMT+= 1; // Increase numIMT by 1
 			Schedule schedule = imtUnit.getSchedule();
-			ScheduleUpdater updater = new ScheduleUpdater(router, travelTime, timer);
+			ScheduleUpdater updater = new ScheduleUpdater(router, travelTime, timer, events);
 			double currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
 			linkCapacityGap = fullLinkCapacity - currLinkCapacity;
 			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
 			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit, currLinkCapacity);
+
 
 			if (arrivalTime < endTime) {
 				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario,

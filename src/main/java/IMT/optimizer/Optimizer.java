@@ -33,6 +33,7 @@ import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
 import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
 
+import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
@@ -57,21 +58,23 @@ public final class Optimizer implements VrpOptimizer {
 	private final Fleet fleet;
 	private final RequestHandler requestHandler;
 	private final TimingUpdater timingUpdater;
+	private final EventsManager events;
 
 
 	/**
 	 * Constructs a new Optimizer instance.
 	 */
 	@Inject
-	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario) {
+	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
+		this.events = Objects.requireNonNull(events, "Events cannot be null");
 
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 		TravelTime travelTime = new FreeSpeedTravelTime();
 		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network,
 				new TimeAsTravelDisutility(travelTime), travelTime);
 		initWaitTasks();
-		this.requestHandler = new RequestHandler(fleet, router, travelTime, timer, scenario);
+		this.requestHandler = new RequestHandler(fleet, router, travelTime, timer, scenario, events);
 		this.timingUpdater = new TimingUpdater(timer);
 
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();

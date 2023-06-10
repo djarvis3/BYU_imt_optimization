@@ -59,4 +59,3 @@ public class ServeTask extends DefaultStayTask {
 		return request;
 	}
 }
-
