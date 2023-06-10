@@ -1,5 +1,6 @@
 package IMT.events;
 
+import IMT.events.incidents.IncidentEvent;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.core.events.algorithms.EventWriterXML;
 import org.matsim.core.utils.io.UncheckedIOException;
@@ -35,14 +36,14 @@ public class CustomEventWriterXML extends EventWriterXML {
 			// Your existing event writing code here
 			// ...
 
-			if(event instanceof ImtEvent) {
-				ImtEvent imtEvent = (ImtEvent) event;
+			if(event instanceof IncidentEvent) {
+				IncidentEvent incidentEvent = (IncidentEvent) event;
 				try {
 					// Convert time to nearest second before printing
-					String roundedTime = String.valueOf(Math.round(imtEvent.getTime()));
-					writer.print(String.format("\t<event time=\"%s\" type=\"%s\"", roundedTime, imtEvent.getEventType()));
+					String roundedTime = String.valueOf(Math.round(incidentEvent.getTime()));
+					writer.print(String.format("\t<event time=\"%s\" type=\"%s\"", roundedTime, incidentEvent.getEventType()));
 
-					Map<String, String> attributes = imtEvent.getAttributes();
+					Map<String, String> attributes = incidentEvent.getAttributes();
 					for(Map.Entry<String, String> entry : attributes.entrySet()) {
 						writer.print(String.format(" %s=\"%s\"", entry.getKey(), entry.getValue()));
 					}

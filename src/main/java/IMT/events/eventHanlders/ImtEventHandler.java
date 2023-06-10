@@ -1,6 +1,6 @@
 package IMT.events.eventHanlders;
 
-import IMT.events.ImtEvent;
+import IMT.events.incidents.IncidentEvent;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.core.events.handler.BasicEventHandler;
@@ -21,11 +21,11 @@ public class ImtEventHandler implements BasicEventHandler {
 
 	@Override
 	public void handleEvent(Event event) {
-		if (event instanceof ImtEvent imtEvent) {
+		if (event instanceof IncidentEvent incidentEvent) {
 
-			NetworkChangeEvent imtArrival = new NetworkChangeEvent(imtEvent.getTime());
-			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, Double.parseDouble(imtEvent.getCurrentCapacity())));
-			imtArrival.addLink(scenario.getNetwork().getLinks().get(imtEvent.getLinkId()));
+			NetworkChangeEvent imtArrival = new NetworkChangeEvent(incidentEvent.getTime());
+			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, incidentEvent.getFullCapacity()));
+			imtArrival.addLink(scenario.getNetwork().getLinks().get(incidentEvent.getLinkId()));
 
 			// do something with imtEvent
 		}

@@ -1,7 +1,7 @@
 package IMT.events.eventHanlders;
 
 import IMT.events.CustomEventWriterXML;
-import IMT.events.ImtEvent;
+import IMT.events.incidents.IncidentEvent;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.core.events.handler.BasicEventHandler;
 
@@ -14,7 +14,7 @@ public class CustomEventHandler implements BasicEventHandler {
 
 	@Override
 	public void handleEvent(Event event) {
-		if(event instanceof ImtEvent) {
+		if(event instanceof IncidentEvent) {
 			writer.handleEvent(event);
 		}
 	}

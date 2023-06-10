@@ -29,24 +29,25 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 	// Define private final variables id, submissionTime, endTime, capacityReduction, totalIMTs, and numIMT
 	private final Id<org.matsim.contrib.dvrp.optimizer.Request> id;
 	private final double submissionTime;
+	private final Link toLink;
+	private final double capacityReduction_percentage;
+	private final double reducedCapacity_link;
 	private final double endTime;
-	private final double capacityReduction;
+	private final double fullCapacity_link;
 	private final int totalIMTs;
 	private int numIMT;
 
-	// Define a private final variable toLink of type Link
-	private final Link toLink;
 
-	// Constructor that takes the input parameters id, toLink, submissionTime, endTime, capacityReduction,
-	// and totalIMTs and assigns them to the corresponding private final variables
-	public Request(Id<org.matsim.contrib.dvrp.optimizer.Request> id, Link toLink, double submissionTime,
-				   double endTime, double capacityReduction, int respondingIMTs) {
+	// Constructor
+	public Request(Id<org.matsim.contrib.dvrp.optimizer.Request> id, double submissionTime, Link toLink, double capacityReduction_percentage, double reducedCapacity_link, double endTime, double fullCapacity_link, int totalIMTs) {
 		this.id = id;
-		this.toLink = toLink;
 		this.submissionTime = submissionTime;
+		this.toLink = toLink;
+		this.capacityReduction_percentage = capacityReduction_percentage;
+		this.reducedCapacity_link = reducedCapacity_link;
 		this.endTime = endTime;
-		this.capacityReduction = capacityReduction;
-		this.totalIMTs = respondingIMTs;
+		this.fullCapacity_link = fullCapacity_link;
+		this.totalIMTs = totalIMTs;
 	}
 
 	// Implement the getId method defined in the Request interface and return the value of the id variable
@@ -55,29 +56,26 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 		return id;
 	}
 
-	// Implement the getSubmissionTime method defined in the Request interface and
-	// return the value of the submissionTime variable
 	@Override
 	public double getSubmissionTime() {
 		return submissionTime;
 	}
 
-	// Create a getter method called getEndTime that returns the value of the endTime variable
+	public Link getToLink() {
+		return toLink;
+	}
+	public double getCapacityReduction_percentage() {
+		return capacityReduction_percentage;
+	}
+
+	public double getReducedCapacity_link(){return reducedCapacity_link;}
+
 	public double getEndTime() {
 		return endTime;
 	}
 
-	// Create a getter method called getToLink that returns the value of the toLink variable
-	public Link getToLink() {
-		return toLink;
-	}
+	public double getFullCapacity_link(){ return fullCapacity_link;}
 
-	// Create a getter method called getCapacityReduction that returns the value of the capacityReduction variable
-	public double getCapacityReduction() {
-		return capacityReduction;
-	}
-
-	// Create a getter method called getTotalIMTs that returns the value of the totalIMTs variable
 	public int getTotalIMTs() {
 		return totalIMTs;
 	}

@@ -20,7 +20,7 @@ package run;
 
 import IMT.ImtModule;
 import IMT.events.CustomEventWriterXML;
-import IMT.events.eventHanlders.ArriveEventHandler;
+import IMT.events.incidents.IncidentEventHandler;
 import IMT.events.eventHanlders.CustomEventHandler;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
@@ -35,7 +35,6 @@ import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
-import org.matsim.core.mobsim.qsim.AbstractQSimModule;
 import org.matsim.core.scenario.ScenarioUtils;
 
 import java.io.IOException;
@@ -71,13 +70,12 @@ public class RunIMT {
 // setup controler
 		Controler controler = new Controler(scenario);
 
-
 // add event handler
-		ArriveEventHandler arriveEventHandler = new ArriveEventHandler(scenario);
+		IncidentEventHandler incidentEventHandler = new IncidentEventHandler(scenario);
 		controler.addOverridingModule(new AbstractModule() {
 			@Override
 			public void install() {
-				this.addEventHandlerBinding().toInstance(arriveEventHandler);
+				this.addEventHandlerBinding().toInstance(incidentEventHandler);
 			}
 		});
 

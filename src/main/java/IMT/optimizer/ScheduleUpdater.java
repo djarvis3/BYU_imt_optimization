@@ -2,7 +2,7 @@ package IMT.optimizer;
 
 import IMT.Request;
 import IMT.ServeTask;
-import IMT.events.ImtEvent;
+import IMT.events.incidents.IncidentEvent;
 import IMT.events.eventHanlders.IMT_Log;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
@@ -62,8 +62,8 @@ public class ScheduleUpdater {
 
 		StayTask lastTask = (StayTask) Schedules.getLastTask(schedule);
 		double currentTime = timer.getTimeOfDay();
-		double fullCapacity = request.getToLink().getCapacity();
-		double reducedCapacity = (request.getToLink().getCapacity()-(request.getToLink().getCapacity()*request.getCapacityReduction()));
+		double reducedCapacity = request.getReducedCapacity_link();
+		double fullCapacity = request.getFullCapacity_link();
 
 		switch (lastTask.getStatus()) {
 			case PLANNED -> schedule.removeLastTask();
@@ -75,16 +75,15 @@ public class ScheduleUpdater {
 				Math.max(imtUnit.getServiceBeginTime(), currentTime) :
 				Schedules.getLastTask(schedule).getEndTime();
 
+		// create a custom event for the Incident
+		IncidentEvent incidentEvent = new IncidentEvent(request.getSubmissionTime(), request.getToLink().getId(), reducedCapacity, request.getEndTime(), fullCapacity);
+		events.processEvent(incidentEvent);
+		events.initProcessing();
+
 		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(lastTask.getLink(), toLink, startTime,
 				router, travelTime);
-		double arrivalTime = pathToIncident.getArrivalTime();
 		schedule.addTask(new DefaultDriveTask(Optimizer.ImtTaskType.DRIVE_TO_INCIDENT, pathToIncident));
-
-		// create and dispatch an ImtEvent
-		double roundedTime = Math.round(arrivalTime);
-		ImtEvent imtEvent = new ImtEvent(roundedTime+1, currentLinkCapacity.toString(), toLink.getId());
-		events.processEvent(imtEvent);
-		events.initProcessing();
+		double arrivalTime = pathToIncident.getArrivalTime();
 
 
 		schedule.addTask(new ServeTask(Optimizer.ImtTaskType.ARRIVE, arrivalTime, arrivalTime, toLink, request));

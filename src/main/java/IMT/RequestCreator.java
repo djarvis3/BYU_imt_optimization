@@ -40,6 +40,9 @@ import java.util.*;
  */
 public class RequestCreator implements MobsimAfterSimStepListener, EventHandler {
 
+	// ensure that this value matches the parameter set in the config file
+	private static double FLOW_CAPACITY_FACTOR;
+
 	// Instance variables
 	private final VrpOptimizer optimizer;
 	private final PriorityQueue<Request> requests = new PriorityQueue<>(100,
@@ -50,12 +53,16 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	// Constructor
 	@Inject
 	public RequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
-						  @DvrpMode(TransportMode.truck) Network network) {
+						  @DvrpMode(TransportMode.truck) Network network,
+						  Scenario scenario) {
+
+
 
 		// Initialize instance variables
 		this.optimizer = optimizer;
 		this.network = network;
 
+		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
 
 		// Read incidents from the CSV file and select only the "incidentsList" list
 		if (incidentsList == null) {
@@ -87,13 +94,18 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	// Creates a new request from an incident and a responding unit ID
 	private Request createRequest(Incident incident) {
 		String requestId = "incident_" + incident.getIncidentID();
-		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
 		double submissionTime = incident.getStartTime();
+		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
+		double capacityReduction_percentage = incident.getCapacityReduction();
+		double reducedCapacity_link = ((toLink.getCapacity() * FLOW_CAPACITY_FACTOR) -
+				(toLink.getCapacity() * capacityReduction_percentage * FLOW_CAPACITY_FACTOR));
 		double endTime = incident.getEndTime();
-		double capacityReduction = incident.getCapacityReduction();
+		double fullCapacity_link = (toLink.getCapacity() * FLOW_CAPACITY_FACTOR);
 		int respondingIMTs = incident.getRespondingIMTs();
-		return new Request(Id.create(requestId, org.matsim.contrib.dvrp.optimizer.Request.class),
-				toLink, submissionTime, endTime, capacityReduction, respondingIMTs);
+
+
+		return new Request(Id.create(requestId, org.matsim.contrib.dvrp.optimizer.Request.class), submissionTime,
+				toLink, capacityReduction_percentage, reducedCapacity_link, endTime, fullCapacity_link, respondingIMTs);
 	}
 
 

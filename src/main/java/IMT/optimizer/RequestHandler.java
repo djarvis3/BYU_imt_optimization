@@ -85,7 +85,7 @@ public class RequestHandler {
 
 		// Calculate the link capacities for the incident.
 		double fullLinkCapacity = request.getToLink().getCapacity() * FLOW_CAPACITY_FACTOR;
-		double reducedLinkCapacity = fullLinkCapacity * (1 - request.getCapacityReduction());
+		double reducedLinkCapacity = fullLinkCapacity * (1 - request.getCapacityReduction_percentage());
 		double initialReducedCapacity = reducedLinkCapacity;
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
 
