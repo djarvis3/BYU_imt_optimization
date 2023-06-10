@@ -1,5 +1,6 @@
-package IMT.events.incidents;
+package IMT.events.eventHanlders;
 
+import IMT.events.IncidentEvent;
 import org.matsim.api.core.v01.Scenario;
 
 import org.matsim.api.core.v01.events.Event;

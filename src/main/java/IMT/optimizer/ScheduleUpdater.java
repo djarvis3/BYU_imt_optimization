@@ -2,8 +2,8 @@ package IMT.optimizer;
 
 import IMT.Request;
 import IMT.ServeTask;
-import IMT.events.incidents.IncidentEvent;
-import IMT.events.eventHanlders.IMT_Log;
+import IMT.events.IncidentEvent;
+import IMT.logs.IMT_Log;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.path.VrpPathWithTravelData;

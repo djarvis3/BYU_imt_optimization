@@ -1,5 +1,3 @@
-	<event time="0" type="incident" time="0.0" type="incident" linkId="20" reducedCapacity="5.0" endTime="65000.0" fullCapacity="10.0" />
-	<event time="4570" type="incident" time="4570.0" type="incident" linkId="18" reducedCapacity="5.0" endTime="12540.0" fullCapacity="10.0" />
 <?xml version="1.0" encoding="utf-8"?>
 <events version="1.0">
 </events>

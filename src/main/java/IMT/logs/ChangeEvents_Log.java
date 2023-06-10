@@ -1,8 +1,6 @@
-package IMT.events;
+package IMT.logs;
 
 import IMT.Request;
-import IMT.events.eventHanlders.IMT_Log;
-import IMT.events.eventHanlders.Incidents_Log;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
 
@@ -12,7 +10,7 @@ import java.util.Objects;
  * The IncidentNetworkChangeEventGenerator class generates network change events for a given incident upon request
  * during the scenario.
  */
-public class IncidentNetworkChangeEventGenerator {
+public class ChangeEvents_Log {
 
 	private final Scenario scenario;
 
@@ -22,7 +20,7 @@ public class IncidentNetworkChangeEventGenerator {
 	 * @param scenario the scenario to generate events for
 	 * @throws NullPointerException if scenario is null
 	 */
-	public IncidentNetworkChangeEventGenerator(Scenario scenario) {
+	public ChangeEvents_Log(Scenario scenario) {
 		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
 	}
 

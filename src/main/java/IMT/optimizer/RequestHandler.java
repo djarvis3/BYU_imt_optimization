@@ -1,11 +1,8 @@
 package IMT.optimizer;
 
-import IMT.IncidentManager;
 import IMT.Request;
-import IMT.events.ChangeEvent;
-import IMT.events.eventHanlders.IMT_Log;
-import IMT.events.ImtNetworkChangeEventGenerator;
-import IMT.events.IncidentNetworkChangeEventGenerator;
+import IMT.logs.IMT_Log;
+import IMT.logs.ChangeEvents_Log;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
@@ -34,17 +31,13 @@ public class RequestHandler {
 	 */
 	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.35;
 
-	private int handleRequestCount = 0;
-
 
 	// These fields store references to the objects used by this class.
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
 	private final MobsimTimer timer;
-	private final Scenario scenario;
 	private final ClosestVehicleFinder closestVehicleFinder;
-	private final IncidentNetworkChangeEventGenerator incidentNCE;
-	private final ChangeEvent changeEvent;
+	private final ChangeEvents_Log incidentNCE;
 	private final EventsManager events;
 
 
@@ -55,15 +48,13 @@ public class RequestHandler {
 	 */
 	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(fleet, "fleet must not be null");
+		Objects.requireNonNull(scenario, "scenario must not be null");
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
 		this.timer = Objects.requireNonNull(timer, "timer must not be null");
-		this.scenario = Objects.requireNonNull(scenario, "scenario must not be null");
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
-		this.incidentNCE = new IncidentNetworkChangeEventGenerator(scenario);
-		this.changeEvent = new ChangeEvent();
+		this.incidentNCE = new ChangeEvents_Log(scenario);
 		this.events = Objects.requireNonNull(events, "events must not be null");
-
 
 		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
 	}
@@ -78,24 +69,12 @@ public class RequestHandler {
 	 */
 	public void handleRequest(Request request) {
 
-		int totalRequestCount = IncidentManager.getIncidentsSelected().size();
-		handleRequestCount++;
-
 		Objects.requireNonNull(request, "request must not be null");
 
 		// Calculate the link capacities for the incident.
 		double fullLinkCapacity = request.getToLink().getCapacity() * FLOW_CAPACITY_FACTOR;
 		double reducedLinkCapacity = fullLinkCapacity * (1 - request.getCapacityReduction_percentage());
-		double initialReducedCapacity = reducedLinkCapacity;
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
-
-
-		changeEvent.addNetworkChangeEvent(String.valueOf(request.getSubmissionTime()), String.valueOf(request.getToLink().getId()), String.valueOf(initialReducedCapacity));
-		changeEvent.addNetworkChangeEvent(String.valueOf(request.getEndTime()), String.valueOf(request.getToLink().getId()), String.valueOf(fullLinkCapacity));
-
-		if (totalRequestCount == handleRequestCount){
-			changeEvent.saveToFile(scenario);
-		}
 
 		// Add incident network change event to LOG.
 		incidentNCE.addEventToLog(request.getToLink(), reducedLinkCapacity,
@@ -115,26 +94,9 @@ public class RequestHandler {
 			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
 			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit, currLinkCapacity);
 
-
-			if (arrivalTime < endTime) {
-				ImtNetworkChangeEventGenerator event = new ImtNetworkChangeEventGenerator(scenario,
-						currLinkCapacity, request, arrivalTime);
-				event.addEventToLog(fullLinkCapacity, initialReducedCapacity, imtUnit);
-				arrivalTime = arrivalTime+2;
-
-				changeEvent.addNetworkChangeEvent(String.valueOf(arrivalTime), String.valueOf(request.getToLink().getId()), String.valueOf(currLinkCapacity));
-
-				if (totalRequestCount == handleRequestCount){
-					changeEvent.saveToFile(scenario);
-				}
-
-			} else {
+			if (arrivalTime > endTime) {
 				// Log IMT information
 				IMT_Log.handleLateImtArrival(request, arrivalTime, imtUnit);
-
-				if (totalRequestCount == handleRequestCount){
-					changeEvent.saveToFile(scenario);
-				}
 			}
 			request.setNumIMT(numIMT);
 		}

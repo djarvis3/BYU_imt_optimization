@@ -1,4 +1,4 @@
-package IMT.events.eventHanlders;
+package IMT.logs;
 import IMT.Request;
 
 import org.matsim.api.core.v01.Scenario;
@@ -145,7 +145,6 @@ public class IMT_Log {
 	 */
 	public static void handleIncidentNetworkChangeEvent(Request request, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {
-		String imtLog = ("Incident: ");
 		Duration start = Duration.ofSeconds((long) startTime);
 		Duration end = Duration.ofSeconds((long) endTime);
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(start);

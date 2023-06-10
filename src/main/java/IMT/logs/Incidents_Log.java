@@ -1,4 +1,4 @@
-package IMT.events.eventHanlders;
+package IMT.logs;
 
 import IMT.Request;
 import org.matsim.api.core.v01.Scenario;

@@ -19,8 +19,8 @@
 
 package IMT.optimizer;
 
-import IMT.events.eventHanlders.IMT_Log;
-import IMT.events.eventHanlders.Incidents_Log;
+import IMT.logs.IMT_Log;
+import IMT.logs.Incidents_Log;
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
@@ -58,7 +58,6 @@ public final class Optimizer implements VrpOptimizer {
 	private final Fleet fleet;
 	private final RequestHandler requestHandler;
 	private final TimingUpdater timingUpdater;
-	private final EventsManager events;
 
 
 	/**
@@ -67,8 +66,8 @@ public final class Optimizer implements VrpOptimizer {
 	@Inject
 	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
-		this.events = Objects.requireNonNull(events, "Events cannot be null");
 
+		Objects.requireNonNull(events, "Events cannot be null");
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 		TravelTime travelTime = new FreeSpeedTravelTime();
 		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network,

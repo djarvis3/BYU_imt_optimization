@@ -19,9 +19,7 @@
 package run;
 
 import IMT.ImtModule;
-import IMT.events.CustomEventWriterXML;
-import IMT.events.incidents.IncidentEventHandler;
-import IMT.events.eventHanlders.CustomEventHandler;
+import IMT.events.eventHanlders.IncidentEventHandler;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
 import org.matsim.api.core.v01.Scenario;
@@ -29,7 +27,6 @@ import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
 import org.matsim.contrib.dvrp.run.DvrpModule;
 import org.matsim.contrib.dvrp.run.DvrpQSimComponents;
-import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigGroup;
 import org.matsim.core.config.ConfigUtils;
@@ -38,9 +35,6 @@ import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.ScenarioUtils;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * The RunIMT class is responsible for running the MATSim simulation for Incident Management Teams (IMTs) and incidents.
@@ -61,16 +55,16 @@ public class RunIMT {
 		// load config
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
 
-// Set outputDirectory filepath
+		// Set outputDirectory filepath
 		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_IMT");
 
-// load scenario
+		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-// setup controler
+		// setup controler
 		Controler controler = new Controler(scenario);
 
-// add event handler
+		// add event handler
 		IncidentEventHandler incidentEventHandler = new IncidentEventHandler(scenario);
 		controler.addOverridingModule(new AbstractModule() {
 			@Override
@@ -79,40 +73,15 @@ public class RunIMT {
 			}
 		});
 
-// initialize EventWriter
-		EventsManager events = controler.getEvents();
-		CustomEventWriterXML writer = null;
-		try {
-			OutputStream out = Files.newOutputStream(Paths.get("output_events.xml.gz"));
-			writer = new CustomEventWriterXML(out);
+		// add modules, run simulation, etc
+		controler.addOverridingModule(new DecongestionModule(scenario));
+		controler.addOverridingModule(new DvrpModule());
+		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
-			// initialize CustomEventHandler with writer and register it to the events manager
-			CustomEventHandler handler = new CustomEventHandler(writer);
-			events.addHandler(handler);
-
-			controler.addOverridingModule(new AbstractModule() {
-				@Override
-				public void install() {
-					this.addEventHandlerBinding().toInstance(handler);
-				}
-			});
-
-			// add modules, run simulation, etc
-			controler.addOverridingModule(new DecongestionModule(scenario));
-			controler.addOverridingModule(new DvrpModule());
-			controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
-			controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
-
-			// run simulation
-			controler.run();
-		} finally {
-			// ensure all events are written and the file is properly closed
-			if (writer != null) {
-				writer.closeFile();
-			}
+		// run simulation
+		controler.run();
 		}
-	}
-
 
 		/**
 		 * Main method to start the MATSim simulation.
