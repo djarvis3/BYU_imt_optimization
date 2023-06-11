@@ -1,7 +1,6 @@
 package IMT.events.eventHanlders;
 
 import IMT.events.ImtEvent;
-import IMT.events.IncidentEvent;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.core.events.handler.BasicEventHandler;
@@ -11,15 +10,15 @@ import org.matsim.core.network.NetworkUtils;
 public class ImtEventHandler implements BasicEventHandler {
 
 	private final Scenario scenario;
+	private boolean isFirstIteration = true;
 
 	public ImtEventHandler(Scenario scenario){
 		this.scenario = scenario;
 	}
 
-
 	@Override
 	public void handleEvent(Event event) {
-		if (event instanceof ImtEvent imtEvent) {
+		if (isFirstIteration && event instanceof ImtEvent imtEvent) {
 			if (imtEvent.getArrivalTime() < imtEvent.getEndTime()) {
 
 				// imt arrival NetworkChangeEvent
@@ -33,7 +32,9 @@ public class ImtEventHandler implements BasicEventHandler {
 
 	@Override
 	public void reset(int iteration) {
-		// reset state if necessary
+		if(iteration == 1){
+			this.isFirstIteration = false;
+		}
 	}
 }
 
