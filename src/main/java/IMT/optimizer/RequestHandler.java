@@ -1,9 +1,13 @@
 package IMT.optimizer;
 
 import IMT.Request;
+import IMT.events.ImtEvent;
+import IMT.events.IncidentEvent;
 import IMT.logs.IMT_Log;
 import IMT.logs.ChangeEvents_Log;
+import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.schedule.*;
@@ -64,8 +68,9 @@ public class RequestHandler {
 	 generates an incident network change event, updates the schedules of the closest vehicles, and adds an IMT
 	 network change event. If the arrival time of a vehicle is greater than the incident end time, no IMT Network
 	 Change Event is added and a log message is generated.
-	 @param request the incident request to handle
 	 @throws NullPointerException if the request is null
+	  * @param request the incident request to handle
+	 * @return
 	 */
 	public void handleRequest(Request request) {
 
@@ -75,6 +80,7 @@ public class RequestHandler {
 		double fullLinkCapacity = request.getToLink().getCapacity() * FLOW_CAPACITY_FACTOR;
 		double reducedLinkCapacity = fullLinkCapacity * (1 - request.getCapacityReduction_percentage());
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
+		Id<Link> toLink = request.getToLink().getId();
 
 		// Add incident network change event to LOG.
 		incidentNCE.addEventToLog(request.getToLink(), reducedLinkCapacity,
@@ -85,14 +91,20 @@ public class RequestHandler {
 		int respondingIMTs = request.getTotalIMTs();
 		List<DvrpVehicle> closestVehicles = closestVehicleFinder.getClosestVehicles(request.getToLink(), respondingIMTs);
 		int numIMT = 0; // Initialize the counter variable to 1
+		double currLinkCapacity = 0;
 		for (DvrpVehicle imtUnit : closestVehicles) {
-			numIMT+= 1; // Increase numIMT by 1
+			numIMT += 1; // Increase numIMT by 1
 			Schedule schedule = imtUnit.getSchedule();
 			ScheduleUpdater updater = new ScheduleUpdater(router, travelTime, timer, events);
-			double currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
+			currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
 			linkCapacityGap = fullLinkCapacity - currLinkCapacity;
 			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
-			double arrivalTime = updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit, currLinkCapacity);
+			double arrivalTime = Math.round(updater.updateScheduleForVehicle(schedule, request.getToLink(), endTime, request, imtUnit, currLinkCapacity) + 1);
+
+			// ImtEvent
+			ImtEvent imtEvent = new ImtEvent(arrivalTime, toLink, currLinkCapacity, endTime);
+			events.processEvent(imtEvent);
+			events.initProcessing();
 
 			if (arrivalTime > endTime) {
 				// Log IMT information

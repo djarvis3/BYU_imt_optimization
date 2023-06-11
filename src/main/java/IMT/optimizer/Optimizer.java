@@ -122,5 +122,5 @@ public final class Optimizer implements VrpOptimizer {
 		Objects.requireNonNull(vehicle, "Vehicle cannot be null");
 		timingUpdater.updateTimings(vehicle.getSchedule());
 		vehicle.getSchedule().nextTask();
+		}
 	}
-}

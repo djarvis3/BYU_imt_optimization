@@ -19,6 +19,7 @@
 package run;
 
 import IMT.ImtModule;
+import IMT.events.eventHanlders.ImtEventHandler;
 import IMT.events.eventHanlders.IncidentEventHandler;
 import decongestion.DecongestionConfigGroup;
 import decongestion.DecongestionModule;
@@ -64,12 +65,19 @@ public class RunIMT {
 		// setup controler
 		Controler controler = new Controler(scenario);
 
-		// add event handler
+		// add event handlers
 		IncidentEventHandler incidentEventHandler = new IncidentEventHandler(scenario);
+		ImtEventHandler imtEventHandler = new ImtEventHandler(scenario);
 		controler.addOverridingModule(new AbstractModule() {
 			@Override
 			public void install() {
 				this.addEventHandlerBinding().toInstance(incidentEventHandler);
+			}
+		});
+		controler.addOverridingModule(new AbstractModule() {
+			@Override
+			public void install() {
+				this.addEventHandlerBinding().toInstance(imtEventHandler);
 			}
 		});
 

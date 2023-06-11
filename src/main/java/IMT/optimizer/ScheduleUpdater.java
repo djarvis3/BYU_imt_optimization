@@ -78,13 +78,11 @@ public class ScheduleUpdater {
 		// create a custom event for the Incident
 		IncidentEvent incidentEvent = new IncidentEvent(request.getSubmissionTime(), request.getToLink().getId(), reducedCapacity, request.getEndTime(), fullCapacity);
 		events.processEvent(incidentEvent);
-		events.initProcessing();
 
 		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(lastTask.getLink(), toLink, startTime,
 				router, travelTime);
 		schedule.addTask(new DefaultDriveTask(Optimizer.ImtTaskType.DRIVE_TO_INCIDENT, pathToIncident));
 		double arrivalTime = pathToIncident.getArrivalTime();
-
 
 		schedule.addTask(new ServeTask(Optimizer.ImtTaskType.ARRIVE, arrivalTime, arrivalTime, toLink, request));
 		// log IMT arrival
