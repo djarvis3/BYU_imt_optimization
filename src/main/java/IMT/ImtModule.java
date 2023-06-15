@@ -20,9 +20,10 @@
 
 package IMT;
 
+import java.net.URL;
+
 import IMT.optimizer.Optimizer;
-import com.google.inject.Key;
-import com.google.inject.name.Names;
+
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.contrib.dvrp.fleet.FleetModule;
@@ -38,36 +39,17 @@ import org.matsim.core.router.util.TravelTime;
 import org.matsim.vehicles.VehicleType;
 import org.matsim.vehicles.VehicleUtils;
 
-import java.net.URL;
+import com.google.inject.Key;
+import com.google.inject.name.Names;
 
-/*
-  @author Michal Maciejewski (michalm)
- */
-
-/**
- * The Module class represents a DVRP mode module for IMT vehicles.
- * This module installs routing and fleet modules for the DVRP mode, and creates a truck type for the simulation.
- */
 public class ImtModule extends AbstractDvrpModeModule {
-	/**
-	 * The URL of the fleet specification.
-	 */
 	private final URL fleetSpecificationUrl;
 
-	/**
-	 * Creates a new Module object with the given fleet specification URL.
-	 * @param fleetSpecificationUrl the URL of the fleet specification.
-	 */
 	public ImtModule(URL fleetSpecificationUrl) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
 	}
 
-	/**
-	 * Installs the DVRP mode module.
-	 * This method registers the DVRP mode, installs a routing network module, binds a travel time component,
-	 * installs a fleet module, and configures the QSim module for the DVRP mode.
-	 */
 	@Override
 	public void install() {
 		DvrpModes.registerDvrpMode(binder(), getMode());
@@ -79,6 +61,7 @@ public class ImtModule extends AbstractDvrpModeModule {
 			@Override
 			protected void configureQSim() {
 				install(new VrpAgentSourceQSimModule(getMode()));
+
 				addModalComponent(RequestCreator.class);
 				bindModal(VrpOptimizer.class).to(Optimizer.class).asEagerSingleton();
 				bindModal(VrpAgentLogic.DynActionCreator.class).to(ActionCreator.class).asEagerSingleton();
@@ -86,11 +69,6 @@ public class ImtModule extends AbstractDvrpModeModule {
 		});
 	}
 
-	/**
-	 * Creates a truck type for vehicle simulation.
-	 * This method creates and returns a VehicleType object representing a truck for vehicle simulation.
-	 * @return the truck VehicleType object.
-	 */
 	private static VehicleType createTruckType() {
 		VehicleType truckType = VehicleUtils.getFactory().createVehicleType(Id.create("truckType", VehicleType.class));
 		truckType.setLength(15.);

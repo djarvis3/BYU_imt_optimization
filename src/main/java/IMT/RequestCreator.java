@@ -27,6 +27,7 @@ import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
+import org.matsim.contrib.dvrp.optimizer.Request;
 import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.core.events.handler.EventHandler;
@@ -35,90 +36,63 @@ import org.matsim.core.mobsim.framework.listeners.MobsimAfterSimStepListener;
 
 import java.util.*;
 
-/**
- * @author michalm
- */
 public class RequestCreator implements MobsimAfterSimStepListener, EventHandler {
-
-	// ensure that this value matches the parameter set in the config file
 	private static double FLOW_CAPACITY_FACTOR;
-
-	// Instance variables
 	private final VrpOptimizer optimizer;
-	private final PriorityQueue<Request> requests = new PriorityQueue<>(100,
-			Comparator.comparing(org.matsim.contrib.dvrp.optimizer.Request::getSubmissionTime));
 	private final Network network;
+	private final PriorityQueue<ImtRequest> requests = new PriorityQueue<>(100,
+			Comparator.comparing(org.matsim.contrib.dvrp.optimizer.Request::getSubmissionTime));
+
 	List<Incident> incidentsList = IncidentManager.getIncidentsSelected();
 
-	// Constructor
 	@Inject
 	public RequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
 						  @DvrpMode(TransportMode.truck) Network network,
 						  Scenario scenario) {
-
-
-
-		// Initialize instance variables
 		this.optimizer = optimizer;
 		this.network = network;
 
 		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
 
-		// Read incidents from the CSV file and select only the "incidentsList" list
 		if (incidentsList == null) {
 			incidentsList = readIncidentsFromCsv();
 			IncidentManager.setIncidentsSelected(incidentsList);
 		}
 
-		// Create a new request for each  incident and add it to the requests PriorityQueue
 		for (Incident incident : incidentsList) {
 			requests.add(createRequest(incident));
 
 		}
 	}
 
-	// Reads incidents from the CSV file and selects only the "incidentsList" list
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
 			IncidentReader incidents = new IncidentReader("utah/incidents/UtahIncidents_MATSim.csv", network);
-			// to select random incidents from the CSV use incidents.getRandomIncidents();
-			// incidentsList = incidents.randomIncidents();
-
-			// to select all the incidents from the CSV use
 			incidentsList = incidents.getSeededIncidents(2,3093);
-			// incidentsList = incidents.getSeededIncidents(23,1234);
 		}
 		return incidentsList;
 	}
 
-	// Creates a new request from an incident and a responding unit ID
-	private Request createRequest(Incident incident) {
-		String requestId = "incident_" + incident.getIncidentID();
-		double submissionTime = incident.getStartTime();
-		Link toLink = network.getLinks().get(Id.createLinkId(incident.getLinkId()));
-		double capacityReduction_percentage = incident.getCapacityReduction();
-		double reducedCapacity_link = ((toLink.getCapacity() * FLOW_CAPACITY_FACTOR) -
-				(toLink.getCapacity() * capacityReduction_percentage * FLOW_CAPACITY_FACTOR));
-		double endTime = incident.getEndTime();
-		double fullCapacity_link = (toLink.getCapacity() * FLOW_CAPACITY_FACTOR);
-		int respondingIMTs = incident.getRespondingIMTs();
+	private ImtRequest createRequest(Incident inc) {
+		String requestId = "incident_" + inc.getIncID();
+		Link incLink = network.getLinks().get(Id.createLinkId(inc.getLinkId()));
+		double submissionTime = inc.getStartTime();
+		double capacityReduction_percentage = inc.getCapacityReduction();
+		double reducedCapacity_link = ((incLink.getCapacity() * FLOW_CAPACITY_FACTOR) - (incLink.getCapacity() * capacityReduction_percentage * FLOW_CAPACITY_FACTOR));
+		double endTime = inc.getEndTime();
+		double fullCapacity_link = (incLink.getCapacity() * FLOW_CAPACITY_FACTOR);
+		int respondingIMTs = inc.getRespondingIMTs();
 
-
-		return new Request(Id.create(requestId, org.matsim.contrib.dvrp.optimizer.Request.class), submissionTime,
-				toLink, capacityReduction_percentage, reducedCapacity_link, endTime, fullCapacity_link, respondingIMTs);
+		return new ImtRequest(Id.create(requestId, Request.class), submissionTime, incLink, capacityReduction_percentage, reducedCapacity_link, endTime, fullCapacity_link, respondingIMTs);
 	}
 
-
-	// Called at the end of each simulation step
 	@Override
 	public void notifyMobsimAfterSimStep(@SuppressWarnings("rawtypes") MobsimAfterSimStepEvent e) {
-		// Submit all requests that are ready (i.e., whose submission time is less than or equal to the current time)
 		while (canSubmitRequest(requests.peek(), e.getSimulationTime())) {
 			optimizer.requestSubmitted(requests.poll());
 		}
 	}
 
-	// Determines whether a request is ready to be submitted
 	private boolean canSubmitRequest(Request request, double currentTime) {
 		return request != null && request.getSubmissionTime() <= currentTime;
 	}

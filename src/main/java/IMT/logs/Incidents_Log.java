@@ -1,6 +1,6 @@
 package IMT.logs;
 
-import IMT.Request;
+import IMT.ImtRequest;
 import org.matsim.api.core.v01.Scenario;
 
 import java.io.IOException;
@@ -13,18 +13,10 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.logging.*;
 
-/**
- * The EventHandler_Incidents class handles incidents-related events and logging.
- */
 public class Incidents_Log {
 	private static final Logger LOGGER = Logger.getLogger(Incidents_Log.class.getName());
 	private static int iterationCount = 0;
 
-	/**
-	 * Constructs an EventHandler_Incidents object for handling incidents-related events and logging.
-	 *
-	 * @param scenario the scenario object containing the configuration information
-	 */
 	public Incidents_Log(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		try {
@@ -71,24 +63,12 @@ public class Incidents_Log {
 		}
 	}
 
-	/**
-	 * Logs the beginning of an iteration.
-	 */
 	private void logIterationBegin() {
 		LOGGER.severe("########################## ITERATION " + iterationCount + " BEGINS ##########################");
 		iterationCount++;
 	}
 
-	/**
-	 * Handles the logging of IMT log information from IncidentNetworkChangeEventGenerator for an incident network change event.
-	 *
-	 * @param request         the request associated with the incident
-	 * @param reducedCapacity the reduced capacity of the incident link
-	 * @param fullCapacity    the full capacity of the incident link
-	 * @param startTime       the start time of the incident
-	 * @param endTime         the end time of the incident
-	 */
-	public static void handleIncidentNetworkChangeEvent(Request request, double reducedCapacity,
+	public static void handleIncidentNetworkChangeEvent(ImtRequest imtRequest, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {
 		String imtLog = ("Incident: ");
 		Duration start = Duration.ofSeconds((long) startTime);
@@ -100,7 +80,7 @@ public class Incidents_Log {
 		String incidentInfo = String.format("Request ID %s, %s IMT(s), " +
 						"Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
-				request.getId(), request.getTotalIMTs(), request.getToLink().getId(), fullCapacity, reducedCapacity,
+				imtRequest.getId(), imtRequest.getTotalIMTs(), imtRequest.getIncLink().getId(), fullCapacity, reducedCapacity,
 				formattedStart, formattedEnd);
 
 		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class

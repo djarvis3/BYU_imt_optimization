@@ -21,60 +21,56 @@ package IMT;
 
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.network.Link;
+import org.matsim.contrib.dvrp.optimizer.Request;
 
-/**
- * @author michalm
- */
-public final class Request implements org.matsim.contrib.dvrp.optimizer.Request {
-	// Define private final variables id, submissionTime, endTime, capacityReduction, totalIMTs, and numIMT
+public final class ImtRequest implements org.matsim.contrib.dvrp.optimizer.Request {
 	private final Id<org.matsim.contrib.dvrp.optimizer.Request> id;
-	private final double submissionTime;
-	private final Link toLink;
-	private final double capacityReduction_percentage;
-	private final double reducedCapacity_link;
+	private final double startTime;
+	private final Link incLink;
+	private final double capReducPercent;
+	private final double linkCap_Reduced;
 	private final double endTime;
-	private final double fullCapacity_link;
+	private final double linkCap_Full;
 	private final int totalIMTs;
 	private int numIMT;
+	private double linkCap_Current;
 
-
-	// Constructor
-	public Request(Id<org.matsim.contrib.dvrp.optimizer.Request> id, double submissionTime, Link toLink, double capacityReduction_percentage, double reducedCapacity_link, double endTime, double fullCapacity_link, int totalIMTs) {
+	public ImtRequest(Id<org.matsim.contrib.dvrp.optimizer.Request> id, double startTime, Link incLink, double capacityReduction_percentage, double linkCap_Reduced, double endTime, double linkCap_Full, int totalIMTs) {
 		this.id = id;
-		this.submissionTime = submissionTime;
-		this.toLink = toLink;
-		this.capacityReduction_percentage = capacityReduction_percentage;
-		this.reducedCapacity_link = reducedCapacity_link;
+		this.startTime = startTime;
+		this.incLink = incLink;
+		this.capReducPercent = capacityReduction_percentage;
+		this.linkCap_Reduced = linkCap_Reduced;
 		this.endTime = endTime;
-		this.fullCapacity_link = fullCapacity_link;
+		this.linkCap_Full = linkCap_Full;
 		this.totalIMTs = totalIMTs;
 	}
 
-	// Implement the getId method defined in the Request interface and return the value of the id variable
 	@Override
-	public Id<org.matsim.contrib.dvrp.optimizer.Request> getId() {
+	public Id<Request> getId() {
 		return id;
 	}
 
 	@Override
 	public double getSubmissionTime() {
-		return submissionTime;
+		return startTime;
 	}
 
-	public Link getToLink() {
-		return toLink;
-	}
-	public double getCapacityReduction_percentage() {
-		return capacityReduction_percentage;
+	public Link getIncLink() {
+		return incLink;
 	}
 
-	public double getReducedCapacity_link(){return reducedCapacity_link;}
+	public double getCapReducPercent() {
+		return capReducPercent;
+	}
+
+	public double getLinkCap_Reduced(){return linkCap_Reduced;}
 
 	public double getEndTime() {
 		return endTime;
 	}
 
-	public double getFullCapacity_link(){ return fullCapacity_link;}
+	public double getLinkCap_Full(){ return linkCap_Full;}
 
 	public int getTotalIMTs() {
 		return totalIMTs;
@@ -86,5 +82,13 @@ public final class Request implements org.matsim.contrib.dvrp.optimizer.Request 
 
 	public void setNumIMT(int numIMT) {
 		this.numIMT = numIMT;
+	}
+
+	public double getLinkCap_Current(){
+		return linkCap_Current;
+	}
+
+	public void setLinkCap_Current(double linkCap_Current) {
+		this.linkCap_Current = linkCap_Current;
 	}
 }

@@ -1,5 +1,6 @@
 package IMT.logs;
-import IMT.Request;
+
+import IMT.ImtRequest;
 
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
@@ -91,7 +92,7 @@ public class IMT_Log {
 	 * @param arrivalTime      the time when the IMT arrives
 	 * @param imtUnit          the vehicle sent to the incident
 	 */
-	public static void logImtArrival(Request request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime, DvrpVehicle imtUnit) {
+	public static void logImtArrival(ImtRequest request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime, DvrpVehicle imtUnit) {
 		String imtLog = ("IMT: ");
 		Duration arrival = Duration.ofSeconds((long) arrivalTime);
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(arrival);
@@ -100,7 +101,7 @@ public class IMT_Log {
 						"Vehicle ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Current Capacity %.2f, Arrival Time %s",
 				request.getId(), (request.getNumIMT() + 1), request.getTotalIMTs(), imtUnit.getId(),
-				request.getToLink().getId(), fullCapacity, reducedCapacity, currLinkCapacity, formattedArrival);
+				request.getIncLink().getId(), fullCapacity, reducedCapacity, currLinkCapacity, formattedArrival);
 		String logMsg = imtLog + incidentInfo;
 
 		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class
@@ -114,7 +115,7 @@ public class IMT_Log {
 	 * @param arrivalTime the time when the IMT arrives
 	 * @param imtUnit     the vehicle sent to the incident
 	 */
-	public static void handleLateImtArrival(Request request, double arrivalTime, DvrpVehicle imtUnit) {
+	public static void handleLateImtArrival(ImtRequest request, double arrivalTime, DvrpVehicle imtUnit) {
 		String imtLog = ("IMT: ");
 		Duration arrival = Duration.ofSeconds((long) arrivalTime);
 		Duration endTime = Duration.ofSeconds((long) request.getEndTime());
@@ -143,7 +144,7 @@ public class IMT_Log {
 	 * @param startTime       the start time of the incident
 	 * @param endTime         the end time of the incident
 	 */
-	public static void handleIncidentNetworkChangeEvent(Request request, double reducedCapacity,
+	public static void handleIncidentNetworkChangeEvent(ImtRequest request, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {
 		Duration start = Duration.ofSeconds((long) startTime);
 		Duration end = Duration.ofSeconds((long) endTime);
@@ -154,7 +155,7 @@ public class IMT_Log {
 		String incidentInfo = String.format("Request ID %s, %s IMT(s), " +
 						"Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
-				request.getId(), request.getTotalIMTs(), request.getToLink().getId(), fullCapacity, reducedCapacity,
+				request.getId(), request.getTotalIMTs(), request.getIncLink().getId(), fullCapacity, reducedCapacity,
 				formattedStart, formattedEnd);
 
 		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class

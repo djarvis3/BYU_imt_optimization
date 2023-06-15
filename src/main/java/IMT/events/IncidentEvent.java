@@ -1,5 +1,6 @@
 package IMT.events;
 
+import IMT.ImtRequest;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.api.core.v01.network.Link;
@@ -12,13 +13,13 @@ public class IncidentEvent extends Event {
 	private final Double endTime;
 	private final Double fullCapacity;
 
-	public IncidentEvent(double startTime, Id<Link> linkId, double reducedCapacity, double endTime, double fullCapacity)
+	public IncidentEvent(ImtRequest req)
 	{
-		super(startTime);
-		this.linkId = linkId;
-		this.reducedCapacity = reducedCapacity;
-		this.endTime = endTime;
-		this.fullCapacity = fullCapacity;
+		super(req.getSubmissionTime());
+		this.linkId = req.getIncLink().getId();
+		this.reducedCapacity = req.getLinkCap_Reduced();
+		this.endTime = req.getEndTime();
+		this.fullCapacity = req.getLinkCap_Full();
 	}
 
 	public Id<Link> getLinkId(){

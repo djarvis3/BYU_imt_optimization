@@ -8,15 +8,15 @@ package incidents;
 
 public class Incident {
 	private String linkId;
-	private String incidentID;
+	private String incID;
 	private Integer respondingIMTs;
 	private Integer start;
 	private Integer end;
 	private Double reduction;
 
-	public Incident(String linkId, String incidentID, Integer respondingIMTs, int start, int end, Double reduction) {
+	public Incident(String linkId, String incID, Integer respondingIMTs, int start, int end, Double reduction) {
 		this.linkId = linkId;
-		this.incidentID = incidentID;
+		this.incID = incID;
 		this.respondingIMTs = respondingIMTs;
 		this.start = start;
 		this.end = end;
@@ -32,12 +32,12 @@ public class Incident {
 		this.linkId = linkId;
 	}
 
-	public String getIncidentID() {
-		return incidentID;
+	public String getIncID() {
+		return incID;
 	}
 
-	public void setIncidentID(String incidentID) {
-		this.incidentID = incidentID;
+	public void setIncID(String incID) {
+		this.incID = incID;
 	}
 
 	public Integer getRespondingIMTs() {

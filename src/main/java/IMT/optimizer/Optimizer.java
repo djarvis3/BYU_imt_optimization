@@ -19,12 +19,17 @@
 
 package IMT.optimizer;
 
+import IMT.ImtRequest;
 import IMT.logs.IMT_Log;
 import IMT.logs.Incidents_Log;
-import com.google.inject.Inject;
-import org.matsim.api.core.v01.Scenario;
+
+import java.util.Objects;
+import java.util.Optional;
+
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Network;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.optimizer.Request;
@@ -32,25 +37,15 @@ import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
 import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
-
-import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
 import org.matsim.core.trafficmonitoring.FreeSpeedTravelTime;
 
-import java.util.Objects;
-import java.util.Optional;
+import com.google.inject.Inject;
 
-
-/**
- * @author michalm
- * VrpOptimizer implementation that optimizes vehicle routing problems.
- */
 public final class Optimizer implements VrpOptimizer {
-
-	// Define task types that can be used by the optimizer
 	public enum ImtTaskType implements Task.TaskType {
 		WAIT, DRIVE_TO_INCIDENT, ARRIVE, INCIDENT_MANAGEMENT, DEPART
 	}
@@ -59,22 +54,19 @@ public final class Optimizer implements VrpOptimizer {
 	private final RequestHandler requestHandler;
 	private final TimingUpdater timingUpdater;
 
-
-	/**
-	 * Constructs a new Optimizer instance.
-	 */
 	@Inject
 	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
-		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
-
 		Objects.requireNonNull(events, "Events cannot be null");
 		Objects.requireNonNull(scenario, "scenario cannot be null");
+
 		TravelTime travelTime = new FreeSpeedTravelTime();
-		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network,
-				new TimeAsTravelDisutility(travelTime), travelTime);
-		initWaitTasks();
+		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime), travelTime);
+
+		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
 		this.requestHandler = new RequestHandler(fleet, router, travelTime, timer, scenario, events);
 		this.timingUpdater = new TimingUpdater(timer);
+
+		initWaitTasks();
 
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		if (outputDirectory.endsWith("Incidents")) {
@@ -85,9 +77,6 @@ public final class Optimizer implements VrpOptimizer {
 		}
 	}
 
-	/**
-	 * Initializes the wait tasks for the vehicles in the fleet.
-	 */
 	private void initWaitTasks() {
 		for (DvrpVehicle vehicle : fleet.getVehicles().values()) {
 			Optional.ofNullable(vehicle.getSchedule())
@@ -101,26 +90,16 @@ public final class Optimizer implements VrpOptimizer {
 		}
 	}
 
-	/**
-	 * Handles every new request submitted to the optimizer.
-	 * @throws NullPointerException if the request is null.
-	 */
 	@Override
 	public void requestSubmitted(Request request) {
 		Objects.requireNonNull(request, "Request cannot be null");
-		requestHandler.handleRequest((IMT.Request) request);
+		requestHandler.handleRequest((ImtRequest) request);
 	}
 
-	/**
-	 * Updates the timings for the next task of the specified vehicle.
-	 *
-	 * @param vehicle the vehicle to update.
-	 * @throws NullPointerException if the vehicle is null.
-	 */
 	@Override
 	public void nextTask(DvrpVehicle vehicle) {
 		Objects.requireNonNull(vehicle, "Vehicle cannot be null");
-		timingUpdater.updateTimings(vehicle.getSchedule());
+		timingUpdater.updateTimings(vehicle.getSchedule(), vehicle);
 		vehicle.getSchedule().nextTask();
 		}
 	}
