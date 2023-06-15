@@ -17,9 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * A utility class for parsing incident data from a CSV file.
- */
 public class IncidentParser {
 
 	private final static Logger log = LogManager.getLogger(IncidentParser.class);
@@ -28,7 +25,6 @@ public class IncidentParser {
 
 	public IncidentParser(Network network) {
 
-		// maps incidents with type == "motorway" to ensure that incidents only occur on freeway links
 		motorwayLinkMap = new HashMap<>();
 		for (Link link : network.getLinks().values()) {
 			Attributes attributes = link.getAttributes();
@@ -40,14 +36,6 @@ public class IncidentParser {
 		}
 	}
 
-	/**
-	 * Parses incident data from the specified CSV file.
-	 *
-	 * @param csvFilePath the path to the CSV file containing the incident data
-	 * @return a list of {@Incident} objects representing the parsed data
-	 * @throws IllegalArgumentException if the CSV file path is invalid
-	 * @throws IllegalStateException    if there is an error parsing the CSV file
-	 */
 	public List<Incident> parse(String csvFilePath) throws IllegalArgumentException, IllegalStateException {
 
 		// Check if the file exists
@@ -94,12 +82,6 @@ public class IncidentParser {
 		return incidents;
 	}
 
-	/**
-	 * Returns the nearest motorway link to the specified coordinate.
-	 *
-	 * @param coord the coordinate for which to find the nearest motorway link
-	 * @return the nearest motorway {@link Link} to the specified coordinate
-	 */
 	public Link getNearestMotorwayLink(Coord coord){
 		Link nearestLink = null;
 		double shortDistance = Double.MAX_VALUE;

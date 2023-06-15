@@ -23,7 +23,6 @@ public class Incident {
 		this.reduction = reduction;
 	}
 
-	// getters and setters for the fields
 	public String getLinkId() {
 		return linkId;
 	}

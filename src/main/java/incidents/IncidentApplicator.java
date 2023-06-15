@@ -20,15 +20,7 @@ public class IncidentApplicator {
 	private final Map<String, Link> linkMap;
 	private final List<Incident> incidentsSelected;
 
-	/**
-	 * Creates an incident applicator for the given network and selected incidents.
-	 *
-	 * @param scenario           	the scenario with the network to apply incidents to
-	 * @param incidentsSelected 	the incidents to apply to the network, will usually be either randomly selected
-	 *                          	or all of the incidents from a CSV read into the incidentReader class
-	 *
-	 * @throws IllegalArgumentException if any incident's link ID does not exist in the network
-	 */
+
 	public IncidentApplicator(Scenario scenario, List<Incident> incidentsSelected) {
 		this.scenario = scenario;
 		this.incidentsSelected = incidentsSelected;
@@ -50,9 +42,6 @@ public class IncidentApplicator {
 		}
 	}
 
-	/**
-	 * Applies the selected incidents to the network.
-	 */
 	public void apply() {
 
 		incidentsSelected.parallelStream().forEach(incident -> {
