@@ -120,13 +120,6 @@
 			<version>${matsim.version}</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>application</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
@@ -186,12 +179,12 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>Incidents_Simple.jar</outputFile>
+							<outputFile>Test.jar</outputFile>
 							<transformers>
 								<!-- The following sets the main class for the executable jar as you otherwise would with the assembly plugin -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
-										<Main-Class>run.RunIncidents</Main-Class>
+										<Main-Class>run.RunIMT</Main-Class>
 										<Specification-Vendor>org.matsim</Specification-Vendor>
 										<Implementation-Vendor>org.matsim</Implementation-Vendor>
 										<Implementation-Version>${project.version}</Implementation-Version>

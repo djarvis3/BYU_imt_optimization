@@ -49,7 +49,7 @@ public class IncidentSelector {
 		}
 		return selectedIncidents;
 	}
-	
+
 	public static List<Incident> selectAllUniqueIncidents(List<Incident> incidents) {
 		List<Incident> selectedIncidents = new ArrayList<>();
 		Set<String> selectedLinkIds = new HashSet<>(); // Track selected linkIds

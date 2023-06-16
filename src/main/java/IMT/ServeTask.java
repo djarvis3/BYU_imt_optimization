@@ -24,9 +24,6 @@ import static IMT.optimizer.Optimizer.ImtTaskType;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.contrib.dvrp.schedule.DefaultStayTask;
 
-/**
- * @author michalm
- */
 public class ServeTask extends DefaultStayTask {
 	private final ImtRequest imtRequest;
 
