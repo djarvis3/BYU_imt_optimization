@@ -26,7 +26,6 @@ import IMT.logs.Incidents_Log;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.core.api.experimental.events.EventsManager;
@@ -35,17 +34,29 @@ import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.optimizer.Request;
 import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
-import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
+import org.matsim.core.controler.events.StartupEvent;
+import org.matsim.core.controler.listener.StartupListener;
+import org.matsim.core.events.handler.EventHandler;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
 import org.matsim.core.trafficmonitoring.FreeSpeedTravelTime;
 
-import com.google.inject.Inject;
+/**
+ * Optimizer class responsible for handling IMT requests and managing vehicle schedules.
+ */
+public final class Optimizer implements VrpOptimizer, StartupListener, EventHandler {
 
-public final class Optimizer implements VrpOptimizer {
+	@Override
+	public void reset(int iteration) {
+		EventHandler.super.reset(iteration);
+	}
+
+	/**
+	 * Enum representing different types of IMT tasks.
+	 */
 	public enum ImtTaskType implements Task.TaskType {
 		WAIT, DRIVE_TO_INCIDENT, ARRIVE, INCIDENT_MANAGEMENT, DEPART
 	}
@@ -54,8 +65,16 @@ public final class Optimizer implements VrpOptimizer {
 	private final RequestHandler requestHandler;
 	private final TimingUpdater timingUpdater;
 
-	@Inject
-	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
+	/**
+	 * Constructs an Optimizer object with the specified network, fleet, timer, scenario, and events manager.
+	 *
+	 * @param network   the network for path calculation
+	 * @param fleet     the fleet of vehicles
+	 * @param timer     the simulation timer
+	 * @param scenario  the scenario for configuration
+	 * @param events    the events manager for handling events
+	 */
+	public Optimizer(Network network, Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(events, "Events cannot be null");
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 
@@ -71,8 +90,7 @@ public final class Optimizer implements VrpOptimizer {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		if (outputDirectory.endsWith("Incidents")) {
 			new Incidents_Log(scenario);
-		}
-		else if (outputDirectory.endsWith("IMT")) {
+		} else if (outputDirectory.endsWith("IMT")) {
 			new IMT_Log(scenario);
 		}
 	}
@@ -101,5 +119,11 @@ public final class Optimizer implements VrpOptimizer {
 		Objects.requireNonNull(vehicle, "Vehicle cannot be null");
 		timingUpdater.updateTimings(vehicle.getSchedule(), vehicle);
 		vehicle.getSchedule().nextTask();
-		}
 	}
+
+	@Override
+	public void notifyStartup(StartupEvent event) {
+		// Start listening to request events
+		event.getServices().getEvents().addHandler(this);
+	}
+}

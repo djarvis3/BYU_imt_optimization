@@ -16,12 +16,22 @@ import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
+/**
+ * Finds the closest vehicles to a specific link for IMT response.
+ */
 public class ClosestVehicleFinder {
 
 	private final Fleet fleet;
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
 
+	/**
+	 * Constructs a ClosestVehicleFinder object with the specified fleet, router, and travel time.
+	 *
+	 * @param fleet      the fleet of vehicles to search from
+	 * @param router     the least cost path calculator
+	 * @param travelTime the travel time estimator
+	 */
 	public ClosestVehicleFinder(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime) {
 		this.fleet = Objects.requireNonNull(fleet, "fleet must not be null");
 		this.router = Objects.requireNonNull(router, "router must not be null");
@@ -30,13 +40,23 @@ public class ClosestVehicleFinder {
 
 	private double calculateArrivalTime(DvrpVehicle vehicle, Link toLink) {
 		Task currentTask = vehicle.getSchedule().getCurrentTask();
-		if (currentTask.getTaskType() != Optimizer.ImtTaskType.WAIT) {return Double.POSITIVE_INFINITY;}
+		if (currentTask.getTaskType() != Optimizer.ImtTaskType.WAIT) {
+			return Double.POSITIVE_INFINITY;
+		}
 		Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
 		double time_zero = 0;
 		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(fromLink, toLink, time_zero, router, travelTime);
 		return pathToIncident.getArrivalTime();
 	}
 
+	/**
+	 * Returns a list of the closest vehicles to the specified link for IMT response.
+	 *
+	 * @param toLink           the link to which vehicles should be closest
+	 * @param respondingIMTs   the number of the closest vehicles to find
+	 * @return a list of the closest vehicles
+	 * @throws IllegalArgumentException if respondingIMTs is less than or equal to zero
+	 */
 	public List<DvrpVehicle> getClosestVehicles(Link toLink, int respondingIMTs) {
 		Objects.requireNonNull(toLink, "toLink must not be null");
 		if (respondingIMTs <= 0) {

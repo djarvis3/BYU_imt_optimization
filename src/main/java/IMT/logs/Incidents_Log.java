@@ -13,10 +13,18 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.logging.*;
 
+/**
+ * Manages the incidents log for IMT requests.
+ */
 public class Incidents_Log {
 	private static final Logger LOGGER = Logger.getLogger(Incidents_Log.class.getName());
 	private static int iterationCount = 0;
 
+	/**
+	 * Constructs an Incidents_Log object for the given scenario.
+	 *
+	 * @param scenario the scenario to be used for log management
+	 */
 	public Incidents_Log(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		try {
@@ -59,7 +67,7 @@ public class Incidents_Log {
 			logIterationBegin();
 
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Failed to create file handler for logIMT.log", e);
+			LOGGER.log(Level.WARNING, "Failed to create file handler for logINCIDENT.log", e);
 		}
 	}
 
@@ -68,6 +76,15 @@ public class Incidents_Log {
 		iterationCount++;
 	}
 
+	/**
+	 * Handles an incident network change event and logs the incident information.
+	 *
+	 * @param imtRequest      the IMT request associated with the incident
+	 * @param reducedCapacity the reduced capacity during the incident
+	 * @param fullCapacity    the full capacity after the incident
+	 * @param startTime       the start time of the incident
+	 * @param endTime         the end time of the incident
+	 */
 	public static void handleIncidentNetworkChangeEvent(ImtRequest imtRequest, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {
 		String imtLog = ("Incident: ");

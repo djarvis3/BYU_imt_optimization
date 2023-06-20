@@ -1,12 +1,12 @@
 package IMT.optimizer;
 
 import IMT.ImtRequest;
-import IMT.logs.IMT_Log;
 import IMT.logs.ChangeEvents_Log;
+import IMT.logs.IMT_Log;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
-import org.matsim.contrib.dvrp.schedule.*;
+import org.matsim.contrib.dvrp.schedule.Schedule;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.util.LeastCostPathCalculator;
@@ -15,6 +15,9 @@ import org.matsim.core.router.util.TravelTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Handles IMT requests and updates vehicle schedules accordingly.
+ */
 public class RequestHandler {
 
 	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.25;
@@ -26,6 +29,16 @@ public class RequestHandler {
 	private final ChangeEvents_Log incLOG;
 	private final EventsManager events;
 
+	/**
+	 * Constructs a RequestHandler object with the specified fleet, router, travel time, timer, scenario, and events manager.
+	 *
+	 * @param fleet     the fleet of vehicles
+	 * @param router    the least cost path calculator
+	 * @param travelTime the travel time estimator
+	 * @param timer     the simulation timer
+	 * @param scenario  the scenario for configuration
+	 * @param events    the events manager for handling events
+	 */
 	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(fleet, "fleet must not be null");
 		Objects.requireNonNull(scenario, "scenario must not be null");
@@ -38,8 +51,13 @@ public class RequestHandler {
 		this.incLOG = new ChangeEvents_Log(scenario);
 	}
 
+	/**
+	 * Handles an IMT request and updates vehicle schedules accordingly.
+	 *
+	 * @param req the IMT request to be handled
+	 * @throws NullPointerException if the req is null
+	 */
 	public void handleRequest(ImtRequest req) {
-
 		Objects.requireNonNull(req, "req must not be null");
 
 		double fullLinkCapacity = req.getLinkCap_Full();
@@ -67,7 +85,9 @@ public class RequestHandler {
 
 			numIMT += 1;
 
-			if (arrivalTime > endTime) {IMT_Log.handleLateImtArrival(req, arrivalTime, imtUnit);}
+			if (arrivalTime > endTime) {
+				IMT_Log.handleLateImtArrival(req, arrivalTime, imtUnit);
+			}
 			req.setNumIMT(numIMT);
 		}
 	}

@@ -31,7 +31,7 @@ public class RunIMT {
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		// setup controler
+		// setup controller
 		Controler controler = new Controler(scenario);
 
 		// add event handlers

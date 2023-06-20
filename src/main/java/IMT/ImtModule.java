@@ -1,29 +1,6 @@
-/*
- * *********************************************************************** *
- * project: org.matsim.*
- * *********************************************************************** *
- *                                                                         *
- * copyright       : (C) 2018 by the members listed in the COPYING,        *
- *                   LICENSE and WARRANTY file.                            *
- * email           : info at matsim dot org                                *
- *                                                                         *
- * *********************************************************************** *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *   See also COPYING, LICENSE and WARRANTY file                           *
- *                                                                         *
- * *********************************************************************** *
- */
-
 package IMT;
 
-import java.net.URL;
-
 import IMT.optimizer.Optimizer;
-import IMT.RequestCreator;
 
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.TransportMode;
@@ -43,9 +20,19 @@ import org.matsim.vehicles.VehicleUtils;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
 
+import java.net.URL;
+
+/**
+ * Module for the Incident Management Team (IMT) extension.
+ */
 public class ImtModule extends AbstractDvrpModeModule {
 	private final URL fleetSpecificationUrl;
 
+	/**
+	 * Constructs an ImtModule with the specified fleet specification URL.
+	 *
+	 * @param fleetSpecificationUrl the URL of the fleet specification
+	 */
 	public ImtModule(URL fleetSpecificationUrl) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;

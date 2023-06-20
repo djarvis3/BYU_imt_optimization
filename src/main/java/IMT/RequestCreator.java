@@ -1,7 +1,8 @@
 package IMT;
-import incidents.Incident;
 
+import incidents.Incident;
 import incidents.IncidentReader;
+
 import com.google.inject.Inject;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
@@ -17,7 +18,11 @@ import org.matsim.core.mobsim.framework.listeners.MobsimAfterSimStepListener;
 
 import java.util.*;
 
+/**
+ * The RequestCreator class creates and submits requests for incidents during the simulation.
+ */
 public class RequestCreator implements MobsimAfterSimStepListener, EventHandler {
+
 	private static double FLOW_CAPACITY_FACTOR;
 	private final VrpOptimizer optimizer;
 	private final Network network;
@@ -26,6 +31,12 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 
 	List<Incident> incidentsList = IncidentManager.getIncidentsSelected();
 
+	/**
+	 * Creates a RequestCreator instance.
+	 * @param optimizer The VrpOptimizer used for request submission.
+	 * @param network The network used for incident information.
+	 * @param scenario The scenario containing the simulation configuration.
+	 */
 	@Inject
 	public RequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
 						  @DvrpMode(TransportMode.truck) Network network,
@@ -42,14 +53,13 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 
 		for (Incident incident : incidentsList) {
 			requests.add(createRequest(incident));
-
 		}
 	}
 
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
 			IncidentReader incidents = new IncidentReader("utah/incidents/UtahIncidents_MATSim.csv", network);
-			incidentsList = incidents.getSeededIncidents(0,3093);
+			incidentsList = incidents.getSeededIncidents(0, 3093);
 		}
 		return incidentsList;
 	}

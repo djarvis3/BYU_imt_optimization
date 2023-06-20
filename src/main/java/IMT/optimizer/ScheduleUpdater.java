@@ -17,23 +17,41 @@ import org.matsim.core.router.util.TravelTime;
 
 import java.util.Objects;
 
+/**
+ * Updates the schedule for a vehicle based on an IMT request.
+ */
 public class ScheduleUpdater {
+
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
 	private final MobsimTimer timer;
 	private final EventsManager events;
 	private double arrivalTime;
 
+	/**
+	 * Constructs a ScheduleUpdater object with the specified router, travel time, timer, and events manager.
+	 *
+	 * @param router     the least cost path calculator
+	 * @param travelTime the travel time estimator
+	 * @param timer      the simulation timer
+	 * @param events     the events manager for handling events
+	 */
 	public ScheduleUpdater(LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, EventsManager events) {
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
 		this.timer = Objects.requireNonNull(timer, "timer must not be null");
-		this.events = Objects.requireNonNull(events, "events must not be null");  // add this
-
+		this.events = Objects.requireNonNull(events, "events must not be null");
 	}
 
+	/**
+	 * Updates the schedule for a vehicle based on an IMT request.
+	 *
+	 * @param schedule the schedule of the vehicle
+	 * @param req      the IMT request
+	 * @param imtUnit  the IMT vehicle
+	 * @throws NullPointerException if the schedule, req, or imtUnit is null
+	 */
 	public void updateScheduleForVehicle(Schedule schedule, ImtRequest req, DvrpVehicle imtUnit) {
-
 		Objects.requireNonNull(schedule, "schedule must not be null");
 		Objects.requireNonNull(req, "req must not be null");
 		Objects.requireNonNull(imtUnit, "imtUnit must not be null");
@@ -47,9 +65,14 @@ public class ScheduleUpdater {
 		double fullCapacity = req.getLinkCap_Full();
 
 		switch (lastTask.getStatus()) {
-			case PLANNED -> schedule.removeLastTask();
-			case STARTED -> lastTask.setEndTime(currentTime);
-			default -> throw new IllegalArgumentException("Unexpected last task status: " + lastTask.getStatus());
+			case PLANNED:
+				schedule.removeLastTask();
+				break;
+			case STARTED:
+				lastTask.setEndTime(currentTime);
+				break;
+			default:
+				throw new IllegalArgumentException("Unexpected last task status: " + lastTask.getStatus());
 		}
 
 		double t0 = schedule.getStatus() == Schedule.ScheduleStatus.UNPLANNED ?
@@ -66,18 +89,22 @@ public class ScheduleUpdater {
 
 		schedule.addTask(new ServeTask(Optimizer.ImtTaskType.ARRIVE, arrivalTime, arrivalTime, incLink, req));
 
-		IMT_Log.logImtArrival(req,fullCapacity,reducedCapacity,req.getLinkCap_Current(),arrivalTime,imtUnit);
+		IMT_Log.logImtArrival(req, fullCapacity, reducedCapacity, req.getLinkCap_Current(), arrivalTime, imtUnit);
 
 		if (arrivalTime < endTime) {
 			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, endTime, incLink, req));
 			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, imtUnit.getServiceEndTime(), incLink));
-		}
-		else {
+		} else {
 			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, arrivalTime, incLink, req));
 			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, arrivalTime, imtUnit.getServiceEndTime(), incLink));
 		}
 	}
 
+	/**
+	 * Gets the arrival time calculated during the schedule update.
+	 *
+	 * @return the arrival time
+	 */
 	public double getArrivalTime() {
 		return arrivalTime;
 	}
