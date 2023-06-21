@@ -26,6 +26,7 @@ import IMT.logs.Incidents_Log;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.core.api.experimental.events.EventsManager;
@@ -34,6 +35,7 @@ import org.matsim.contrib.dvrp.fleet.Fleet;
 import org.matsim.contrib.dvrp.optimizer.Request;
 import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.router.TimeAsTravelDisutility;
+import org.matsim.contrib.dvrp.run.DvrpMode;
 import org.matsim.contrib.dvrp.schedule.*;
 import org.matsim.core.controler.events.StartupEvent;
 import org.matsim.core.controler.listener.StartupListener;
@@ -43,6 +45,8 @@ import org.matsim.core.router.speedy.SpeedyDijkstraFactory;
 import org.matsim.core.router.util.LeastCostPathCalculator;
 import org.matsim.core.router.util.TravelTime;
 import org.matsim.core.trafficmonitoring.FreeSpeedTravelTime;
+
+import com.google.inject.Inject;
 
 /**
  * Optimizer class responsible for handling IMT requests and managing vehicle schedules.
@@ -74,7 +78,8 @@ public final class Optimizer implements VrpOptimizer, StartupListener, EventHand
 	 * @param scenario  the scenario for configuration
 	 * @param events    the events manager for handling events
 	 */
-	public Optimizer(Network network, Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
+	@Inject
+	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(events, "Events cannot be null");
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 

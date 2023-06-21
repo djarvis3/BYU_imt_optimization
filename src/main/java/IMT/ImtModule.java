@@ -44,7 +44,6 @@ public class ImtModule extends AbstractDvrpModeModule {
 		install(new DvrpModeRoutingNetworkModule(getMode(), false));
 		bindModal(TravelTime.class).to(Key.get(TravelTime.class, Names.named(DvrpTravelTimeModule.DVRP_ESTIMATED)));
 		install(new FleetModule(getMode(), fleetSpecificationUrl, createTruckType()));
-
 		installQSimModule(new AbstractDvrpModeQSimModule(getMode()) {
 			@Override
 			protected void configureQSim() {
