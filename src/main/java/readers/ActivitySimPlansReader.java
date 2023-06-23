@@ -86,7 +86,7 @@ public class ActivitySimPlansReader {
 
                 // if there is an end time, add it to the activity
                 if (record.getDouble("activityEndTime") != null) {
-                    activity.setEndTime(record.getDouble("activityEndTime") * 3600);
+                    activity.setEndTime(record.getDouble("activityEndTime"));
                     plan.addActivity(activity);
                 }
 
@@ -128,8 +128,8 @@ public class ActivitySimPlansReader {
 
         public static void main (String[]args){
             ActivitySimPlansReader reader = new ActivitySimPlansReader();
-            reader.parseCsv("scenarios/utah/plans/wfrc_calibrated_no_RH_plans.csv");
-            reader.writeXml("scenarios/utah/plans/wfrc_calibrated_no_RH_plans.xml");
+            reader.parseCsv("utah/plans/plans.csv");
+            reader.writeXml("utah/plans/wfrc_calibrated_no_RH_plans.xml");
         }
 
         private void writeXml (String outfile){
