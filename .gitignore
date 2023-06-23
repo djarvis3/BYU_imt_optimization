@@ -19,8 +19,8 @@ hs_err_pid*
 /target/
 /test/output/
 /bin/
-/utah/networks/
-/utah/plans/
+/utah/networks/full
+/utah/plans/full
 
 
 *.iml
