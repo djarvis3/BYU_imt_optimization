@@ -108,7 +108,7 @@ public class NetworkCleaner {
 
 	public static void main(String[] args) {
 		String inputFile = "utah/networks/highways_network.xml";
-		String outputFile = "utah/networks/highways_network_clean.xml";
+		String outputFile = "utah/networks/highways_network.xml";
 		new NetworkCleaner().run(inputFile, outputFile);
 
 	}
