@@ -26,7 +26,7 @@ public class RunIMT {
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
 
 		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_IMT");
+		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_One");
 
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
