@@ -8,29 +8,31 @@
 	</module>
 
 	<module name="network">
-		<param name="inputNetworkFile" value="networks/networkNEW.xml"/>
+		<param name="inputNetworkFile" value="networks/highways_network.xml"/>
 		<param name="timeVariantNetwork" value="true"/>
-		<!-- param name="inputChangeEventsFile" value=""/ if timeVariantNetwork -->
 	</module>
 
 	<module name="dvrp">
 	</module>
 
+	<module name="decongestion">
+		<param name="enableDecongestionPricing" value="false"/>
+	</module>
+
 	<module name="plans">
-		<param name="inputPlansFile" value="plans/population-100.xml"/>
+		<param name="inputPlansFile" value="plans/wfrc_0.1.xml"/>
 	</module>
 
 	<module name="controler">
 		<param name="outputDirectory" value="output/utah"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="5"/>
+		<param name="lastIteration" value="10"/>
 		<param name="mobsim" value="qsim" />
+		<param name= "routingAlgorithmType" value="FastAStarLandmarks" />
+
 	</module>
 
-	<module name="controler">
-		<param name= "routingAlgorithmType" value="FastAStarLandmarks" />
-	</module>
 
 	<module name="qsim">
 		<param name="mainMode" value="car,truck"/>
@@ -38,12 +40,12 @@
 		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="snapshotStyle" value="queue"/>
 		<param name="snapshotStyle" value="queue"/>
-		<param name="flowCapacityFactor" value= "1"/>
-		<param name= "storageCapacityFactor" value="1"/>
+		<param name="flowCapacityFactor" value= "0.001"/>
+		<param name= "storageCapacityFactor" value="0.005"/>
 
 		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
 		<param name="startTime" value="00:00:00" />
-		<param name="endTime" value="30:00:00" />
+		<param name="endTime" value="00:00:00" />
 
 		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
 	</module>
