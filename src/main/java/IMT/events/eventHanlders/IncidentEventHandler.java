@@ -55,7 +55,7 @@ public class IncidentEventHandler implements BasicEventHandler {
 	 */
 	@Override
 	public void reset(int iteration) {
-		if (iteration == 1) {
+		if (iteration != 0) {
 			this.isFirstIteration = false;
 		}
 	}

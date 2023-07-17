@@ -26,11 +26,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>SamplePop.jar</outputFile>
+              <outputFile>Baseline_10_to_60.jar</outputFile>
               <transformers>
                 <transformer>
                   <manifestEntries>
-                    <Main-Class>population.SamplePopulation</Main-Class>
+                    <Main-Class>run.RunIMT</Main-Class>
                     <Specification-Vendor>org.matsim</Specification-Vendor>
                     <Implementation-Vendor>org.matsim</Implementation-Vendor>
                     <Implementation-Version>${project.version}</Implementation-Version>

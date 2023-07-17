@@ -59,7 +59,7 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
 			IncidentReader incidents = new IncidentReader("utah/incidents/UtahIncidents_MATSim.csv", network);
-			incidentsList = incidents.getSeededIncidents(0, 3093);
+			incidentsList = incidents.getSeededIncidents(3, 3093);
 		}
 		return incidentsList;
 	}
