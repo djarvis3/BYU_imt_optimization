@@ -3,6 +3,7 @@ package IMT.optimizer;
 import IMT.ImtRequest;
 import IMT.ServeTask;
 import IMT.events.IncidentEvent;
+import IMT.events.eventHanlders.IncidentEventHandler;
 import IMT.logs.IMT_Log;
 
 import org.matsim.api.core.v01.network.Link;
@@ -65,22 +66,14 @@ public class ScheduleUpdater {
 		double fullCapacity = req.getLinkCap_Full();
 
 		switch (lastTask.getStatus()) {
-			case PLANNED:
-				schedule.removeLastTask();
-				break;
-			case STARTED:
-				lastTask.setEndTime(currentTime);
-				break;
-			default:
-				throw new IllegalArgumentException("Unexpected last task status: " + lastTask.getStatus());
+			case PLANNED -> schedule.removeLastTask();
+			case STARTED -> lastTask.setEndTime(currentTime);
+			default -> throw new IllegalArgumentException("Unexpected last task status: " + lastTask.getStatus());
 		}
 
 		double t0 = schedule.getStatus() == Schedule.ScheduleStatus.UNPLANNED ?
 				Math.max(imtUnit.getServiceBeginTime(), currentTime) :
 				Schedules.getLastTask(schedule).getEndTime();
-
-		IncidentEvent incidentEvent = new IncidentEvent(req);
-		events.processEvent(incidentEvent);
 
 		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(lastTask.getLink(), incLink, t0, router, travelTime);
 		this.arrivalTime = pathToIncident.getArrivalTime();
@@ -93,7 +86,12 @@ public class ScheduleUpdater {
 
 		if (arrivalTime < endTime) {
 			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, endTime, incLink, req));
-			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, imtUnit.getServiceEndTime(), incLink));
+			if (endTime < imtUnit.getServiceEndTime()) {
+				schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, imtUnit.getServiceEndTime(), incLink));
+			}
+			else if (endTime >= imtUnit.getServiceEndTime()) {
+				schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, endTime, incLink));
+			}
 		} else {
 			schedule.addTask(new ServeTask(Optimizer.ImtTaskType.INCIDENT_MANAGEMENT, arrivalTime, arrivalTime, incLink, req));
 			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, arrivalTime, imtUnit.getServiceEndTime(), incLink));

@@ -26,7 +26,7 @@ public class RunIMT {
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
 
 		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_One");
+		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_Incidents");
 
 		// load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
@@ -58,7 +58,7 @@ public class RunIMT {
 
 		// run simulation
 		controler.run();
-		}
+	}
 
 	public static void main(String[] args) throws IOException {
 		if(args.length != 2) {

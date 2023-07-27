@@ -16,7 +16,7 @@
 		<param name="outputDirectory" value="output/utah"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="10"/>
+		<param name="lastIteration" value="5"/>
 		<!-- Defines which mobility simulation will be used. Currently supported: qsim JDEQSim hermes
 		Depending on the chosen mobsim, you'll have to add additional config modules to configure the corresponding mobsim.
 		For 'qsim', add a module 'qsim' to the config. -->
@@ -41,11 +41,11 @@
 
 	<module name="global" >
 	<!-- "global" number of threads.  This number is used, e.g., for replanning, but NOT in QSim.  This can typically be set to as many cores as you have available, or possibly even slightly more. -->
-	<param name="numberOfThreads" value="8" />
+	<param name="numberOfThreads" value="10" />
 	</module>
 
 	<module name="network">
-		<param name="inputNetworkFile" value="networks/full/networkNEW.xml"/>
+		<param name="inputNetworkFile" value="networks/highways_network.xml"/>
 		<param name="timeVariantNetwork" value="true"/>
 	</module>
 
@@ -143,16 +143,16 @@
 	</module>
 
 	<module name="qsim">
-		<param name="endTime" value="30:00:00" />
-		<param name="flowCapacityFactor" value= "1"/>
-		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="false"/>
+		<param name="endTime" value="24:00:00" />
+		<param name="flowCapacityFactor" value= "0.001"/>
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="mainMode" value="car,truck"/>
 		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
-		<param name="numberOfThreads" value="8" />
+		<param name="numberOfThreads" value="10" />
 		<param name="simEndtimeInterpretation" value="onlyUseEndtime" />
 		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
 		<param name="snapshotStyle" value="queue"/>
-		<param name= "storageCapacityFactor" value="1"/>
+		<param name= "storageCapacityFactor" value="0.05"/>
 		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
 		<param name="startTime" value="00:00:00" />
 		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
@@ -163,11 +163,11 @@
 		<param name="maxAgentPlanMemorySize" value="10"/> <!-- 0 means unlimited -->
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="BestScore"/>
-			<param name="weight" value="0.7"/>
+			<param name="weight" value="0.8"/>
 		</parameterset>
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="ReRoute"/>
-			<param name="weight" value="0.2"/>
+			<param name="weight" value="0.1"/>
 		</parameterset>
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="TimeAllocationMutator"/>

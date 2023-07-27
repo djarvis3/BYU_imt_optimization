@@ -9,6 +9,8 @@ import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.utils.geometry.CoordUtils;
+import org.matsim.core.utils.geometry.CoordinateTransformation;
+import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 import org.matsim.utils.objectattributes.attributable.Attributes;
 
 import java.io.File;
@@ -37,12 +39,14 @@ public class IncidentParser {
 	}
 
 	public List<Incident> parse(String csvFilePath) throws IllegalArgumentException, IllegalStateException {
-
 		// Check if the file exists
 		File file = new File(csvFilePath);
 		if (!file.exists()) {
 			throw new IllegalArgumentException("File not found: " + csvFilePath);
 		}
+
+		// Create the coordinate transformation
+		CoordinateTransformation ct = TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:32612");
 
 		// Configure the CSV parser settings
 		CsvParserSettings parserSettings = new CsvParserSettings();
@@ -62,7 +66,11 @@ public class IncidentParser {
 						double x = record.getDouble("x");
 						double y = record.getDouble("y");
 						Coord incidentCoord = new Coord(x, y);
-						Link nearestMotorwayLink = getNearestMotorwayLink(incidentCoord);
+
+						// Convert the incident coordinate
+						Coord transformedCoord = ct.transform(incidentCoord);
+
+						Link nearestMotorwayLink = getNearestMotorwayLink(transformedCoord);
 						String linkId = String.valueOf(nearestMotorwayLink.getId());
 
 						int respondingIMTs = record.getInt("IMTs");
@@ -81,6 +89,7 @@ public class IncidentParser {
 
 		return incidents;
 	}
+
 
 	public Link getNearestMotorwayLink(Coord coord){
 		Link nearestLink = null;

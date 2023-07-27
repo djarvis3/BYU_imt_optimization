@@ -6,9 +6,6 @@ public class IncidentSelector {
 
 	public static List<Incident> selectRandomSubset(List<Incident> incidents, List<Incident> uniqueIncidents,
 											  int incidentNumber) {
-		if (incidentNumber > incidents.size()) {
-			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
-		}
 		if (incidentNumber > uniqueIncidents.size()) {
 			throw new IllegalArgumentException("incidentNumber is greater than the size of unique incidents");
 		}
@@ -29,9 +26,6 @@ public class IncidentSelector {
 
 	public static List<Incident> selectSeededSubset(List<Incident> incidents, List<Incident> uniqueIncidents,
 											  int incidentNumber, long seed) {
-		if (incidentNumber > incidents.size()) {
-			throw new IllegalArgumentException("incidentNumber is greater than the size of incidents");
-		}
 		if (incidentNumber > uniqueIncidents.size()) {
 			throw new IllegalArgumentException("incidentNumber is greater than the size of unique incidents");
 		}
@@ -63,4 +57,11 @@ public class IncidentSelector {
 		return selectedIncidents;
 	}
 
+	public static List<Incident> selectAllIncidents(List<Incident> incidents) {
+			List<Incident> incidentList = new ArrayList<>(incidents);
+			for (Incident incident : incidentList) {
+				System.out.println("Incident ID: " + incident.getIncID() + ", Link ID: " + incident.getLinkId());
+			}
+			return incidentList;
+		}
 }

@@ -21,7 +21,7 @@ public class RunPNetworkGenerator {
 		/*
 		 * The input file name.
 		 */
-		String osm = "utah_osm_download.osm";
+		String osm = "highways_network.xml";
 
 
 		/*
@@ -59,7 +59,7 @@ public class RunPNetworkGenerator {
 		/*
 		 * Write the Network to a MATSim network file.
 		 */
-		new NetworkWriter(network).write("utah/networkNEW.xml");
+		new NetworkWriter(network).write("highways.xml");
 
 	}
 

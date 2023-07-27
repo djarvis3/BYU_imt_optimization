@@ -29,7 +29,7 @@ public class ActivitySimPlansReader {
         this.pop = this.sc.getPopulation();
         this.pf = this.pop.getFactory();
         this.id = Id.createPersonId(id);
-        this.ct = TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:7131");
+        this.ct = TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:32612");
     }
 
     public void parseCsv(String csv) {
@@ -128,8 +128,8 @@ public class ActivitySimPlansReader {
 
         public static void main (String[]args){
             ActivitySimPlansReader reader = new ActivitySimPlansReader();
-            reader.parseCsv("utah/plans/plans.csv");
-            reader.writeXml("utah/plans/wfrc_calibrated_no_RH_plans.xml");
+            reader.parseCsv("full/plans.csv");
+            reader.writeXml("full/wfrc_calibrated_no_RH_plans.xml");
         }
 
         private void writeXml (String outfile){

@@ -1,6 +1,7 @@
 package IMT.optimizer;
 
 import IMT.ImtRequest;
+import IMT.events.IncidentEvent;
 import IMT.logs.ChangeEvents_Log;
 import IMT.logs.IMT_Log;
 import org.matsim.api.core.v01.Scenario;
@@ -67,6 +68,9 @@ public class RequestHandler {
 		double endTime = req.getEndTime();
 		int respondingIMTs = req.getTotalIMTs();
 		int numIMT = 0;
+
+		IncidentEvent incidentEvent = new IncidentEvent(req);
+		events.processEvent(incidentEvent);
 
 		incLOG.addEventToLog(req.getIncLink(), reducedLinkCapacity, fullLinkCapacity, req.getSubmissionTime(), req.getEndTime(), req);
 

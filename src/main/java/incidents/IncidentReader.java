@@ -20,7 +20,7 @@ public class IncidentReader {
 	public List<Incident> getAllIncidents() {
 		IncidentParser incParse = new IncidentParser(network);
 		List<Incident> incidents = incParse.parse(csvFilePath);
-		return selectAllUniqueIncidents(incidents);
+		return selectAllIncidents(incidents);
 	}
 
 	public List<Incident> getRandomIncidents(int incidentNumber) {
@@ -37,9 +37,3 @@ public class IncidentReader {
 		return selectSeededSubset(incidents, uniqueIncidents, incidentNumber, seed);
 	}
 }
-
-
-
-
-
-

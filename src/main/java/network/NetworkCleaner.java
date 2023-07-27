@@ -28,6 +28,8 @@ import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.network.io.MatsimNetworkReader;
 import org.matsim.core.network.io.NetworkWriter;
 import org.matsim.core.scenario.ScenarioUtils;
+import org.matsim.core.utils.geometry.CoordinateTransformation;
+import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 import org.matsim.core.utils.misc.ArgumentParser;
 
 /**
@@ -69,6 +71,11 @@ public class NetworkCleaner {
 
 		new org.matsim.core.network.algorithms.NetworkCleaner().run(network);
 
+		// Create a coordinate transformation
+		CoordinateTransformation ct =
+				TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:32612");
+
+		// Use the coordinate transformation when writing the network
 		new NetworkWriter(network).write(outputNetworkFile);
 	}
 
@@ -107,7 +114,7 @@ public class NetworkCleaner {
 	}
 
 	public static void main(String[] args) {
-		String inputFile = "utah/networks/highways_network.xml";
+		String inputFile = "utah/networks/highways_network_xyCoords.xml";
 		String outputFile = "utah/networks/highways_network.xml";
 		new NetworkCleaner().run(inputFile, outputFile);
 
