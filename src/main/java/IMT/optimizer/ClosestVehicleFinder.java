@@ -63,15 +63,24 @@ public class ClosestVehicleFinder {
 	 * @return a list of the closest vehicles
 	 * @throws IllegalArgumentException if respondingIMTs is less than or equal to zero
 	 */
-	public List<DvrpVehicle> getClosestVehicles(Link toLink, int respondingIMTs) {
+	public List<DvrpVehicle> getClosestVehicles(Link toLink, int respondingIMTs, double requestTime) {
 		Objects.requireNonNull(toLink, "toLink must not be null");
 		if (respondingIMTs <= 0) {
 			throw new IllegalArgumentException("respondingVehicles must be greater than zero");
 		}
+
 		PriorityQueue<DvrpVehicle> closestVehicles = new PriorityQueue<>(Comparator.comparingDouble(vehicle -> calculateArrivalTime(vehicle, toLink)));
-		closestVehicles.addAll(fleet.getVehicles().values());
+
+		// Filter out the vehicles whose ServiceEndTime is before the request
+		closestVehicles.addAll(
+				fleet.getVehicles().values().stream()
+						.filter(vehicle -> vehicle.getServiceEndTime() > requestTime)
+						.collect(Collectors.toList())
+		);
+
 		return closestVehicles.stream()
 				.limit(Math.min(respondingIMTs, closestVehicles.size()))
 				.collect(Collectors.toList());
 	}
+
 }

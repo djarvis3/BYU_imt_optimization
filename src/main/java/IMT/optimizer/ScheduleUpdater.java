@@ -65,11 +65,14 @@ public class ScheduleUpdater {
 		double endTime = req.getEndTime();
 		double fullCapacity = req.getLinkCap_Full();
 
+
 		switch (lastTask.getStatus()) {
 			case PLANNED -> schedule.removeLastTask();
 			case STARTED -> lastTask.setEndTime(currentTime);
 			default -> throw new IllegalArgumentException("Unexpected last task status: " + lastTask.getStatus());
 		}
+
+
 
 		double t0 = schedule.getStatus() == Schedule.ScheduleStatus.UNPLANNED ?
 				Math.max(imtUnit.getServiceBeginTime(), currentTime) :

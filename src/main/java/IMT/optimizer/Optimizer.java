@@ -93,9 +93,9 @@ public final class Optimizer implements VrpOptimizer, StartupListener, EventHand
 		initWaitTasks();
 
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
-		if (outputDirectory.endsWith("Incidents")) {
+		if (outputDirectory.contains("Incidents")) {
 			new Incidents_Log(scenario);
-		} else if (outputDirectory.endsWith("IMT")) {
+		} else if (outputDirectory.contains("IMT")) {
 			new IMT_Log(scenario);
 		}
 	}

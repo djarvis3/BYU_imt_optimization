@@ -29,11 +29,11 @@ public class ChangeEvents_Log {
 		Objects.requireNonNull(incidentLink, "incidentLink must not be null");
 
 		String output = scenario.getConfig().controler().getOutputDirectory();
-		if (output.endsWith("IMT")) {
+		if (output.contains("IMT")) {
 			// Log incident information
 			IMT_Log.handleIncidentNetworkChangeEvent(imtRequest, reducedCapacity, fullCapacity, startTime, endTime);
 		}
-		else if (output.endsWith("Incidents")) {
+		else if (output.contains("Incidents")) {
 			// Log incident information
 			Incidents_Log.handleIncidentNetworkChangeEvent(imtRequest, reducedCapacity, fullCapacity, startTime, endTime);
 		}

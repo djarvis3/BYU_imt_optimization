@@ -26,7 +26,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>Baseline.jar</outputFile>
+              <outputFile>Jar_Files/Incidents_1-1-1-19-879.jar</outputFile>
               <transformers>
                 <transformer>
                   <manifestEntries>

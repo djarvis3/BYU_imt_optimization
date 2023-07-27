@@ -16,13 +16,19 @@
 		<param name="outputDirectory" value="output/utah"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="5"/>
+		<param name="lastIteration" value="2"/>
 		<!-- Defines which mobility simulation will be used. Currently supported: qsim JDEQSim hermes
 		Depending on the chosen mobsim, you'll have to add additional config modules to configure the corresponding mobsim.
 		For 'qsim', add a module 'qsim' to the config. -->
 		<param name="mobsim" value="qsim" />
 		<!-- The type of routing (least cost path) algorithm used, may have the values: [Dijkstra, AStarLandmarks, FastDijkstra, FastAStarLandmarks, SpeedyALT] -->
 		<param name= "routingAlgorithmType" value="SpeedyALT" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations events are written to a file. `0' disables events writing completely. -->
+		<param name="writeEventsInterval" value="0" />
+		<!-- iterationNumber % writePlansInterval == 0 defines (hopefully) in which iterations plans are written to a file. `0' disables plans writing completely.  Some plans in early iterations are always written -->
+		<param name="writePlansInterval" value="0" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations trips CSV are written to a file. `0' disables trips writing completely. -->
+		<param name="writeTripsInterval" value="0" />
 	</module>
 
 	<module name="counts">
@@ -41,7 +47,7 @@
 
 	<module name="global" >
 	<!-- "global" number of threads.  This number is used, e.g., for replanning, but NOT in QSim.  This can typically be set to as many cores as you have available, or possibly even slightly more. -->
-	<param name="numberOfThreads" value="10" />
+	<param name="numberOfThreads" value="4" />
 	</module>
 
 	<module name="network">
@@ -55,7 +61,7 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans/wfrc_0.1.xml"/>
+		<param name="inputPlansFile" value="plans/population_NULL.xml"/>
 	</module>
 
 	<module name="planCalcScore">
@@ -144,15 +150,15 @@
 
 	<module name="qsim">
 		<param name="endTime" value="24:00:00" />
-		<param name="flowCapacityFactor" value= "0.001"/>
+		<param name="flowCapacityFactor" value= "1"/>
 		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="mainMode" value="car,truck"/>
 		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
-		<param name="numberOfThreads" value="10" />
+		<param name="numberOfThreads" value="4" />
 		<param name="simEndtimeInterpretation" value="onlyUseEndtime" />
 		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
 		<param name="snapshotStyle" value="queue"/>
-		<param name= "storageCapacityFactor" value="0.05"/>
+		<param name= "storageCapacityFactor" value="1"/>
 		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
 		<param name="startTime" value="00:00:00" />
 		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
@@ -160,7 +166,7 @@
 
 	<module name="strategy">
 		<!-- We focus only on DynAgents. "Standard" agents do not change their behaviour -->
-		<param name="maxAgentPlanMemorySize" value="10"/> <!-- 0 means unlimited -->
+		<param name="maxAgentPlanMemorySize" value="0"/> <!-- 0 means unlimited -->
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="BestScore"/>
 			<param name="weight" value="0.8"/>

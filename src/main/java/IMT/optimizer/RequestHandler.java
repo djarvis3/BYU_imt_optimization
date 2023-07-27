@@ -74,7 +74,7 @@ public class RequestHandler {
 
 		incLOG.addEventToLog(req.getIncLink(), reducedLinkCapacity, fullLinkCapacity, req.getSubmissionTime(), req.getEndTime(), req);
 
-		List<DvrpVehicle> closestVehicles = closestVehicleFinder.getClosestVehicles(req.getIncLink(), respondingIMTs);
+		List<DvrpVehicle> closestVehicles = closestVehicleFinder.getClosestVehicles(req.getIncLink(), respondingIMTs, req.getSubmissionTime());
 
 		for (DvrpVehicle imtUnit : closestVehicles) {
 			Schedule schedule = imtUnit.getSchedule();
