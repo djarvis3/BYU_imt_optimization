@@ -16,7 +16,7 @@
 		<param name="outputDirectory" value="output/utah"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="2"/>
+		<param name="lastIteration" value="100"/>
 		<!-- Defines which mobility simulation will be used. Currently supported: qsim JDEQSim hermes
 		Depending on the chosen mobsim, you'll have to add additional config modules to configure the corresponding mobsim.
 		For 'qsim', add a module 'qsim' to the config. -->
@@ -61,7 +61,7 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans/population_NULL.xml"/>
+		<param name="inputPlansFile" value="plans/full/output_plans.xml.gz"/>
 	</module>
 
 	<module name="planCalcScore">
@@ -149,7 +149,7 @@
 	</module>
 
 	<module name="qsim">
-		<param name="endTime" value="24:00:00" />
+		<param name="endTime" value="30:00:00" />
 		<param name="flowCapacityFactor" value= "1"/>
 		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="mainMode" value="car,truck"/>
@@ -166,7 +166,7 @@
 
 	<module name="strategy">
 		<!-- We focus only on DynAgents. "Standard" agents do not change their behaviour -->
-		<param name="maxAgentPlanMemorySize" value="0"/> <!-- 0 means unlimited -->
+		<param name="maxAgentPlanMemorySize" value="5"/> <!-- 0 means unlimited -->
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="BestScore"/>
 			<param name="weight" value="0.8"/>
