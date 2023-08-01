@@ -52,7 +52,8 @@ public class IncidentEventHandler implements BasicEventHandler {
 	 */
 	private void createNetworkChangeEvent(double time, double capacity, Id<Link> linkId) {
 		NetworkChangeEvent event = new NetworkChangeEvent(time);
-		event.setFlowCapacityChange(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, capacity));
+		double roundedCapacity = Math.round(capacity);
+		event.setFlowCapacityChange(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, roundedCapacity));
 		event.addLink(scenario.getNetwork().getLinks().get(linkId));
 		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
 	}

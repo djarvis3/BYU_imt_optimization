@@ -1,5 +1,6 @@
 package IMT.optimizer;
 
+import IMT.ImtConfigGroup;
 import IMT.ImtRequest;
 import IMT.events.IncidentEvent;
 import IMT.logs.ChangeEvents_Log;
@@ -21,8 +22,7 @@ import java.util.Objects;
  * to handle the incident, managing their capacities and arrival times.
  */
 public class RequestHandler {
-
-	private static final double LINK_CAPACITY_RESTORE_INTERVAL = 0.25;
+	private final double linkCapacityRestoreInterval;
 
 	private final LeastCostPathCalculator router;
 	private final TravelTime travelTime;
@@ -46,6 +46,8 @@ public class RequestHandler {
 	public RequestHandler(Fleet fleet, LeastCostPathCalculator router, TravelTime travelTime, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(fleet, "fleet must not be null");
 		Objects.requireNonNull(scenario, "scenario must not be null");
+		ImtConfigGroup imtConfig = (ImtConfigGroup) scenario.getConfig().getModules().get(ImtConfigGroup.GROUP_NAME);
+
 
 		this.router = Objects.requireNonNull(router, "router must not be null");
 		this.travelTime = Objects.requireNonNull(travelTime, "travelTime must not be null");
@@ -54,6 +56,8 @@ public class RequestHandler {
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incLOG = new ChangeEvents_Log(scenario);
 		this.scheduleUpdater = new ScheduleUpdater();
+		this.linkCapacityRestoreInterval = imtConfig.getLinkCapacityRestoreInterval();
+
 	}
 
 
@@ -96,7 +100,7 @@ public class RequestHandler {
 	}
 
 	private double updateLinkCapacity(double reducedLinkCapacity, double linkCapacityGap) {
-		return reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
+		return reducedLinkCapacity + (linkCapacityGap * linkCapacityRestoreInterval);
 	}
 
 	private void handleLateArrival(ImtRequest req, double arrivalTime, DvrpVehicle imtUnit, int numIMT) {

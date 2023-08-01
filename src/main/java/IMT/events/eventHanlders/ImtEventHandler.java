@@ -48,7 +48,8 @@ public class ImtEventHandler implements BasicEventHandler {
 	private void handleImtEvent(ImtEvent imtEvent) {
 		if (imtEvent.getArrivalTime() < imtEvent.getEndTime()) {
 			NetworkChangeEvent imtArrival = new NetworkChangeEvent(imtEvent.getArrivalTime());
-			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, imtEvent.getCurrentCapacity()));
+			double roundedCapacity = Math.round(imtEvent.getCurrentCapacity());
+			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, roundedCapacity));
 			imtArrival.addLink(scenario.getNetwork().getLinks().get(imtEvent.getLinkId()));
 			NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), imtArrival);
 		}

@@ -1,5 +1,6 @@
 package run;
 
+import IMT.ImtConfigGroup;
 import IMT.ImtModule;
 import IMT.events.eventHanlders.ImtEventHandler;
 import IMT.events.eventHanlders.IncidentEventHandler;
@@ -21,20 +22,20 @@ import java.io.IOException;
 
 public class RunIMT {
 
-	public static void run(String configFile, String trucksFile) throws IOException {
-		// load config
-		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup());
+	public static void run(String configFile) throws IOException {
+		// Load config
+		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup(), new ImtConfigGroup());
 
 		// Set outputDirectory filepath
 		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_IMT_3-2-1-21-312");
 
-		// load scenario
+		// Load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
 
-		// setup controller
+		// Setup controller
 		Controler controler = new Controler(scenario);
 
-		// add event handlers
+		// Add event handlers
 		IncidentEventHandler incidentEventHandler = new IncidentEventHandler(scenario);
 		ImtEventHandler imtEventHandler = new ImtEventHandler(scenario);
 		controler.addOverridingModule(new AbstractModule() {
@@ -50,26 +51,26 @@ public class RunIMT {
 			}
 		});
 
-		// add modules, run simulation, etc
+		// Add modules, run simulation, etc
 		controler.addOverridingModule(new DecongestionModule(scenario));
 		controler.addOverridingModule(new DvrpModule());
-		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFile)));
+		String trucksFilePath = ConfigUtils.addOrGetModule(config, ImtConfigGroup.GROUP_NAME, ImtConfigGroup.class).getTrucksFile();
+		controler.addOverridingModule(new ImtModule(ConfigGroup.getInputFileURL(config.getContext(), trucksFilePath),
+				ConfigUtils.addOrGetModule(config, ImtConfigGroup.GROUP_NAME, ImtConfigGroup.class)));
 		controler.configureQSimComponents(DvrpQSimComponents.activateModes(TransportMode.truck));
 
-		// run simulation
+		// Run simulation
 		controler.run();
 	}
 
 	public static void main(String[] args) throws IOException {
-		if(args.length != 2) {
+		if (args.length != 1) {
 			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
 			System.exit(1);
 		}
 
 		String configFile = args[0];
-		String trucksFile = args[1];
 
-
-		run(configFile, trucksFile);
+		run(configFile);
 	}
 }

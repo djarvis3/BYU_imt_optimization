@@ -27,15 +27,18 @@ import java.net.URL;
  */
 public class ImtModule extends AbstractDvrpModeModule {
 	private final URL fleetSpecificationUrl;
+	private final ImtConfigGroup imtConfigGroup;
 
 	/**
-	 * Constructs an ImtModule with the specified fleet specification URL.
+	 * Constructs an ImtModule with the specified fleet specification URL and IMT configuration group.
 	 *
 	 * @param fleetSpecificationUrl the URL of the fleet specification
+	 * @param imtConfigGroup        the IMT configuration group
 	 */
-	public ImtModule(URL fleetSpecificationUrl) {
+	public ImtModule(URL fleetSpecificationUrl, ImtConfigGroup imtConfigGroup) {
 		super(TransportMode.truck);
 		this.fleetSpecificationUrl = fleetSpecificationUrl;
+		this.imtConfigGroup = imtConfigGroup;
 	}
 
 	@Override

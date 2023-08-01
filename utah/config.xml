@@ -44,6 +44,21 @@
 	<param name="numberOfThreads" value="4" />
 	</module>
 
+	<module name="IMT">
+		<!-- Path to the CSV file containing incident information -->
+		<param name="incidentsCsvFilePath" value="utah/incidents/UtahIncidents_MATSim.csv" />
+		<!-- Seed for selecting a subset of incidents (optional) -->
+		<param name="incidentSelectionSeed" value="123" />
+		<!-- Number of incidents to select from the CSV (optional, set to 0 to select all incidents) -->
+		<param name="numIncidentsToSelect" value="1" />
+		<!-- Incident selection option: 'incidentSeedSelection', 'selectAllIncidents', or 'baseline' -->
+		<param name="incidentSelection" value="incidentSeedSelection" />
+		<!-- Path to the XML file containing the truck fleet specification for the IMT module -->
+		<param name="trucksFile" value="IMTs/ImtVehicles_Current.xml" />
+		<!-- Interval for restoring link capacity (optional, default is 0.25) -->
+		<param name="linkCapacityRestoreInterval" value="0.25" />
+	</module>
+
 	<module name="network">
 		<param name="inputNetworkFile" value="networks/highways_network.xml"/>
 		<param name="timeVariantNetwork" value="true"/>
@@ -148,7 +163,7 @@
 		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="mainMode" value="car,truck"/>
 		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
-		<param name="numberOfThreads" value="4" />
+		<param name="numberOfThreads" value="16" />
 		<param name="simEndtimeInterpretation" value="onlyUseEndtime" />
 		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
 		<param name="snapshotStyle" value="queue"/>

@@ -29,22 +29,21 @@ public class RequestCreator implements MobsimAfterSimStepListener {
 
 	List<Incident> incidentsList;
 
-	/**
-	 * Creates a RequestCreator instance.
-	 *
-	 * @param optimizer The VrpOptimizer used for request submission.
-	 * @param network   The network used for incident information.
-	 * @param scenario  The scenario containing the simulation configuration.
-	 */
 	@Inject
 	public RequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
 						  @DvrpMode(TransportMode.truck) Network network,
-						  Scenario scenario) {
+						  Scenario scenario, ImtConfigGroup imtConfig) {
 		this.optimizer = optimizer;
 		this.network = network;
 
 		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
-		this.incidentsList = IncidentManager.getIncidentsSelected() == null ? readIncidentsFromCsv() : IncidentManager.getIncidentsSelected();
+		if ("incidentSeedSelection".equals(imtConfig.getIncidentSelection())) {
+			this.incidentsList = readSelectedIncidentsFromCsv(imtConfig);
+		} else if ("selectAllIncidents".equals(imtConfig.getIncidentSelection())) {
+			this.incidentsList = readAllIncidentsFromCsv(imtConfig);
+		} else {
+			this.incidentsList = Collections.emptyList(); // baseline
+		}
 
 		this.requests = new PriorityQueue<>(100, Comparator.comparing(Request::getSubmissionTime));
 		for (Incident incident : incidentsList) {
@@ -52,18 +51,16 @@ public class RequestCreator implements MobsimAfterSimStepListener {
 		}
 	}
 
-	/**
-	 * Reads incidents from the CSV file.
-	 *
-	 * @return The list of incidents.
-	 */
-	private List<Incident> readIncidentsFromCsv() {
-		if (incidentsList == null) {
-			IncidentReader incidents = new IncidentReader("utah/incidents/UtahIncidents_MATSim.csv", network);
-			incidentsList = incidents.getSeededIncidents(3,1234);
-		}
-		return incidentsList;
+	private List<Incident> readAllIncidentsFromCsv(ImtConfigGroup imtConfig) {
+		IncidentReader incidents = new IncidentReader(imtConfig.getIncidentsCsvFilePath(), network);
+		return incidents.getAllIncidents();
 	}
+
+	private List<Incident> readSelectedIncidentsFromCsv(ImtConfigGroup imtConfig) {
+		IncidentReader incidents = new IncidentReader(imtConfig.getIncidentsCsvFilePath(), network);
+		return incidents.getSeededIncidents(imtConfig.getNumIncidentsToSelect(), imtConfig.getIncidentSelectionSeed());
+	}
+
 
 	private ImtRequest createRequest(Incident inc) {
 		String requestId = "incident_" + inc.getIncID();
