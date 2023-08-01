@@ -3,23 +3,23 @@ package IMT.events;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.api.core.v01.network.Link;
-import org.matsim.contrib.dvrp.util.DvrpEventsReaders;
 
 import java.util.Map;
 
 /**
- * Represents an IMT (Incident Management Team  Arrival) event.
+ * Represents an IMT (Incident Management Team Arrival) event.
  */
 public class ImtEvent extends Event {
-	private final Double processTime;
-	private final Double arrivalTime;
+	private final double processTime;
+	private final double arrivalTime;
 	private final Id<Link> linkId;
-	private final Double currentCapacity;
-	private final Double endTime;
+	private final double currentCapacity;
+	private final double endTime;
 
 	/**
 	 * Constructs an ImtEvent object with the specified parameters.
 	 *
+	 * @param processTime     the time at which the event is processed
 	 * @param arrivalTime     the arrival time of the IMT vehicle
 	 * @param linkId          the ID of the link associated with the event
 	 * @param currentCapacity the current capacity at the time of the event
@@ -34,14 +34,21 @@ public class ImtEvent extends Event {
 		this.endTime = endTime;
 	}
 
-	public Double getProcessTime(){return processTime;}
+	/**
+	 * Returns the time at which the event is processed.
+	 *
+	 * @return the processing time
+	 */
+	public double getProcessTime() {
+		return processTime;
+	}
 
 	/**
 	 * Returns the arrival time of the IMT event.
 	 *
 	 * @return the arrival time
 	 */
-	public Double getArrivalTime() {
+	public double getArrivalTime() {
 		return arrivalTime;
 	}
 
@@ -59,7 +66,7 @@ public class ImtEvent extends Event {
 	 *
 	 * @return the current capacity
 	 */
-	public Double getCurrentCapacity() {
+	public double getCurrentCapacity() {
 		return currentCapacity;
 	}
 
@@ -68,7 +75,7 @@ public class ImtEvent extends Event {
 	 *
 	 * @return the end time
 	 */
-	public Double getEndTime() {
+	public double getEndTime() {
 		return endTime;
 	}
 
@@ -80,7 +87,7 @@ public class ImtEvent extends Event {
 	@Override
 	public Map<String, String> getAttributes() {
 		Map<String, String> attr = super.getAttributes();
-		attr.put("processTime", this.processTime.toString());
+		attr.put("processTime", Double.toString(this.processTime));
 		attr.put("actType", "DISPATCH");
 		attr.put("linkId", this.linkId.toString());
 

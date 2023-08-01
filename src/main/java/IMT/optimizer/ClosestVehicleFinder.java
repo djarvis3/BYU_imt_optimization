@@ -14,7 +14,6 @@ import org.matsim.core.router.util.TravelTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 /**
@@ -41,7 +40,7 @@ public class ClosestVehicleFinder {
 
 	private double calculateArrivalTime(DvrpVehicle vehicle, Link toLink) {
 		// Check if the vehicle's schedule has started
-		if(vehicle.getSchedule().getStatus() != Schedule.ScheduleStatus.STARTED) {
+		if (vehicle.getSchedule().getStatus() != Schedule.ScheduleStatus.STARTED) {
 			return Double.POSITIVE_INFINITY;
 		}
 
@@ -50,8 +49,7 @@ public class ClosestVehicleFinder {
 			return Double.POSITIVE_INFINITY;
 		}
 		Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
-		double time_zero = 0;
-		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(fromLink, toLink, time_zero, router, travelTime);
+		VrpPathWithTravelData pathToIncident = VrpPaths.calcAndCreatePath(fromLink, toLink, 0, router, travelTime);
 		return pathToIncident.getArrivalTime();
 	}
 
@@ -60,6 +58,7 @@ public class ClosestVehicleFinder {
 	 *
 	 * @param toLink           the link to which vehicles should be closest
 	 * @param respondingIMTs   the number of the closest vehicles to find
+	 * @param requestTime      the time of the request
 	 * @return a list of the closest vehicles
 	 * @throws IllegalArgumentException if respondingIMTs is less than or equal to zero
 	 */
@@ -69,17 +68,11 @@ public class ClosestVehicleFinder {
 			throw new IllegalArgumentException("respondingVehicles must be greater than zero");
 		}
 
-		PriorityQueue<DvrpVehicle> closestVehicles = new PriorityQueue<>(Comparator.comparingDouble(vehicle -> calculateArrivalTime(vehicle, toLink)));
-
-		// Filter out the vehicles whose ServiceEndTime is before the request
-		closestVehicles.addAll(
-				fleet.getVehicles().values().stream()
-						.filter(vehicle -> vehicle.getServiceBeginTime() < requestTime)
-						.filter(vehicle -> vehicle.getServiceEndTime() > requestTime).toList()
-		);
-
-		return closestVehicles.stream()
-				.limit(Math.min(respondingIMTs, closestVehicles.size()))
+		return fleet.getVehicles().values().stream()
+				.filter(vehicle -> vehicle.getServiceBeginTime() < requestTime)
+				.filter(vehicle -> vehicle.getServiceEndTime() > requestTime)
+				.sorted(Comparator.comparingDouble(vehicle -> calculateArrivalTime(vehicle, toLink)))
+				.limit(respondingIMTs)
 				.collect(Collectors.toList());
 	}
 

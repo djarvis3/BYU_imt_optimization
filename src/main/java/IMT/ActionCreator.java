@@ -13,11 +13,12 @@ import org.matsim.contrib.dynagent.IdleDynActivity;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 
 import com.google.inject.Inject;
-
+import com.google.inject.Singleton;
 
 /**
  * Creates dynamic actions for VRP agents based on their current tasks.
  */
+@Singleton
 public final class ActionCreator implements VrpAgentLogic.DynActionCreator {
 	private final MobsimTimer timer;
 
@@ -42,6 +43,8 @@ public final class ActionCreator implements VrpAgentLogic.DynActionCreator {
 	@Override
 	public DynAction createAction(DynAgent dynAgent, DvrpVehicle vehicle, double now) {
 		Task task = vehicle.getSchedule().getCurrentTask();
+
+		// Depending on the task type, a different action is created
 		return switch ((Optimizer.ImtTaskType) task.getTaskType()) {
 			case DRIVE_TO_INCIDENT -> VrpLegFactory.createWithOfflineTracker(TransportMode.truck, vehicle, timer);
 

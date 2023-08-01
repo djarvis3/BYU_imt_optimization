@@ -21,7 +21,6 @@ import java.util.Objects;
 /**
  * Updates the schedule for a vehicle based on an IMT request.
  */
-
 public class ScheduleUpdater {
 	private double arrivalTime;
 	private Link incLink;
@@ -98,12 +97,17 @@ public class ScheduleUpdater {
 		}
 	}
 
+	/**
+	 * Adds a stay task after the incident management task in the vehicle schedule.
+	 *
+	 * @param schedule The vehicle's schedule.
+	 * @param imtUnit The vehicle.
+	 * @param endTime The time when the incident ends.
+	 * @param incLink The link where the incident is located.
+	 */
 	private void addPostIncidentStayTask(Schedule schedule, DvrpVehicle imtUnit, double endTime, Link incLink) {
-		if (endTime < imtUnit.getServiceEndTime()) {
-			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, imtUnit.getServiceEndTime(), incLink));
-		} else if (endTime >= imtUnit.getServiceEndTime()) {
-			schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, endTime, incLink));
-		}
+		double stayEndTime = Math.max(endTime, imtUnit.getServiceEndTime());
+		schedule.addTask(new DefaultStayTask(Optimizer.ImtTaskType.WAIT, endTime, stayEndTime, incLink));
 	}
 
 	/**

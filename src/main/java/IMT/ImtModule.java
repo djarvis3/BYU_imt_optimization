@@ -40,22 +40,39 @@ public class ImtModule extends AbstractDvrpModeModule {
 
 	@Override
 	public void install() {
+		// Register the transport mode as DVRP mode
 		DvrpModes.registerDvrpMode(binder(), getMode());
+
+		// Install routing network module with dynamic re-routing disabled
 		install(new DvrpModeRoutingNetworkModule(getMode(), false));
+
+		// Bind the travel time estimator
 		bindModal(TravelTime.class).to(Key.get(TravelTime.class, Names.named(DvrpTravelTimeModule.DVRP_ESTIMATED)));
+
+		// Install fleet specification with the provided URL and truck type
 		install(new FleetModule(getMode(), fleetSpecificationUrl, createTruckType()));
+
+		// Install QSim (MATSim's simulation engine) related modules and bind components
 		installQSimModule(new AbstractDvrpModeQSimModule(getMode()) {
 			@Override
 			protected void configureQSim() {
 				install(new VrpAgentSourceQSimModule(getMode()));
 
+				// Add request creator component
 				addModalComponent(RequestCreator.class);
+
+				// Bind the optimizer and action creator components
 				bindModal(VrpOptimizer.class).to(Optimizer.class).asEagerSingleton();
 				bindModal(VrpAgentLogic.DynActionCreator.class).to(ActionCreator.class).asEagerSingleton();
 			}
 		});
 	}
 
+	/**
+	 * Creates a VehicleType object representing a truck, with predefined properties such as length, PCU equivalents, and seating capacity.
+	 *
+	 * @return the created VehicleType object
+	 */
 	private static VehicleType createTruckType() {
 		VehicleType truckType = VehicleUtils.getFactory().createVehicleType(Id.create("truckType", VehicleType.class));
 		truckType.setLength(15.);

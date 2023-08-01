@@ -78,20 +78,28 @@ public final class Optimizer implements VrpOptimizer, StartupListener, EventHand
 	 * @param scenario  the scenario for configuration
 	 * @param events    the events manager for handling events
 	 */
+
 	@Inject
 	public Optimizer(@DvrpMode(TransportMode.truck) Network network, @DvrpMode(TransportMode.truck) Fleet fleet, MobsimTimer timer, Scenario scenario, EventsManager events) {
 		Objects.requireNonNull(events, "Events cannot be null");
 		Objects.requireNonNull(scenario, "scenario cannot be null");
 
 		TravelTime travelTime = new FreeSpeedTravelTime();
-		LeastCostPathCalculator router = new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime), travelTime);
+		LeastCostPathCalculator router = createRouter(network, travelTime);
 
 		this.fleet = Objects.requireNonNull(fleet, "Fleet cannot be null");
 		this.requestHandler = new RequestHandler(fleet, router, travelTime, timer, scenario, events);
 		this.timingUpdater = new TimingUpdater(timer);
 
 		initWaitTasks();
+		initLogging(scenario);
+	}
 
+	private LeastCostPathCalculator createRouter(Network network, TravelTime travelTime) {
+		return new SpeedyDijkstraFactory().createPathCalculator(network, new TimeAsTravelDisutility(travelTime), travelTime);
+	}
+
+	private void initLogging(Scenario scenario) {
 		String outputDirectory = scenario.getConfig().controler().getOutputDirectory();
 		if (outputDirectory.contains("Incidents")) {
 			new Incidents_Log(scenario);

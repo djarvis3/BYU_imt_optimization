@@ -12,9 +12,9 @@ import java.util.Map;
  */
 public class IncidentEvent extends Event {
 	private final Id<Link> linkId;
-	private final Double reducedCapacity;
-	private final Double endTime;
-	private final Double fullCapacity;
+	private final double reducedCapacity;
+	private final double endTime;
+	private final double fullCapacity;
 
 	/**
 	 * Constructs an IncidentEvent object from the given IMT request.
@@ -43,7 +43,7 @@ public class IncidentEvent extends Event {
 	 *
 	 * @return the reduced capacity
 	 */
-	public Double getReducedCapacity() {
+	public double getReducedCapacity() {
 		return reducedCapacity;
 	}
 
@@ -52,7 +52,7 @@ public class IncidentEvent extends Event {
 	 *
 	 * @return the end time
 	 */
-	public Double getEndTime() {
+	public double getEndTime() {
 		return endTime;
 	}
 
@@ -61,7 +61,7 @@ public class IncidentEvent extends Event {
 	 *
 	 * @return the full capacity
 	 */
-	public Double getFullCapacity() {
+	public double getFullCapacity() {
 		return fullCapacity;
 	}
 
@@ -74,9 +74,9 @@ public class IncidentEvent extends Event {
 	public Map<String, String> getAttributes() {
 		Map<String, String> attr = super.getAttributes();
 		attr.put("linkId", this.linkId.toString());
-		attr.put("reducedCapacity", this.reducedCapacity.toString());
-		attr.put("endTime", this.endTime.toString());
-		attr.put("fullCapacity", this.fullCapacity.toString());
+		attr.put("reducedCapacity", Double.toString(this.reducedCapacity));
+		attr.put("endTime", Double.toString(this.endTime));
+		attr.put("fullCapacity", Double.toString(this.fullCapacity));
 
 		return attr;
 	}

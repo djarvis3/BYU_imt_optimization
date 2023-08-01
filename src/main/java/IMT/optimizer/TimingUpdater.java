@@ -38,33 +38,33 @@ public class TimingUpdater {
 			return;
 		}
 
-		double now = timer.getTimeOfDay();
+		double currentTime = timer.getTimeOfDay();
 		Task currentTask = schedule.getCurrentTask();
-		double diff = now - currentTask.getEndTime();
+		double timeDifference = currentTime - currentTask.getEndTime();
 
-		if (diff == 0) {
+		if (timeDifference == 0) {
 			return;
 		}
 
-		currentTask.setEndTime(now);
+		currentTask.setEndTime(currentTime);
 
 		List<? extends Task> tasks = schedule.getTasks();
-		int nextTaskIdx = currentTask.getTaskIdx() + 1;
+		int nextTaskIndex = currentTask.getTaskIdx() + 1;
 
-		// All tasks except the last waiting task
-		for (int i = nextTaskIdx; i < tasks.size() - 1; i++) {
+		// Update the timing for all tasks except the last waiting task
+		for (int i = nextTaskIndex; i < tasks.size() - 1; i++) {
 			Task task = tasks.get(i);
-			task.setBeginTime(task.getBeginTime() + diff);
-			task.setEndTime(task.getEndTime() + diff);
+			task.setBeginTime(task.getBeginTime() + timeDifference);
+			task.setEndTime(task.getEndTime() + timeDifference);
 		}
 
-		// Waiting task
-		if (nextTaskIdx != tasks.size()) {
+		// Update the timing for the waiting task, considering the vehicle's service end time
+		if (nextTaskIndex != tasks.size()) {
 			Task waitTask = tasks.get(tasks.size() - 1);
-			waitTask.setBeginTime(waitTask.getBeginTime() + diff);
+			waitTask.setBeginTime(waitTask.getBeginTime() + timeDifference);
 
-			double tEnd = Math.max(waitTask.getBeginTime(), vehicle.getServiceEndTime());
-			waitTask.setEndTime(tEnd);
+			double serviceEndTime = Math.max(waitTask.getBeginTime(), vehicle.getServiceEndTime());
+			waitTask.setEndTime(serviceEndTime);
 		}
 	}
 }

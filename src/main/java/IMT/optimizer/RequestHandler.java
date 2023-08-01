@@ -1,14 +1,12 @@
 package IMT.optimizer;
 
 import IMT.ImtRequest;
-import IMT.events.ImtEvent;
 import IMT.events.IncidentEvent;
 import IMT.logs.ChangeEvents_Log;
 import IMT.logs.IMT_Log;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.contrib.dvrp.fleet.DvrpVehicle;
 import org.matsim.contrib.dvrp.fleet.Fleet;
-import org.matsim.contrib.dvrp.schedule.Schedule;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.mobsim.framework.MobsimTimer;
 import org.matsim.core.router.util.LeastCostPathCalculator;
@@ -19,6 +17,8 @@ import java.util.Objects;
 
 /**
  * Handles IMT requests and updates vehicle schedules accordingly.
+ * Utilizes the closest vehicles to an incident and schedules them accordingly
+ * to handle the incident, managing their capacities and arrival times.
  */
 public class RequestHandler {
 
@@ -56,6 +56,7 @@ public class RequestHandler {
 		this.scheduleUpdater = new ScheduleUpdater();
 	}
 
+
 	/**
 	 * Handles an IMT request and updates vehicle schedules accordingly.
 	 *
@@ -68,34 +69,40 @@ public class RequestHandler {
 		double fullLinkCapacity = req.getLinkCap_Full();
 		double reducedLinkCapacity = req.getLinkCap_Reduced();
 		double linkCapacityGap = fullLinkCapacity - reducedLinkCapacity;
-		double currLinkCapacity;
-		double endTime = req.getEndTime();
-		int respondingIMTs = req.getTotalIMTs();
-		int numIMT = 0;
 
-		IncidentEvent incidentEvent = new IncidentEvent(req);
-		events.processEvent(incidentEvent);
-
+		processIncidentEvent(req);
 		incLOG.addEventToLog(req.getIncLink(), reducedLinkCapacity, fullLinkCapacity, req.getSubmissionTime(), req.getEndTime(), req);
 
-		List<DvrpVehicle> closestVehicles = closestVehicleFinder.getClosestVehicles(req.getIncLink(), respondingIMTs, req.getSubmissionTime());
+		List<DvrpVehicle> closestVehicles = closestVehicleFinder.getClosestVehicles(req.getIncLink(), req.getTotalIMTs(), req.getSubmissionTime());
 
+		int numIMT = 0;
 		for (DvrpVehicle imtUnit : closestVehicles) {
-			Schedule schedule = imtUnit.getSchedule();
-			currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
+			double currLinkCapacity = updateLinkCapacity(reducedLinkCapacity, linkCapacityGap);
 			linkCapacityGap = fullLinkCapacity - currLinkCapacity;
 			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
 			req.setLinkCap_Current(currLinkCapacity);
 
-			scheduleUpdater.updateScheduleForVehicle(schedule, req, imtUnit, numIMT, router, travelTime, timer, events);
+			scheduleUpdater.updateScheduleForVehicle(imtUnit.getSchedule(), req, imtUnit, numIMT, router, travelTime, timer, events);
 			double arrivalTime = scheduleUpdater.getArrivalTime();
 
 			numIMT += 1;
-
-			if (arrivalTime > endTime) {
-				IMT_Log.handleLateImtArrival(req, arrivalTime, imtUnit);
-			}
-			req.setNumIMT(numIMT);
+			handleLateArrival(req, arrivalTime, imtUnit, numIMT);
 		}
+	}
+
+	private void processIncidentEvent(ImtRequest req) {
+		IncidentEvent incidentEvent = new IncidentEvent(req);
+		events.processEvent(incidentEvent);
+	}
+
+	private double updateLinkCapacity(double reducedLinkCapacity, double linkCapacityGap) {
+		return reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
+	}
+
+	private void handleLateArrival(ImtRequest req, double arrivalTime, DvrpVehicle imtUnit, int numIMT) {
+		if (arrivalTime > req.getEndTime()) {
+			IMT_Log.handleLateImtArrival(req, arrivalTime, imtUnit);
+		}
+		req.setNumIMT(numIMT);
 	}
 }

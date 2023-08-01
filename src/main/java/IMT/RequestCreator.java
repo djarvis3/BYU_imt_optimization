@@ -25,16 +25,16 @@ public class RequestCreator implements MobsimAfterSimStepListener {
 	private static double FLOW_CAPACITY_FACTOR;
 	private final VrpOptimizer optimizer;
 	private final Network network;
-	private final PriorityQueue<ImtRequest> requests = new PriorityQueue<>(100,
-			Comparator.comparing(org.matsim.contrib.dvrp.optimizer.Request::getSubmissionTime));
+	private final PriorityQueue<ImtRequest> requests;
 
-	List<Incident> incidentsList = IncidentManager.getIncidentsSelected();
+	List<Incident> incidentsList;
 
 	/**
 	 * Creates a RequestCreator instance.
+	 *
 	 * @param optimizer The VrpOptimizer used for request submission.
-	 * @param network The network used for incident information.
-	 * @param scenario The scenario containing the simulation configuration.
+	 * @param network   The network used for incident information.
+	 * @param scenario  The scenario containing the simulation configuration.
 	 */
 	@Inject
 	public RequestCreator(@DvrpMode(TransportMode.truck) VrpOptimizer optimizer,
@@ -44,17 +44,19 @@ public class RequestCreator implements MobsimAfterSimStepListener {
 		this.network = network;
 
 		FLOW_CAPACITY_FACTOR = scenario.getConfig().qsim().getFlowCapFactor();
+		this.incidentsList = IncidentManager.getIncidentsSelected() == null ? readIncidentsFromCsv() : IncidentManager.getIncidentsSelected();
 
-		if (incidentsList == null) {
-			incidentsList = readIncidentsFromCsv();
-			IncidentManager.setIncidentsSelected(incidentsList);
-		}
-
+		this.requests = new PriorityQueue<>(100, Comparator.comparing(Request::getSubmissionTime));
 		for (Incident incident : incidentsList) {
 			requests.add(createRequest(incident));
 		}
 	}
 
+	/**
+	 * Reads incidents from the CSV file.
+	 *
+	 * @return The list of incidents.
+	 */
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
 			IncidentReader incidents = new IncidentReader("utah/incidents/UtahIncidents_MATSim.csv", network);
