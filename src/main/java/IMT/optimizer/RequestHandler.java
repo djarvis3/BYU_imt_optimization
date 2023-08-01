@@ -1,6 +1,7 @@
 package IMT.optimizer;
 
 import IMT.ImtRequest;
+import IMT.events.ImtEvent;
 import IMT.events.IncidentEvent;
 import IMT.logs.ChangeEvents_Log;
 import IMT.logs.IMT_Log;
@@ -29,6 +30,8 @@ public class RequestHandler {
 	private final ClosestVehicleFinder closestVehicleFinder;
 	private final ChangeEvents_Log incLOG;
 	private final EventsManager events;
+	private final ScheduleUpdater scheduleUpdater;
+
 
 	/**
 	 * Constructs a RequestHandler object with the specified fleet, router, travel time, timer, scenario, and events manager.
@@ -50,6 +53,7 @@ public class RequestHandler {
 		this.events = Objects.requireNonNull(events, "events must not be null");
 		this.closestVehicleFinder = new ClosestVehicleFinder(fleet, router, travelTime);
 		this.incLOG = new ChangeEvents_Log(scenario);
+		this.scheduleUpdater = new ScheduleUpdater();
 	}
 
 	/**
@@ -78,14 +82,13 @@ public class RequestHandler {
 
 		for (DvrpVehicle imtUnit : closestVehicles) {
 			Schedule schedule = imtUnit.getSchedule();
-			ScheduleUpdater updater = new ScheduleUpdater(router, travelTime, timer, events);
 			currLinkCapacity = reducedLinkCapacity + (linkCapacityGap * LINK_CAPACITY_RESTORE_INTERVAL);
 			linkCapacityGap = fullLinkCapacity - currLinkCapacity;
 			reducedLinkCapacity = fullLinkCapacity - linkCapacityGap;
 			req.setLinkCap_Current(currLinkCapacity);
 
-			updater.updateScheduleForVehicle(schedule, req, imtUnit);
-			double arrivalTime = updater.getArrivalTime();
+			scheduleUpdater.updateScheduleForVehicle(schedule, req, imtUnit, numIMT, router, travelTime, timer, events);
+			double arrivalTime = scheduleUpdater.getArrivalTime();
 
 			numIMT += 1;
 

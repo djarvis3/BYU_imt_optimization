@@ -12,7 +12,6 @@ import org.matsim.api.core.v01.network.Network;
 import org.matsim.contrib.dvrp.optimizer.Request;
 import org.matsim.contrib.dvrp.optimizer.VrpOptimizer;
 import org.matsim.contrib.dvrp.run.DvrpMode;
-import org.matsim.core.events.handler.EventHandler;
 import org.matsim.core.mobsim.framework.events.MobsimAfterSimStepEvent;
 import org.matsim.core.mobsim.framework.listeners.MobsimAfterSimStepListener;
 
@@ -21,7 +20,7 @@ import java.util.*;
 /**
  * The RequestCreator class creates and submits requests for incidents during the simulation.
  */
-public class RequestCreator implements MobsimAfterSimStepListener, EventHandler {
+public class RequestCreator implements MobsimAfterSimStepListener {
 
 	private static double FLOW_CAPACITY_FACTOR;
 	private final VrpOptimizer optimizer;
@@ -59,7 +58,7 @@ public class RequestCreator implements MobsimAfterSimStepListener, EventHandler 
 	private List<Incident> readIncidentsFromCsv() {
 		if (incidentsList == null) {
 			IncidentReader incidents = new IncidentReader("utah/incidents/UtahIncidents_MATSim.csv", network);
-			incidentsList = incidents.getSeededIncidents(19,879);
+			incidentsList = incidents.getSeededIncidents(3,1234);
 		}
 		return incidentsList;
 	}

@@ -74,8 +74,8 @@ public class ClosestVehicleFinder {
 		// Filter out the vehicles whose ServiceEndTime is before the request
 		closestVehicles.addAll(
 				fleet.getVehicles().values().stream()
-						.filter(vehicle -> vehicle.getServiceEndTime() > requestTime)
-						.collect(Collectors.toList())
+						.filter(vehicle -> vehicle.getServiceBeginTime() < requestTime)
+						.filter(vehicle -> vehicle.getServiceEndTime() > requestTime).toList()
 		);
 
 		return closestVehicles.stream()
