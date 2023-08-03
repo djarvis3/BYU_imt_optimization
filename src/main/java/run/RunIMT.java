@@ -27,7 +27,7 @@ public class RunIMT {
 		Config config = ConfigUtils.loadConfig(configFile, new DvrpConfigGroup(), new DecongestionConfigGroup(), new ImtConfigGroup());
 
 		// Set outputDirectory filepath
-		config.controler().setOutputDirectory(config.controler().getOutputDirectory() + "_IMT_3-2-1-21-312");
+		config.controler().setOutputDirectory(config.controler().getOutputDirectory());
 
 		// Load scenario
 		Scenario scenario = ScenarioUtils.loadScenario(config);
@@ -65,7 +65,7 @@ public class RunIMT {
 
 	public static void main(String[] args) throws IOException {
 		if (args.length != 1) {
-			System.err.println("Usage: java RunIncidents <configFile> <trucksFile>");
+			System.err.println("Usage: java RunIMT <configFile>");
 			System.exit(1);
 		}
 

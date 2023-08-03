@@ -27,6 +27,7 @@ decongestion\tollSetting\DecongestionTollingBangBang.class
 decongestion\tollSetting\DecongestionTollSetting.class
 incidents\IncidentSelector.class
 oneIMT\OneImtRequestCreator.class
+IMT\ImtConfigGroup.class
 readers\ActivitySimPlansReader.class
 run\RunIMT$1.class
 decongestion\data\LinkInfo.class

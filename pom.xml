@@ -179,7 +179,7 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>jar_files/IMT/Improved/IMT_3-2-1-21-312.jar</outputFile>
+							<outputFile>MATSim_Scenarios.jar</outputFile>
 							<transformers>
 								<!-- The following sets the main class for the executable jar as you otherwise would with the assembly plugin -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

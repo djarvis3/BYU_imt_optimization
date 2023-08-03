@@ -7,22 +7,66 @@
 		<param name="coordinateSystem" value="Atlantis" />
 	</module>
 
-	<module name="ReplanningAnnealer" >
-		<!-- Activate the scaling of replanning modules using an annealing approach rather than fixed rates. -->
-		<param name="activateAnnealingModule" value="true" />
+	<module name="plans">
+		<param name="inputPlansFile" value="plans/wfrc_0.1.xml"/>
+	</module>
+
+	<module name="network">
+		<param name="inputNetworkFile" value="networks/highways_network.xml"/>
+		<param name="timeVariantNetwork" value="true"/>
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="output/utah"/>
+		<param name="outputDirectory" value="output/utah/IMT_2-18-499"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="1"/>
+		<param name="lastIteration" value="4"/>
 		<!-- Defines which mobility simulation will be used. Currently supported: qsim JDEQSim hermes
 		Depending on the chosen mobsim, you'll have to add additional config modules to configure the corresponding mobsim.
 		For 'qsim', add a module 'qsim' to the config. -->
 		<param name="mobsim" value="qsim" />
 		<!-- The type of routing (least cost path) algorithm used, may have the values: [Dijkstra, AStarLandmarks, FastDijkstra, FastAStarLandmarks, SpeedyALT] -->
-		<param name= "routingAlgorithmType" value="SpeedyALT" />
+		<param name= "routingAlgorithmType" value="FastDijkstra" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations events are written to a file. `0' disables events writing completely. -->
+		<param name="writeEventsInterval" value="4" />
+		<!-- iterationNumber % writePlansInterval == 0 defines (hopefully) in which iterations plans are written to a file. `0' disables plans writing completely.  Some plans in early iterations are always written -->
+		<param name="writePlansInterval" value="4" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations trips CSV are written to a file. `0' disables trips writing completely. -->
+		<param name="writeTripsInterval" value="4" />
+	</module>
+
+	<module name="IMT">
+		<!-- Incident selection option: 'incidentSeedSelection', 'selectAllIncidents', or 'baseline' -->
+		<param name="incidentSelection" value="incidentSeedSelection" />
+		<!-- Seed for selecting a subset of incidents (optional) -->
+		<param name="incidentSelectionSeed" value="499" />
+		<!-- Path to the CSV file containing incident information -->
+		<param name="incidentsCsvFilePath" value="utah/incidents/UtahIncidents_MATSim.csv" />
+		<!-- Interval for restoring link capacity (optional, default is 0.25) -->
+		<param name="linkCapacityRestoreInterval" value="0.25" />
+		<!-- Number of incidents to select from the CSV (optional, set to 0 to select all incidents) -->
+		<param name="numIncidentsToSelect" value="18" />
+		<!-- Path to the XML file containing the truck fleet specification for the IMT module -->
+		<!-- trucksFiles for the BYU simulation include: 'ImtNULL', 'ImtVehicles_Current', and 'ImtVehicles_Improved' -->
+		<param name="trucksFile" value="IMTs/ImtVehicles_Current.xml" />
+	</module>
+
+	<module name="qsim">
+		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
+		<param name="startTime" value="00:00:00" />
+		<param name="endTime" value="30:00:00" />
+
+		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
+
+		<param name="flowCapacityFactor" value= "0.001"/>
+		<param name= "storageCapacityFactor" value="0.05"/>
+
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
+		<param name="mainMode" value="car,truck"/>
+		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
+		<param name="numberOfThreads" value="16" />
+		<param name="simEndtimeInterpretation" value="onlyUseEndtime" />
+		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
 	</module>
 
 	<module name="counts">
@@ -41,36 +85,12 @@
 
 	<module name="global" >
 	<!-- "global" number of threads.  This number is used, e.g., for replanning, but NOT in QSim.  This can typically be set to as many cores as you have available, or possibly even slightly more. -->
-	<param name="numberOfThreads" value="4" />
-	</module>
-
-	<module name="IMT">
-		<!-- Path to the CSV file containing incident information -->
-		<param name="incidentsCsvFilePath" value="utah/incidents/UtahIncidents_MATSim.csv" />
-		<!-- Seed for selecting a subset of incidents (optional) -->
-		<param name="incidentSelectionSeed" value="123" />
-		<!-- Number of incidents to select from the CSV (optional, set to 0 to select all incidents) -->
-		<param name="numIncidentsToSelect" value="1" />
-		<!-- Incident selection option: 'incidentSeedSelection', 'selectAllIncidents', or 'baseline' -->
-		<param name="incidentSelection" value="incidentSeedSelection" />
-		<!-- Path to the XML file containing the truck fleet specification for the IMT module -->
-		<param name="trucksFile" value="IMTs/ImtVehicles_Current.xml" />
-		<!-- Interval for restoring link capacity (optional, default is 0.25) -->
-		<param name="linkCapacityRestoreInterval" value="0.25" />
-	</module>
-
-	<module name="network">
-		<param name="inputNetworkFile" value="networks/highways_network.xml"/>
-		<param name="timeVariantNetwork" value="true"/>
+	<param name="numberOfThreads" value="16" />
 	</module>
 
 	<module name="parallelEventHandling" >
 		<!-- Size of the events Queue. Increase for very large scenarios -->
-		<param name="eventsQueueSize" value="10000000" />
-	</module>
-
-	<module name="plans">
-		<param name="inputPlansFile" value="plans/population_NULL.xml"/>
+		<param name="eventsQueueSize" value="100000000" />
 	</module>
 
 	<module name="planCalcScore">
@@ -155,22 +175,6 @@
 				<param name="closingTime"     value="22:00:00" />
 			</parameterset>
 		</parameterset>
-	</module>
-
-	<module name="qsim">
-		<param name="endTime" value="30:00:00" />
-		<param name="flowCapacityFactor" value= "1"/>
-		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
-		<param name="mainMode" value="car,truck"/>
-		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
-		<param name="numberOfThreads" value="16" />
-		<param name="simEndtimeInterpretation" value="onlyUseEndtime" />
-		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
-		<param name="snapshotStyle" value="queue"/>
-		<param name= "storageCapacityFactor" value="1"/>
-		<!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
-		<param name="startTime" value="00:00:00" />
-		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
 	</module>
 
 	<module name="strategy">
