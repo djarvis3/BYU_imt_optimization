@@ -87,6 +87,7 @@ public class Incidents_Log {
 	 */
 	public static void handleIncidentNetworkChangeEvent(ImtRequest imtRequest, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {
+		double roundedReduced = Math.round(reducedCapacity);
 		String imtLog = ("Incident: ");
 		Duration start = Duration.ofSeconds((long) startTime);
 		Duration end = Duration.ofSeconds((long) endTime);
@@ -97,7 +98,7 @@ public class Incidents_Log {
 		String incidentInfo = String.format("Request ID %s, %s IMT(s), " +
 						"Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
-				imtRequest.getId(), imtRequest.getTotalIMTs(), imtRequest.getIncLink().getId(), fullCapacity, reducedCapacity,
+				imtRequest.getId(), imtRequest.getTotalIMTs(), imtRequest.getIncLink().getId(), fullCapacity, roundedReduced,
 				formattedStart, formattedEnd);
 
 		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class

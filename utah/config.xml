@@ -8,7 +8,7 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans/wfrc_0.1.xml"/>
+		<param name="inputPlansFile" value="plans/population_NULL.xml"/>
 	</module>
 
 	<module name="network">
@@ -17,7 +17,7 @@
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="output/utah/IMT_2-18-499"/>
+		<param name="outputDirectory" value="output/utah/IMT_3-21-793"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
 		<param name="lastIteration" value="4"/>
@@ -39,16 +39,16 @@
 		<!-- Incident selection option: 'incidentSeedSelection', 'selectAllIncidents', or 'baseline' -->
 		<param name="incidentSelection" value="incidentSeedSelection" />
 		<!-- Seed for selecting a subset of incidents (optional) -->
-		<param name="incidentSelectionSeed" value="499" />
+		<param name="incidentSelectionSeed" value="793" />
 		<!-- Path to the CSV file containing incident information -->
 		<param name="incidentsCsvFilePath" value="utah/incidents/UtahIncidents_MATSim.csv" />
 		<!-- Interval for restoring link capacity (optional, default is 0.25) -->
 		<param name="linkCapacityRestoreInterval" value="0.25" />
 		<!-- Number of incidents to select from the CSV (optional, set to 0 to select all incidents) -->
-		<param name="numIncidentsToSelect" value="18" />
+		<param name="numIncidentsToSelect" value="21" />
 		<!-- Path to the XML file containing the truck fleet specification for the IMT module -->
 		<!-- trucksFiles for the BYU simulation include: 'ImtNULL', 'ImtVehicles_Current', and 'ImtVehicles_Improved' -->
-		<param name="trucksFile" value="IMTs/ImtVehicles_Current.xml" />
+		<param name="trucksFile" value="IMTs/ImtVehicles_Improved.xml" />
 	</module>
 
 	<module name="qsim">
@@ -58,8 +58,8 @@
 
 		<param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
 
-		<param name="flowCapacityFactor" value= "0.001"/>
-		<param name= "storageCapacityFactor" value="0.05"/>
+		<param name="flowCapacityFactor" value= "1"/>
+		<param name= "storageCapacityFactor" value="1"/>
 
 		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
 		<param name="mainMode" value="car,truck"/>

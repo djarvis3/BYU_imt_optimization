@@ -32,4 +32,3 @@ public class ServeTask extends DefaultStayTask {
 		return imtRequest;
 	}
 }
-

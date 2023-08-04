@@ -93,6 +93,8 @@ public class IMT_Log {
 	 * @param imtUnit          the vehicle sent to the incident
 	 */
 	public static void logImtArrival(ImtRequest request, double fullCapacity, double reducedCapacity, double currLinkCapacity, double arrivalTime, DvrpVehicle imtUnit) {
+		double roundedReduced = Math.round(reducedCapacity);
+		double roundedCurrent = Math.round(currLinkCapacity);
 		String imtLog = ("IMT: ");
 		Duration arrival = Duration.ofSeconds((long) arrivalTime);
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(arrival);
@@ -101,7 +103,7 @@ public class IMT_Log {
 						"Vehicle ID %s, Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Current Capacity %.2f, Arrival Time %s",
 				request.getId(), (request.getNumIMT() + 1), request.getTotalIMTs(), imtUnit.getId(),
-				request.getIncLink().getId(), fullCapacity, reducedCapacity, currLinkCapacity, formattedArrival);
+				request.getIncLink().getId(), fullCapacity, roundedReduced, roundedCurrent, formattedArrival);
 		String logMsg = imtLog + incidentInfo;
 
 		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class
@@ -146,6 +148,7 @@ public class IMT_Log {
 	 */
 	public static void handleIncidentNetworkChangeEvent(ImtRequest request, double reducedCapacity,
 														double fullCapacity, double startTime, double endTime) {
+		double roundedReduced = Math.round(reducedCapacity);
 		Duration start = Duration.ofSeconds((long) startTime);
 		Duration end = Duration.ofSeconds((long) endTime);
 		LocalTime localArrival = LocalTime.MIDNIGHT.plus(start);
@@ -155,7 +158,7 @@ public class IMT_Log {
 		String incidentInfo = String.format("Request ID %s, %s IMT(s), " +
 						"Link ID %s, Full Capacity %.2f, Reduced Capacity %.2f, " +
 						"Start Time %s, End Time %s",
-				request.getId(), request.getTotalIMTs(), request.getIncLink().getId(), fullCapacity, reducedCapacity,
+				request.getId(), request.getTotalIMTs(), request.getIncLink().getId(), fullCapacity, roundedReduced,
 				formattedStart, formattedEnd);
 
 		// Use LOGGER.info instead of LOGGER.warning to match the ChangeEvent class
