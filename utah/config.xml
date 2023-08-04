@@ -8,7 +8,7 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="plans/population_NULL.xml"/>
+		<param name="inputPlansFile" value="plans/full/100.plans.xml.gz"/>
 	</module>
 
 	<module name="network">
@@ -17,10 +17,10 @@
 	</module>
 
 	<module name="controler">
-		<param name="outputDirectory" value="output/utah/IMT_3-21-793"/>
+		<param name="outputDirectory" value="output/utah/IMT"/>
 		<param name="overwriteFiles" value="deleteDirectoryIfExists"/>
 		<param name="firstIteration" value="0"/>
-		<param name="lastIteration" value="4"/>
+		<param name="lastIteration" value="200"/>
 		<!-- Defines which mobility simulation will be used. Currently supported: qsim JDEQSim hermes
 		Depending on the chosen mobsim, you'll have to add additional config modules to configure the corresponding mobsim.
 		For 'qsim', add a module 'qsim' to the config. -->
@@ -28,27 +28,27 @@
 		<!-- The type of routing (least cost path) algorithm used, may have the values: [Dijkstra, AStarLandmarks, FastDijkstra, FastAStarLandmarks, SpeedyALT] -->
 		<param name= "routingAlgorithmType" value="FastDijkstra" />
 		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations events are written to a file. `0' disables events writing completely. -->
-		<param name="writeEventsInterval" value="4" />
+		<param name="writeEventsInterval" value="100" />
 		<!-- iterationNumber % writePlansInterval == 0 defines (hopefully) in which iterations plans are written to a file. `0' disables plans writing completely.  Some plans in early iterations are always written -->
-		<param name="writePlansInterval" value="4" />
+		<param name="writePlansInterval" value="100" />
 		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations trips CSV are written to a file. `0' disables trips writing completely. -->
-		<param name="writeTripsInterval" value="4" />
+		<param name="writeTripsInterval" value="100" />
 	</module>
 
 	<module name="IMT">
 		<!-- Incident selection option: 'incidentSeedSelection', 'selectAllIncidents', or 'baseline' -->
 		<param name="incidentSelection" value="incidentSeedSelection" />
 		<!-- Seed for selecting a subset of incidents (optional) -->
-		<param name="incidentSelectionSeed" value="793" />
+		<param name="incidentSelectionSeed" value="886" />
 		<!-- Path to the CSV file containing incident information -->
 		<param name="incidentsCsvFilePath" value="utah/incidents/UtahIncidents_MATSim.csv" />
 		<!-- Interval for restoring link capacity (optional, default is 0.25) -->
 		<param name="linkCapacityRestoreInterval" value="0.25" />
 		<!-- Number of incidents to select from the CSV (optional, set to 0 to select all incidents) -->
-		<param name="numIncidentsToSelect" value="21" />
+		<param name="numIncidentsToSelect" value="5" />
 		<!-- Path to the XML file containing the truck fleet specification for the IMT module -->
 		<!-- trucksFiles for the BYU simulation include: 'ImtNULL', 'ImtVehicles_Current', and 'ImtVehicles_Improved' -->
-		<param name="trucksFile" value="IMTs/ImtVehicles_Improved.xml" />
+		<param name="trucksFile" value="IMTs/ImtVehicles_Current.xml" />
 	</module>
 
 	<module name="qsim">
@@ -61,10 +61,10 @@
 		<param name="flowCapacityFactor" value= "1"/>
 		<param name= "storageCapacityFactor" value="1"/>
 
-		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true"/>
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="false"/>
 		<param name="mainMode" value="car,truck"/>
 		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
-		<param name="numberOfThreads" value="16" />
+		<param name="numberOfThreads" value="32" />
 		<param name="simEndtimeInterpretation" value="onlyUseEndtime" />
 		<param name="simStarttimeInterpretation" value="onlyUseStarttime"/>
 	</module>
@@ -85,7 +85,7 @@
 
 	<module name="global" >
 	<!-- "global" number of threads.  This number is used, e.g., for replanning, but NOT in QSim.  This can typically be set to as many cores as you have available, or possibly even slightly more. -->
-	<param name="numberOfThreads" value="16" />
+	<param name="numberOfThreads" value="32" />
 	</module>
 
 	<module name="parallelEventHandling" >
