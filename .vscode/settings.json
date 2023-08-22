@@ -1,0 +1,5 @@
+{
+    "jupyter.themeMatplotlibPlots": true,
+    "workbench.preferredLightColorTheme": "Default Light+",
+    "java.compile.nullAnalysis.mode": "automatic"
+}
