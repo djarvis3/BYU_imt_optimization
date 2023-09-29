@@ -34,7 +34,7 @@ public class ImtEventHandler implements BasicEventHandler {
 	@Override
 	public void handleEvent(Event event) {
 		if (!isFirstIteration) return;
-		if (event instanceof ImtEvent imtEvent) {
+		if (event instanceof ImtEvent imtEvent && imtEvent.getArrivalTime() < imtEvent.getEndTime()) {
 			handleImtEvent(imtEvent);
 		}
 	}
@@ -46,14 +46,12 @@ public class ImtEventHandler implements BasicEventHandler {
 	 * @param imtEvent the ImtEvent to be handled
 	 */
 	private void handleImtEvent(ImtEvent imtEvent) {
-		if (imtEvent.getArrivalTime() < imtEvent.getEndTime()) {
 			NetworkChangeEvent imtArrival = new NetworkChangeEvent(imtEvent.getArrivalTime());
 			double roundedCapacity = Math.round(imtEvent.getCurrentCapacity());
 			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, roundedCapacity));
 			imtArrival.addLink(scenario.getNetwork().getLinks().get(imtEvent.getLinkId()));
 			NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), imtArrival);
 		}
-	}
 
 	/**
 	 * Resets the state of the event handler for the first iteration.
