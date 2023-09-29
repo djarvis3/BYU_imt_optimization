@@ -1,4 +1,5 @@
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionControlerListener.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\trucks\TruckEventsHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\events\IncidentEvent.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\tollSetting\DecongestionTollSetting.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\events\ImtEvent.java
@@ -19,6 +20,7 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\readers\NetworkLinkFinder.j
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtRequestCreator.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\volume\VolumeEventHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\optimizer\TimingUpdater.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\org\matsim\project\RunMatsimApplication.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\ImtModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\handler\DelayAnalysis.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\routing\TollTimeDistanceTravelDisutility.java
@@ -27,6 +29,7 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\feeders\IncidentIm
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\run\RunVolumeEventHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\handler\PersonVehicleTracker.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\events\eventHanlders\IncidentEventHandler.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\run\RunTruckEventHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\logs\ChangeEvents_Log.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentParser.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\optimizer\RequestHandler.java
@@ -44,6 +47,7 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\tollSetting\De
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentNumber.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\routing\TollTimeDistanceTravelDisutilityFactory.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\network\CleanOsmNetworkReader.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\org\matsim\project\RunMatsim.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\readers\ActivitySimPlansReader.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtRequest.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionRunExample.java

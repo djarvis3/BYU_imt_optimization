@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class RunIncidentImpactEventHandler {
 
@@ -21,14 +21,12 @@ public class RunIncidentImpactEventHandler {
 	private static final Logger LOGGER = Logger.getLogger(RunIncidentImpactEventHandler.class.getName());
 
 	public static void main(String[] args) {
-		if (args.length < 4) {
-			LOGGER.severe("Please provide the paths for the network, events, change events folder respectively, and the CSV output file path.");
-			return;
-		}
+		validateInputArgs(args);
 
-		Config config = initializeMATSimConfig(args[0]);
+		Config config = ConfigUtils.createConfig();
 		Network network = NetworkUtils.createNetwork();
 		new MatsimNetworkReader(network).readFile(args[0]);
+
 		IncidentImpactProcessor processor = new IncidentImpactProcessor(network);
 
 		try (FileWriter writer = new FileWriter(args[3], true)) {
@@ -39,10 +37,11 @@ public class RunIncidentImpactEventHandler {
 		}
 	}
 
-	private static Config initializeMATSimConfig(String networkFilePath) {
-		Config config = ConfigUtils.createConfig();
-		config.network().setInputFile(networkFilePath);
-		return config;
+	private static void validateInputArgs(String[] args) {
+		if (args.length < 4) {
+			LOGGER.severe("Please provide the paths for the network, events, change events folder, and the output CSV file.");
+			System.exit(1);
+		}
 	}
 
 	private static void processChangeEvents(String eventsFilePath, String changeEventsFolderPath, IncidentImpactProcessor processor, FileWriter writer) {

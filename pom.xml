@@ -23,6 +23,8 @@
 
 		<!-- Don't change version here, but in the parent section above! -->
 		<matsim.version>${parent.version}</matsim.version>
+		<postgresql.version>42.6.0</postgresql.version>
+
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -82,7 +84,14 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>31.1-jre</version>
+			<version>32.1.2-jre</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 
 		<dependency>
@@ -93,6 +102,7 @@
 			<version>${matsim.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 
 		<!--dependencies from here to where stated below are added as a service; they can be removed if you don't need them-->
 		<!--to get ExamplesUtils: -->
@@ -198,12 +208,12 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>jar/Volume.jar</outputFile>
+							<outputFile>jar/Link_Analysis.jar</outputFile>
 							<transformers>
 								<!-- The following sets the main class for the executable jar as you otherwise would with the assembly plugin -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
-										<Main-Class>analysis.run.RunVolumeEventHandler</Main-Class>
+										<Main-Class>analysis.run.RunIncidentImpactEventHandler</Main-Class>
 										<Specification-Vendor>org.matsim</Specification-Vendor>
 										<Implementation-Vendor>org.matsim</Implementation-Vendor>
 										<Implementation-Version>${project.version}</Implementation-Version>

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>matsim-all</artifactId>
+    <groupId>org.matsim</groupId>
+    <version>16.0-PR2778</version>
+    <relativePath>../pom.xml/pom.xml</relativePath>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.matsim</groupId>
   <artifactId>BYU_imt_optimization</artifactId>
@@ -26,11 +32,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>jar/Volume.jar</outputFile>
+              <outputFile>jar/Link_Analysis.jar</outputFile>
               <transformers>
                 <transformer>
                   <manifestEntries>
-                    <Main-Class>analysis.run.RunVolumeEventHandler</Main-Class>
+                    <Main-Class>analysis.run.RunIncidentImpactEventHandler</Main-Class>
                     <Specification-Vendor>org.matsim</Specification-Vendor>
                     <Implementation-Vendor>org.matsim</Implementation-Vendor>
                     <Implementation-Version>${project.version}</Implementation-Version>
@@ -93,15 +99,16 @@
     <dependency>
       <groupId>org.matsim</groupId>
       <artifactId>matsim</artifactId>
-      <version>15.0</version>
+      <version>16.0-PR2778</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
   </dependencies>
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
+    <postgresql.version>42.6.0</postgresql.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <matsim.version>15.0</matsim.version>
+    <matsim.version>${parent.version}</matsim.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 </project>
