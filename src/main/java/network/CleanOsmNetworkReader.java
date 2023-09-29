@@ -914,7 +914,7 @@ public class CleanOsmNetworkReader implements MatsimSomeReader{
 		private boolean collectNodes = false;
 
 		public OsmXmlParser(final Map<Long, OsmNode> nodes, final Map<Long, OsmWay> ways, final CoordinateTransformation transform) {
-			super();
+			super(MatsimXmlParser.ValidationType.valueOf(String.valueOf(1))); // replace x with the appropriate value of ValidationType
 			this.nodes = nodes;
 			this.ways = ways;
 			this.transform = transform;

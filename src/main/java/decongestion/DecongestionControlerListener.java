@@ -143,7 +143,7 @@ public class DecongestionControlerListener implements StartupListener, AfterMobs
 
 	private void computeDelays(AfterMobsimEvent event) {
 		TravelTime travelTime = event.getServices().getLinkTravelTimes();
-		int timeBinSize = this.congestionInfo.getScenario().getConfig().travelTimeCalculator().getTraveltimeBinSize();
+		int timeBinSize = (int) this.congestionInfo.getScenario().getConfig().travelTimeCalculator().getTraveltimeBinSize();
 
 		for (Link link : this.congestionInfo.getScenario().getNetwork().getLinks().values()) {
 
