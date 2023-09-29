@@ -7,8 +7,10 @@ oneIMT\OneImtOptimizer$OneImtTaskType.class
 run\RunIMT$2.class
 IMT\events\eventHanlders\IncidentEventHandler.class
 IMT\IncidentManager.class
+analysis\feeders\IncidentImpactEventHandler.class
 oneIMT\OneImtServeTask.class
 IMT\optimizer\ScheduleUpdater$1.class
+analysis\run\RunIncidentImpactEventHandler.class
 decongestion\DecongestionControlerListener.class
 IMT\optimizer\RequestHandler.class
 network\CleanOsmNetworkReader$OsmNode.class
@@ -33,9 +35,11 @@ run\RunIMT$1.class
 decongestion\data\LinkInfo.class
 decongestion\DecongestionConfigGroup.class
 network\CleanOsmNetworkReader$OsmFilterImpl.class
+analysis\run\RunVolumeEventHandler.class
 IMT\logs\Incidents_Log.class
 decongestion\DecongestionRunExample$1.class
 decongestion\handler\PersonVehicleTracker.class
+readers\NetworkLinkFinder.class
 IMT\logs\Incidents_Log$1.class
 oneIMT\OneImtRequest.class
 IMT\ActionCreator.class
@@ -45,6 +49,7 @@ IMT\ImtRequest.class
 decongestion\handler\IntervalBasedTolling.class
 decongestion\handler\DelayAnalysis.class
 decongestion\DecongestionRunExampleFromConfig.class
+analysis\feeders\IncidentImpactProcessor.class
 decongestion\routing\TollTimeDistanceTravelDisutilityFactory.class
 incidents\IncidentParser.class
 oneIMT\OneImtOptimizer$1.class
@@ -65,6 +70,7 @@ IMT\events\IncidentEvent.class
 decongestion\routing\TollTimeDistanceTravelDisutility.class
 IMT\optimizer\ClosestVehicleFinder.class
 incidents\IncidentApplicator.class
+analysis\volume\VolumeEventHandler.class
 IMT\optimizer\Optimizer$ImtTaskType.class
 network\CleanOsmNetworkReader.class
 incidents\IncidentNumber.class
