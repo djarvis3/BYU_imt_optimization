@@ -198,12 +198,12 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>MATSim_Scenarios.jar</outputFile>
+							<outputFile>jar/Volume.jar</outputFile>
 							<transformers>
 								<!-- The following sets the main class for the executable jar as you otherwise would with the assembly plugin -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
-										<Main-Class>run.RunIMT</Main-Class>
+										<Main-Class>analysis.run.RunVolumeEventHandler</Main-Class>
 										<Specification-Vendor>org.matsim</Specification-Vendor>
 										<Implementation-Vendor>org.matsim</Implementation-Vendor>
 										<Implementation-Version>${project.version}</Implementation-Version>
