@@ -32,7 +32,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>jar/Link_Analysis.jar</outputFile>
+              <outputFile>jar/Feeders.jar</outputFile>
               <transformers>
                 <transformer>
                   <manifestEntries>

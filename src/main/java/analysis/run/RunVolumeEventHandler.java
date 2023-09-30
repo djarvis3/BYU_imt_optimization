@@ -45,13 +45,13 @@ public class RunVolumeEventHandler {
 			}
 		}
 
-		try (DirectoryStream<Path> stream = Files.newDirectoryStream(eventsPath, file ->
-				file.toString().endsWith(".xml.gz") || file.toString().endsWith(".xml"))) {
-			for (Path entry : stream) {
+		try {
+			List<Path> eventFiles = findEventFiles(eventsPath);
+			for (Path eventFile : eventFiles) {
 				VolumeEventHandler handler = new VolumeEventHandler();
-				processEvents(entry.toString(), handler);
+				processEvents(eventFile.toString(), handler);
 
-				String outputFileName = entry.getFileName().toString().split("\\.")[0] + ".volume.csv";
+				String outputFileName = eventFile.getFileName().toString().split("\\.")[0] + ".volume.csv";
 				Path outputFile = outputDir.resolve(outputFileName);
 				try (FileWriter writer = new FileWriter(outputFile.toFile())) {
 					writeVolumesToCSV(handler.getLinkVolumes(), writer);
@@ -62,6 +62,20 @@ public class RunVolumeEventHandler {
 		} catch (IOException e) {
 			LOGGER.severe("Failed to list files from the events directory: " + e.getMessage());
 		}
+	}
+
+	private static List<Path> findEventFiles(Path directory) throws IOException {
+		List<Path> eventFiles = new ArrayList<>();
+		try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
+			for (Path entry : stream) {
+				if (Files.isDirectory(entry)) {
+					eventFiles.addAll(findEventFiles(entry));  // Recursively add files from subdirectories.
+				} else if (entry.toString().endsWith(".xml.gz") || entry.toString().endsWith(".xml")) {
+					eventFiles.add(entry);
+				}
+			}
+		}
+		return eventFiles;
 	}
 
 	private static void processEvents(String eventsFilePath, VolumeEventHandler handler) {

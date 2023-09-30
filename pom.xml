@@ -208,7 +208,7 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>jar/Link_Analysis.jar</outputFile>
+							<outputFile>jar/Feeders.jar</outputFile>
 							<transformers>
 								<!-- The following sets the main class for the executable jar as you otherwise would with the assembly plugin -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

@@ -20,7 +20,6 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\readers\NetworkLinkFinder.j
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtRequestCreator.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\volume\VolumeEventHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\optimizer\TimingUpdater.java
-C:\Users\djarvis3\BYU_imt_optimization\src\main\java\org\matsim\project\RunMatsimApplication.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\ImtModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\handler\DelayAnalysis.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\routing\TollTimeDistanceTravelDisutility.java
@@ -47,7 +46,6 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\tollSetting\De
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentNumber.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\routing\TollTimeDistanceTravelDisutilityFactory.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\network\CleanOsmNetworkReader.java
-C:\Users\djarvis3\BYU_imt_optimization\src\main\java\org\matsim\project\RunMatsim.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\readers\ActivitySimPlansReader.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtRequest.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionRunExample.java

@@ -44,12 +44,12 @@ public final class IncidentImpactProcessor {
 
 	private Set<String> extractImpactedLinks(String changeEventsFilePath) {
 		List<NetworkChangeEvent> changeEvents = new ArrayList<>();
-
 		NetworkChangeEventsParser parser = new NetworkChangeEventsParser(network, changeEvents);
 		parser.readFile(changeEventsFilePath);
 
 		return changeEvents.stream()
-				.map(event -> event.getLinks().iterator().next().getId().toString())
+				.flatMap(event -> event.getLinks().stream())
+				.map(link -> link.getId().toString())
 				.collect(Collectors.toSet());
 	}
 

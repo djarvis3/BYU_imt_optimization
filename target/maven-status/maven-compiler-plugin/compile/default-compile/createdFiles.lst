@@ -55,7 +55,6 @@ decongestion\routing\TollTimeDistanceTravelDisutilityFactory.class
 incidents\IncidentParser.class
 oneIMT\OneImtOptimizer$1.class
 decongestion\data\DecongestionInfo.class
-org\matsim\project\RunMatsimApplication.class
 decongestion\handler\IntervalBasedTollingAll.class
 IMT\ActionCreator$1.class
 network\CleanOsmNetworkReader$GeographicallyNonrestrictingOsmFilterImpl.class
@@ -68,7 +67,6 @@ IMT\events\ImtEvent.class
 IMT\optimizer\ScheduleUpdater.class
 oneIMT\OneImtModule.class
 decongestion\DecongestionRunExample.class
-org\matsim\project\RunMatsim.class
 oneIMT\OneImtModule$1.class
 IMT\events\IncidentEvent.class
 decongestion\routing\TollTimeDistanceTravelDisutility.class

@@ -67,10 +67,12 @@ public class RunIncidentImpactEventHandler {
 			}
 			sb.append("\n");
 		});
-		try {
-			writer.write(sb.toString());
-		} catch (IOException e) {
-			LOGGER.severe("Failed to write data to CSV. " + e.getMessage());
+		synchronized(writer) {
+			try {
+				writer.write(sb.toString());
+			} catch (IOException e) {
+				LOGGER.severe("Failed to write data to CSV. " + e.getMessage());
+			}
 		}
 	}
 }
