@@ -8,13 +8,13 @@ import org.matsim.core.events.MatsimEventsReader;
 import org.matsim.vehicles.Vehicle;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 
 public class RunTruckEventHandler {
 
@@ -22,35 +22,49 @@ public class RunTruckEventHandler {
 
 	public static void main(String[] args) {
 		if (args.length < 3) {
-			LOGGER.severe("Please provide the paths for the trucks, events, and truck events output files.");
+			LOGGER.severe("Please provide the paths for the trucks CSV, the root directory for the events files, and the output directory for truck events.");
 			return;
 		}
 
 		Path trucksPath = Paths.get(args[0]);
-		Path eventsPath = Paths.get(args[1]);
-		String outputFilePath = args[2];
+		Path rootEventsDir = Paths.get(args[1]);
+		Path outputDir = Paths.get(args[2]);
 
-		// Ensure the output file has a .xml extension
-		if (!outputFilePath.endsWith(".xml")) {
-			outputFilePath += ".xml";
-		}
-
-		if (!Files.exists(trucksPath) || !Files.exists(eventsPath)) {
-			LOGGER.severe("One or more provided paths do not exist.");
+		if (!Files.exists(trucksPath) || !Files.isDirectory(rootEventsDir)) {
+			LOGGER.severe("Invalid paths provided.");
 			return;
 		}
 
-		TruckEventsHandler handler = null;
+		// Check if output directory exists, if not create it
+		if (!Files.exists(outputDir)) {
+			try {
+				Files.createDirectories(outputDir);
+			} catch (IOException e) {
+				LOGGER.severe("Error creating the output directory: " + e.getMessage());
+				return;
+			}
+		}
+
 		try {
 			Set<Id<Vehicle>> truckIds = loadTruckIdsFromCSV(trucksPath);
-			handler = new TruckEventsHandler(truckIds, outputFilePath);
-			processEvents(eventsPath.toString(), handler);
-		} catch (IOException e) {
-			LOGGER.severe("Error reading the truck IDs from the CSV file: " + e.getMessage());
-		} finally {
-			if (handler != null) {
+
+			// Get list of event files starting with '2' or '3'
+			List<Path> eventFiles = Files.walk(rootEventsDir)
+					.filter(path -> Files.isRegularFile(path) &&
+							(path.getFileName().toString().startsWith("2") || path.getFileName().toString().startsWith("3")) &&
+							path.toString().endsWith(".xml.gz"))
+					.collect(Collectors.toList());
+
+			for (Path eventFile : eventFiles) {
+				String outputFileName = eventFile.getFileName().toString().replace(".events.xml.gz", "_trucks.events.xml.gz");
+				Path outputFilePath = outputDir.resolve(outputFileName);
+
+				TruckEventsHandler handler = new TruckEventsHandler(truckIds, outputFilePath.toString());
+				processEvents(eventFile.toString(), handler);
 				handler.close();
 			}
+		} catch (IOException e) {
+			LOGGER.severe("Error: " + e.getMessage());
 		}
 	}
 

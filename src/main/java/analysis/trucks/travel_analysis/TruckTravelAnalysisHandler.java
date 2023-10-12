@@ -1,4 +1,4 @@
-package analysis.trucks;
+package analysis.trucks.travel_analysis;
 
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.events.LinkEnterEvent;

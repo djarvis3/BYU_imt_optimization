@@ -32,11 +32,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>jar/Feeders.jar</outputFile>
+              <outputFile>jar/Truck_Events.jar</outputFile>
               <transformers>
                 <transformer>
                   <manifestEntries>
-                    <Main-Class>analysis.run.RunIncidentImpactEventHandler</Main-Class>
+                    <Main-Class>analysis.run.RunTruckEventHandler</Main-Class>
                     <Specification-Vendor>org.matsim</Specification-Vendor>
                     <Implementation-Vendor>org.matsim</Implementation-Vendor>
                     <Implementation-Version>${project.version}</Implementation-Version>
