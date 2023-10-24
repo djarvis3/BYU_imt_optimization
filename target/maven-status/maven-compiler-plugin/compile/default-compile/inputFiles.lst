@@ -6,8 +6,10 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\events\ImtEvent.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\ServeTask.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtActionCreator.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\population\SamplePopulation.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\trucks\travel_analysis\DataUtils.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionAnalysisModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\feeders\IncidentImpactProcessor.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\trucks\travel_analysis\FileProcessor.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentReader.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtServeTask.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\network\NetworkCleaner.java
@@ -19,6 +21,7 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\data\Decongest
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\readers\NetworkLinkFinder.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\oneIMT\OneImtRequestCreator.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\volume\VolumeEventHandler.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\trucks\travel_analysis\NetworkLoader.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\optimizer\TimingUpdater.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\ImtModule.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\handler\DelayAnalysis.java
@@ -56,12 +59,15 @@ C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\IncidentApplicato
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\run\RunIncidents.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\logs\Incidents_Log.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\run\RunIncidentImpactEventHandler.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\trucks\travel_analysis\AnalysisWriter.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\ImtConfigGroup.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\incidents\Incident.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\data\CongestionInfoWriter.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\events\eventHanlders\ImtEventHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\logs\IMT_Log.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\DecongestionConfigGroup.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\run\RunTruckTravelAnalysis.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\decongestion\tollSetting\DecongestionTollingBangBang.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\run\RunMatsim.java
+C:\Users\djarvis3\BYU_imt_optimization\src\main\java\analysis\trucks\travel_analysis\TruckTravelAnalysisHandler.java
 C:\Users\djarvis3\BYU_imt_optimization\src\main\java\IMT\IncidentManager.java

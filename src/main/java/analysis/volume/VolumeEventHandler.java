@@ -5,15 +5,20 @@ import org.matsim.api.core.v01.events.Event;
 import org.matsim.api.core.v01.events.LinkEnterEvent;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.core.events.handler.BasicEventHandler;
+import org.matsim.api.core.v01.network.Network;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class VolumeEventHandler implements BasicEventHandler {
-
 	private final Map<Id<Link>, int[]> linkVolumes = new HashMap<>();
 	private static final int NUMBER_OF_INTERVALS = 120; // 30 hours * 4 intervals per hour
 	private static final int SECONDS_PER_INTERVAL = 15 * 60; // 15 minutes in seconds
+	private final Network network;
+
+	public VolumeEventHandler(Network network) {
+		this.network = network;
+	}
 
 	@Override
 	public void handleEvent(Event event) {
@@ -30,6 +35,10 @@ public class VolumeEventHandler implements BasicEventHandler {
 	}
 
 	public Map<Id<Link>, int[]> getLinkVolumes() {
+		// Ensure that the volumes are initialized for all links in the network
+		for (Link link : network.getLinks().values()) {
+			linkVolumes.putIfAbsent(link.getId(), new int[NUMBER_OF_INTERVALS]);
+		}
 		return linkVolumes;
 	}
 

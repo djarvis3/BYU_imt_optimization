@@ -6,6 +6,9 @@ import org.matsim.api.core.v01.network.Link;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.events.EventsUtils;
 import org.matsim.core.events.EventsReaderXMLv1;
+import org.matsim.api.core.v01.network.Network;
+import org.matsim.core.network.NetworkUtils;
+import org.matsim.core.network.io.MatsimNetworkReader;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,10 +48,12 @@ public class RunVolumeEventHandler {
 			}
 		}
 
+		Network network = createNetwork(args[0]); // Load your network here
+
 		try {
 			List<Path> eventFiles = findEventFiles(eventsPath);
 			for (Path eventFile : eventFiles) {
-				VolumeEventHandler handler = new VolumeEventHandler();
+				VolumeEventHandler handler = new VolumeEventHandler(network); // Pass the network to the constructor
 				processEvents(eventFile.toString(), handler);
 
 				String outputFileName = eventFile.getFileName().toString().split("\\.")[0] + ".volume.csv";
@@ -64,12 +69,19 @@ public class RunVolumeEventHandler {
 		}
 	}
 
+	private static Network createNetwork(String networkFilePath) {
+		Network network = NetworkUtils.createNetwork();
+		MatsimNetworkReader networkReader = new MatsimNetworkReader(network);
+		networkReader.readFile(networkFilePath);
+		return network;
+	}
+
 	private static List<Path> findEventFiles(Path directory) throws IOException {
 		List<Path> eventFiles = new ArrayList<>();
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
 			for (Path entry : stream) {
 				if (Files.isDirectory(entry)) {
-					eventFiles.addAll(findEventFiles(entry));  // Recursively add files from subdirectories.
+					eventFiles.addAll(findEventFiles(entry)); // Recursively add files from subdirectories.
 				} else if (entry.toString().endsWith(".xml.gz") || entry.toString().endsWith(".xml")) {
 					eventFiles.add(entry);
 				}
@@ -87,8 +99,13 @@ public class RunVolumeEventHandler {
 	private static void writeVolumesToCSV(Map<Id<Link>, int[]> linkVolumes, FileWriter writer) throws IOException {
 		List<String> headers = new ArrayList<>();
 		headers.add("Link Id");
+
+		int minutes = 15; // Start at 15 minutes
 		for (int i = 1; i <= 120; i++) {
-			headers.add(String.format("%d:%02d:00", (i - 1) / 4, (i % 4) * 15));
+			int hours = minutes / 60;
+			int remainingMinutes = minutes % 60;
+			headers.add(String.format("%d:%02d:00", hours, remainingMinutes));
+			minutes += 15;
 		}
 		writer.write(String.join(",", headers) + "\n");
 
